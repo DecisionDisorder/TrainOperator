@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Lines2
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 47
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 76f87e9ed7dd5af4ca42cbf46ad17899, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: a1f11020fed59da4cb849ec9a6cb97f6, type: 3}
+  - {fileID: 21300000, guid: 98f59c11b7fdb4949b3bc01ec6ba1931, type: 3}
+  - {fileID: 21300000, guid: 9c2a0831a27c0e1458c51a1b5f3a5c7f, type: 3}
+  - {fileID: 21300000, guid: bf1a4252946b7684490d9ff2700795c0, type: 3}
+  - {fileID: 21300000, guid: dd78d752464bf8f41a4b4e40387aa263, type: 3}
+  - {fileID: 21300000, guid: 20cac8a259dbfc748aad7662df360473, type: 3}
+  - {fileID: 21300000, guid: 5775e5d2d200dbb4a8e6f438707f985d, type: 3}
+  - {fileID: 21300000, guid: f95a5d839774497488a6fdd89b6011a5, type: 3}
+  - {fileID: 21300000, guid: 266d5d549f41fec47ab9e1aa087447e8, type: 3}
+  - {fileID: 21300000, guid: 9f3ab9948010d4940b7ffa2f745d6c58, type: 3}
+  - {fileID: 21300000, guid: 07888dd4aa01c154aaac6fe4d69669cc, type: 3}
+  - {fileID: 21300000, guid: 72b629870a73e6b49a1ddd256da6e18c, type: 3}
+  - {fileID: 21300000, guid: a0d3d1c7fd2b8fd41849f044e041f5bb, type: 3}
+  - {fileID: 21300000, guid: 571215d728a73ac458ece5ef6fc2914b, type: 3}
+  - {fileID: 21300000, guid: 056e67089aa99514487c328ffac59cc5, type: 3}
+  - {fileID: 21300000, guid: 3c641a7816115d34dabe8827a2b7491a, type: 3}
+  - {fileID: 21300000, guid: f15c9ce9e9fd3b847bf66cf6113d3bd4, type: 3}
+  - {fileID: 21300000, guid: ad07de2af59c0854889dfa1960472822, type: 3}
+  - {fileID: 21300000, guid: 108c939b12cffe94bb0f8f5a2767f6ce, type: 3}
+  - {fileID: 21300000, guid: 00be0a9b8c73a6e48ae74408db87d1cd, type: 3}
+  - {fileID: 21300000, guid: b894fb6c2d4fc0b4690d23827b2868ae, type: 3}
+  - {fileID: 21300000, guid: ed4469bc8063c2b418024107ea9df7c9, type: 3}
+  - {fileID: 21300000, guid: 8d3a212d82db154449ed73f5b54f8c70, type: 3}
+  - {fileID: 21300000, guid: a91f925d6ec260e41b1f3bea9d3b4bf8, type: 3}
+  - {fileID: 21300000, guid: b634deed93058624788e436891db9d23, type: 3}
+  - {fileID: 21300000, guid: d12bce3e9c8dde340a573dcb4c89c1e6, type: 3}
+  - {fileID: 21300000, guid: 252b436ecc58d664b90da8369446da1f, type: 3}
+  - {fileID: 21300000, guid: ac7285be8612aa84d89e75e830bc5263, type: 3}
+  - {fileID: 21300000, guid: 802fdf4fb270fc848950f891f66af80b, type: 3}
+  - {fileID: 21300000, guid: b74f56af6944f924389e9e5a84115834, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - "\uACBD\uC758\uC911\uC559"
+  - "\uBD84\uB2F9\uC120 \uC5F4\uCC28"
+  - "\uACBD\uCD98_noband"
+  - "\uC2E0\uBD84\uB2F9_noband"
+  - "\uACBD\uCD98"
+  - "\uC778\uCC9C2 \uAE00\uC528"
+  - "\uC778\uCC9C1 \uAE00\uC528"
+  - "\uC2E0\uBD84\uB2F9\uC120 \uC5F4\uCC28"
+  - "\uC778\uCC9C2"
+  - "\uC218\uC778\uC120 \uB178\uC120\uB3C4"
+  - "\uBD84\uB2F9 \uAE00\uC528"
+  - "\uACBD\uAC15_noband"
+  - "\uC218\uC778 \uAE00\uC528"
+  - "\uBD84\uB2F9"
+  - "\uC778\uCC9C1_noband"
+  - "\uACBD\uC758\uC911\uC559 \uAE00\uC528"
+  - "\uACBD\uC758\uC911\uC559_noband"
+  - "\uC778\uCC9C 2\uD638\uC120 \uC5F4\uCC28"
+  - "\uC778\uCC9C1"
+  - "\uC218\uC778\uC120 \uC5F4\uCC28"
+  - "\uACBD\uAC15"
+  - "\uC218\uB3C4\uAD8C2"
+  - "\uBD84\uB2F9\uC120_noband"
+  - "\uC778\uCC9C 1\uD638\uC120 \uC5F4\uCC28"
+  - "\uACBD\uAC15 \uAE00\uC528"
+  - "\uC2E0\uBD84\uB2F9 \uAE00\uC528"
+  - "\uACBD\uCD98 \uAE00\uC528"
+  - "\uC778\uCC9C2_noband"
+  - "\uC2E0\uBD84\uB2F9"
+  - "\uC218\uB3C4\uAD8C2-2"
+  m_RenderDataMap: {}
+  m_Tag: Lines2
+  m_IsVariant: 0

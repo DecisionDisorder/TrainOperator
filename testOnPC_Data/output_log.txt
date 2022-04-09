@@ -1,0 +1,132 @@
+Initialize engine version: 5.3.1f1 (cc9cbbcc37b4)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 760 (ID=0x1187)
+    Vendor:   NVIDIA
+    VRAM:     1989 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: F:\1.프로그래밍\유니티\Train(Subway) Operator\testOnPC_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading F:\1.프로그래밍\유니티\Train(Subway) Operator\testOnPC_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: F:\1.프로그래밍\유니티\Train(Subway) Operator\testOnPC_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading F:\1.프로그래밍\유니티\Train(Subway) Operator\testOnPC_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: F:\1.프로그래밍\유니티\Train(Subway) Operator\testOnPC_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading F:\1.프로그래밍\유니티\Train(Subway) Operator\testOnPC_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: F:\1.프로그래밍\유니티\Train(Subway) Operator\testOnPC_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading F:\1.프로그래밍\유니티\Train(Subway) Operator\testOnPC_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+- Completed reload, in  0.040 seconds
+Platform assembly: F:\1.프로그래밍\유니티\Train(Subway) Operator\testOnPC_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: F:\1.프로그래밍\유니티\Train(Subway) Operator\testOnPC_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 60Hz; virtual: 2944x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+The referenced script on this Behaviour (Game Object 'showTimePer_money') is missing!
+ 
+(Filename:  Line: 1655)
+
+The referenced script on this Behaviour (Game Object 'Main Camera') is missing!
+ 
+(Filename:  Line: 1655)
+
+UnloadTime: 0.406923 ms
+FormatException: Input string was not in the correct format
+  at System.UInt64.Parse (System.String s, NumberStyles style, IFormatProvider provider) [0x00000] in <filename unknown>:0 
+  at System.UInt64.Parse (System.String s) [0x00000] in <filename unknown>:0 
+  at TrainPrice2.LoadPrice () [0x00000] in <filename unknown>:0 
+  at DataManager.GetData () [0x00000] in <filename unknown>:0 
+  at GetData.Awake () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+expandloaded
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+ResolutionStarted
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+buttonStarted
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+FormatException: Input string was not in the correct format
+  at System.UInt64.Parse (System.String s, NumberStyles style, IFormatProvider provider) [0x00000] in <filename unknown>:0 
+  at System.UInt64.Parse (System.String s) [0x00000] in <filename unknown>:0 
+  at TrainPrice2.LoadPrice () [0x00000] in <filename unknown>:0 
+  at DataManager.GetData () [0x00000] in <filename unknown>:0 
+  at addMoney.Start () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Line1_1 ColorLoaded
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Line1_4 ColorLoaded
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Line1_3 ColorLoaded
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+동기화
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Material Sprites-Default doesn't have _Stencil property
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Back to the menu
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+base1 added
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+base1 added
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+base1 added
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+base1 added
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+base1 added
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+base1 added
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+base1 added
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+base1 added
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+base1 added
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+base1 added
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+게임저장
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Setting up 1 worker threads for Enlighten.
+  Thread -> id: 1c28 -> priority: 1 

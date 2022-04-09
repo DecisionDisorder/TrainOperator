@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CardAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 47
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: d7a0ec6e48bfa9d49824fd7749fce7d8, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 02bde3c0a2d28664897791058e91383b, type: 3}
+  - {fileID: 21300000, guid: c1439d6444f34e3498bbe033399985d2, type: 3}
+  - {fileID: 21300000, guid: dd525325612c34f4da90e240bb435198, type: 3}
+  - {fileID: 21300000, guid: 5af770650f2e50b479c47270fc0ad778, type: 3}
+  - {fileID: 21300000, guid: 568549d5bee91864bb110def71503414, type: 3}
+  - {fileID: 21300000, guid: 9fd1f3f6a60401c43b05c72ed75f232c, type: 3}
+  - {fileID: 21300000, guid: aab769d75221f2f40810f5a96c7b0f3e, type: 3}
+  - {fileID: 21300000, guid: 72cbd9b8d0e57644fa261539454d0d39, type: 3}
+  - {fileID: 21300000, guid: 016624cab390f32419badcf1bf6b9fb3, type: 3}
+  - {fileID: 21300000, guid: 7fab887bdd5d97b479e30d7ce667f435, type: 3}
+  - {fileID: 21300000, guid: f3f56efb5fce45144885c48fbe988a15, type: 3}
+  - {fileID: 21300000, guid: 3f51081d09b0c0a44b1215491fc39ead, type: 3}
+  - {fileID: 21300000, guid: 71eaccfd0c6a0c64cafffc146441b0b9, type: 3}
+  - {fileID: 21300000, guid: ec14b78e438f2f942be23e26cfe6022f, type: 3}
+  - {fileID: 21300000, guid: 7aa027aedaad510478cd3c01b51beb7b, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - RarePackOpened
+  - RareCardDiamond
+  - RareCardVIP
+  - Yellow_Card
+  - ColorPackEnvelopClosed
+  - RareCardBronze
+  - RarePackClosed
+  - RareCardGold
+  - Orange_Card
+  - RareCardPlatinum
+  - White_Card
+  - Red_Card
+  - RareCardSilver
+  - Green_Card
+  - ColorPackEnvelopOpened
+  m_RenderDataMap: {}
+  m_Tag: CardAtlas
+  m_IsVariant: 0

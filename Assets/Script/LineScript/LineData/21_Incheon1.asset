@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
+  m_Name: 21_Incheon1
+  m_EditorClassIdentifier: 
+  trainPriceFactors:
+  - 0.3142
+  - 2.6131
+  - 3397.1
+  trainPassenger: 1000000000000
+  trainPassengerAdd: 50000000000
+  totalTouch: 0.018207138
+  uTotalTouch: 0
+  basePrice: 155
+  basePriceEx: 75
+  basePriceAdd: 45
+  basePriceExAdd: 18
+  stationPrice: 50
+  sections:
+  - name: "\uACC4\uC591~\uC1A1\uB3C4\uB2EC\uBE5B\uCD95\uC81C\uACF5\uC6D0"
+    from: 0
+    to: 29
+  expandPrice: d403000000000000
+  connectPrice: 8408000000000000
+  connectTimeMoney: 00907292c6390100
+  connectTMLargeUnit: 0
+  trainExpandPrice: 70
+  trainExpandPassenger: 868700000000
+  trainExPsngrLargeUnit: 0
+  screenDoorPrice: d10b000000000000
+  screenDoorReputation: 64000000
+  isLargeUnit: 1

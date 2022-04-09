@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
+  m_Name: 1_Line2
+  m_EditorClassIdentifier: 
+  trainPriceFactors:
+  - 0.0118
+  - 1.3305
+  - 48.658
+  trainPassenger: 150
+  trainPassengerAdd: 20
+  totalTouch: 0
+  uTotalTouch: 10400
+  basePrice: 1500000
+  basePriceEx: 750000
+  basePriceAdd: 450000
+  basePriceExAdd: 180000
+  stationPrice: 8500000
+  sections:
+  - name: "\uC2E0\uC124\uB3D9~\uC7A0\uC2E4\uC0C8\uB0B4"
+    from: 0
+    to: 10
+  - name: "\uC885\uD569\uC6B4\uB3D9\uC7A5~\uAC15\uB0A8"
+    from: 11
+    to: 15
+  - name: "\uAD50\uB300~\uB099\uC131\uB300"
+    from: 16
+    to: 20
+  - name: "\uC11C\uC6B8\uB300\uC785\uAD6C~\uC2DC\uCCAD"
+    from: 21
+    to: 37
+  - name: "\uC744\uC9C0\uB85C\uC785\uAD6C~\uB69D\uC12C"
+    from: 38
+    to: 46
+  - name: "\uAE4C\uCE58\uC0B0~\uB3C4\uB9BC\uCC9C"
+    from: 47
+    to: 50
+  expandPrice: 80c3c90100000000
+  connectPrice: 003b58080000000000b4c4040000000000b4c404000000000095ba0a00000000000e270700000000801d2c0400000000
+  connectTimeMoney: d25a00000000000070350000000000007035000000000000127a000000000000204e000000000000442f000000000000
+  connectTMLargeUnit: 0
+  trainExpandPrice: 1100000
+  trainExpandPassenger: 285
+  trainExPsngrLargeUnit: 0
+  screenDoorPrice: 0095ba0a0000000000e1f5050000000000e1f50500000000001c4e0e0000000080d1f00800000000c095a90500000000
+  screenDoorReputation: 160000000a0000000a000000200000001200000008000000
+  isLargeUnit: 0

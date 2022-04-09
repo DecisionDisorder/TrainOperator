@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
+  m_Name: 13_BusanKH
+  m_EditorClassIdentifier: 
+  trainPriceFactors:
+  - 0.0895
+  - 2.0669
+  - 997.84
+  trainPassenger: 750000000
+  trainPassengerAdd: 50000000
+  totalTouch: 0
+  uTotalTouch: 141389779400
+  basePrice: 80000000000000
+  basePriceEx: 40000000000000
+  basePriceAdd: 24000000000000
+  basePriceExAdd: 10000000000000
+  stationPrice: 275000000000000
+  sections:
+  - name: "\uAC00\uC57C\uB300~\uC0AC\uC0C1"
+    from: 0
+    to: 20
+  expandPrice: 008053ee7ba80a00
+  connectPrice: 0000efeb59af2000
+  connectTimeMoney: 00797f164b000000
+  connectTMLargeUnit: 0
+  trainExpandPrice: 175000000000000
+  trainExpandPassenger: 800000000
+  trainExPsngrLargeUnit: 0
+  screenDoorPrice: 0000c16ff2862300
+  screenDoorReputation: 64000000
+  isLargeUnit: 0

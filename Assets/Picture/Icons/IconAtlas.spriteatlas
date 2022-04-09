@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: IconAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 47
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: dc9ae176efac2354ba238063d7d499b9, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 9e463780b4d65c446a437b10cb115fc5, type: 3}
+  - {fileID: 21300000, guid: 482639803ff03934b8c0dde93cbc6fb7, type: 3}
+  - {fileID: 21300000, guid: d4befc806ba0ff64380f6e6fceb44ab9, type: 3}
+  - {fileID: 21300000, guid: b0fc4ce1131ebc5409b315ed0f249309, type: 3}
+  - {fileID: 21300000, guid: b50ac03215d2cb1408ba05969a5ec401, type: 3}
+  - {fileID: 21300000, guid: 72bdcd327a2a4294abeab3a0257aa41f, type: 3}
+  - {fileID: 21300000, guid: 6bd6fe14405628a489cdce486cb4e98f, type: 3}
+  - {fileID: 21300000, guid: ec7516156d2fe58458763d9e479381fd, type: 3}
+  - {fileID: 21300000, guid: 32cf14256d465354491fb9652e6594b8, type: 3}
+  - {fileID: 21300000, guid: 4b761925c0773c8409e06e26860e8f22, type: 3}
+  - {fileID: 21300000, guid: fa69f9354f16eb84bbbf1b540942573e, type: 3}
+  - {fileID: 21300000, guid: 3586c67641a11214cac47230298eaa15, type: 3}
+  - {fileID: 21300000, guid: 5926eaa6ef2a85d469ea683f2dbf5ad5, type: 3}
+  - {fileID: 21300000, guid: ee0d0617370e67949a1a7d75134eec4e, type: 3}
+  - {fileID: 21300000, guid: 923e2c575eb63e34d9ea1e26921689d7, type: 3}
+  - {fileID: 21300000, guid: cee62167ba1112c4b8c49455b18847e3, type: 3}
+  - {fileID: 21300000, guid: d7de5d98781d4a7439f6937d2b0fde47, type: 3}
+  - {fileID: 21300000, guid: e5b4eff86e9939249bc57d848cc6eaba, type: 3}
+  - {fileID: 21300000, guid: 61be9319d80ee5543b69fe058cc40bf4, type: 3}
+  - {fileID: 21300000, guid: 49f3e46a7b3f5a844a01776cd4991d77, type: 3}
+  - {fileID: 21300000, guid: 822b0baa743ab8044bcefe85b7a75d19, type: 3}
+  - {fileID: 21300000, guid: c69190fad1736bd4b92ea1d90f22a14d, type: 3}
+  - {fileID: 21300000, guid: 60a50e6c8f4388d4e825ca2450b9868d, type: 3}
+  - {fileID: 21300000, guid: 8aa51c7c316a09847a11937b725e28b4, type: 3}
+  - {fileID: 21300000, guid: e6a025dc279653046b6c4870a35105e8, type: 3}
+  - {fileID: 21300000, guid: 5f851dbd85437c644ac40afa5509d081, type: 3}
+  - {fileID: 21300000, guid: c0b93acdd70cd4d4680a66b1041c1449, type: 3}
+  - {fileID: 21300000, guid: c1839a1f287283f4bbea0c51f76bf94e, type: 3}
+  - {fileID: 21300000, guid: 2f5d515f8b0005942bdfa4f899a91c21, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - daeguIcon
+  - change
+  - helpIcon
+  - lineValueIcon
+  - driverIcon
+  - rentIcon
+  - peaceIcon
+  - sanitoryIcon
+  - CapitalAreaIcon
+  - Bills
+  - adIcon
+  - saveIcon
+  - screendoorIcon
+  - mainIcon
+  - bankIcon
+  - trainExpandIcon
+  - patchNoteIcon
+  - settingsIcon
+  - buyTrainIcon
+  - lineExpandIcon
+  - stationConditionIcon
+  - mp2Icon
+  - stationIcon
+  - eventIcon
+  - lineConnectionIcon
+  - customerIcon
+  - reportIcon
+  - buyVehicleBaseIcon
+  - busanIcon
+  m_RenderDataMap: {}
+  m_Tag: IconAtlas
+  m_IsVariant: 0

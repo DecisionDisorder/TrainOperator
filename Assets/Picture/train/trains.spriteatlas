@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: trains
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 47
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 3c1c69f4be3ebea4db771a58d1e273eb, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: a10c7821d422d1f46aac742b53828049, type: 3}
+  - {fileID: 21300000, guid: 66d7b9316b0832c43a387a76684a5a14, type: 3}
+  - {fileID: 21300000, guid: 79a37de15b9d3c745995292d3ca57229, type: 3}
+  - {fileID: 21300000, guid: 964a77727e3983a48a5c50e1f33aa83f, type: 3}
+  - {fileID: 21300000, guid: 5ba944331498d06429b524d0b0bbb6cb, type: 3}
+  - {fileID: 21300000, guid: 573a8443a7f83bf4d85f7d2ef5a92fc9, type: 3}
+  - {fileID: 21300000, guid: 4887e053f1d4559449881f8785f691f0, type: 3}
+  - {fileID: 21300000, guid: 46ba5f73bb75beb44af20f65f39ae708, type: 3}
+  - {fileID: 21300000, guid: 79337934a98109245945576385a58042, type: 3}
+  - {fileID: 21300000, guid: 285904743ed2b28428244eb462df4f8e, type: 3}
+  - {fileID: 21300000, guid: 808a23848362d6243a9a0f267a6cc770, type: 3}
+  - {fileID: 21300000, guid: f614f0d407d72c14a8d589a84130a56c, type: 3}
+  - {fileID: 21300000, guid: 2af462c50ae70724bad7346a4e69272f, type: 3}
+  - {fileID: 21300000, guid: ba6a26674b160574297a128c5a568c80, type: 3}
+  - {fileID: 21300000, guid: 22babfe736ec0ae4bb16ee6c556cff3e, type: 3}
+  - {fileID: 21300000, guid: 8d392f48c2db6a8439154dbefdac8016, type: 3}
+  - {fileID: 21300000, guid: b0039dd8e056c824ebb383227098f213, type: 3}
+  - {fileID: 21300000, guid: 20cf7dbacd7a55240841af487bf6a0bb, type: 3}
+  - {fileID: 21300000, guid: 776fdfea34699274f926afb153ae3369, type: 3}
+  - {fileID: 21300000, guid: 7b56971b159539b47bd811baf7c20930, type: 3}
+  - {fileID: 21300000, guid: 101da4eb96dacf844a8a7b3acac8b79f, type: 3}
+  - {fileID: 21300000, guid: efc03d5c8904c7643b352ddcd59b2a7d, type: 3}
+  - {fileID: 21300000, guid: 99cc8fac56a47ab4a90c482c6055b7f9, type: 3}
+  - {fileID: 21300000, guid: 1233ce0de69d5c24196c09f39a60cd0c, type: 3}
+  - {fileID: 21300000, guid: 960ae12d592f2874792c9a6ff9dfd67e, type: 3}
+  - {fileID: 21300000, guid: 04a41b6d6b6906340b859e66dfa08011, type: 3}
+  - {fileID: 21300000, guid: 2614657d44782684a9c2393fd7a8c51b, type: 3}
+  - {fileID: 21300000, guid: f1e841edd10e90f43ad0d400082b6fe4, type: 3}
+  - {fileID: 21300000, guid: a75f311ebf8539f4b8a7b4083d2e1f02, type: 3}
+  - {fileID: 21300000, guid: 376e991eb02041c4b80cb4930b53b0ca, type: 3}
+  - {fileID: 21300000, guid: b05bbb9efc5b05a46a9fbd92c1552c85, type: 3}
+  - {fileID: 21300000, guid: 5db3ee9ff1891be4d9d10962922a801d, type: 3}
+  - {fileID: 21300000, guid: 372f3eff81d9fee4883ff2089d7f5496, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - "3\uD638\uC120_50~74"
+  - "3\uD638\uC120_75~100"
+  - "8\uD638\uC120"
+  - "\uBD80\uC0B01\uD638\uC120(1~50)"
+  - "\uBD80\uC0B01\uD638\uC120(50~100)"
+  - "2\uD638\uC120_75~100"
+  - "3\uD638\uC120_25~49"
+  - "2\uD638\uC120_25~49"
+  - "4\uD638\uC12030~70"
+  - "2\uD638\uC120_50~74"
+  - "\uBD80\uC0B03\uD638\uC120"
+  - "\uB300\uAD6C 1\uD638\uC120"
+  - "\uBD80\uC0B02\uD638\uC120"
+  - "\uBD80\uC0B04\uD638\uC120"
+  - "1\uD638\uC120_25~49"
+  - "1\uD638\uC120_75~100"
+  - "4\uD638\uC1200~30"
+  - "\uB300\uAD6C 3\uD638\uC120"
+  - "7\uD638\uC1201"
+  - "4\uD638\uC12070~100"
+  - "5\uD638\uC120"
+  - "1\uD638\uC120_0~24"
+  - "\uACBD\uCD98\uC120 \uC5F4\uCC28"
+  - "1\uD638\uC120_50~74"
+  - "6\uD638\uC120"
+  - "\uB300\uAD6C 2\uD638\uC120"
+  - "\uBD80\uC0B0\uAE40\uD574\uACBD\uC804\uCCA0"
+  - "2\uD638\uC120_0~24"
+  - "\uACBD\uAC15\uC120 \uC5F4\uCC28"
+  - "\uACBD\uC758\uC911\uC559\uC120 \uC5F4\uCC28"
+  - "9\uD638\uC120"
+  - "3\uD638\uC120_0~24"
+  - "7\uD638\uC1202"
+  m_RenderDataMap: {}
+  m_Tag: trains
+  m_IsVariant: 0

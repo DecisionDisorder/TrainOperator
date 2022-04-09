@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
+  m_Name: 0_Line1
+  m_EditorClassIdentifier: 
+  trainPriceFactors:
+  - 0.0439
+  - 0.6039
+  - 0.3522
+  trainPassenger: 5
+  trainPassengerAdd: 2
+  totalTouch: 0
+  uTotalTouch: 5
+  basePrice: 10000
+  basePriceEx: 5000
+  basePriceAdd: 3000
+  basePriceExAdd: 1250
+  stationPrice: 300000
+  sections:
+  - name: "\uC18C\uC694\uC0B0~\uD68C\uAE30"
+    from: 0
+    to: 23
+  - name: "\uCCAD\uB7C9\uB9AC~\uC2DC\uCCAD"
+    from: 24
+    to: 32
+  - name: "\uC11C\uC6B8\uC5ED~\uC2E0\uB3C4\uB9BC"
+    from: 33
+    to: 40
+  - name: "\uAD6C\uB85C~\uC778\uCC9C"
+    from: 41
+    to: 61
+  - name: "\uAC00\uC0B0\uB514\uC9C0\uD138\uB2E8\uC9C0~\uC218\uC6D0"
+    from: 62
+    to: 76
+  - name: "\uBCD1\uC810~\uC11C\uB3D9\uD0C4"
+    from: 77
+    to: 78
+  - name: "\uC138\uB958~\uB450\uC815"
+    from: 79
+    to: 90
+  - name: "\uCC9C\uC548~\uC2E0\uCC3D"
+    from: 91
+    to: 97
+  expandPrice: 804f12000000000000000000000000000000000000000000e0c81000000000000000000000000000801a06000000000010eb0900000000007064080000000000
+  connectPrice: e00f97000000000010f44600000000003060420000000000c0398300000000006021600000000000c0c62d0000000000503656000000000000093d0000000000
+  connectTimeMoney: a2080000000000001504000000000000cf0300000000000080070000000000007805000000000000a802000000000000f1040000000000008403000000000000
+  connectTMLargeUnit: 0
+  trainExpandPrice: 9000
+  trainExpandPassenger: 25
+  trainExPsngrLargeUnit: 0
+  screenDoorPrice: 40fcea000000000000127a000000000080f773000000000060fecd0000000000b0ed9d0000000000f0bc5700000000001032900000000000b0196d0000000000
+  screenDoorReputation: 190000000900000008000000150000000e000000040000000c00000007000000
+  isLargeUnit: 0

@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Sanitory
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 47
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: e7995fcdddf28994aaec82b377376011, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 7ceaaca3a6a567a47a68afcbe677d989, type: 3}
+  - {fileID: 21300000, guid: cbcf914772e41204d82e76c3e9d125e6, type: 3}
+  - {fileID: 21300000, guid: c4f434ea7762ef147ae2e70c4500ef98, type: 3}
+  - {fileID: 21300000, guid: e0c6d4af40f28674498d69219a9ce5fe, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - "\uBC18\uC9DD\uBC18\uC9DD \uC791\uC740\uB2E4\uC774\uC544"
+  - "\uBA3C\uC9C0(\uB208)"
+  - "\uBA3C\uC9C0"
+  - "\uB354\uB7EC\uC6C0\uC0F7"
+  m_RenderDataMap: {}
+  m_Tag: Sanitory
+  m_IsVariant: 0

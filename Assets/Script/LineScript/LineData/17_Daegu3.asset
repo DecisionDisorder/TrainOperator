@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
+  m_Name: 17_Daegu3
+  m_EditorClassIdentifier: 
+  trainPriceFactors:
+  - 0.1675
+  - 2.2713
+  - 1897.6
+  trainPassenger: 50000000000
+  trainPassengerAdd: 1000000000
+  totalTouch: 0
+  uTotalTouch: 7971389779400
+  basePrice: 23000000000000000
+  basePriceEx: 11500000000000000
+  basePriceAdd: 6900000000000000
+  basePriceExAdd: 2875000000000000
+  stationPrice: 10000000000000000
+  sections:
+  - name: "\uCE60\uACE1\uACBD\uB300\uBCD1\uC6D0~\uC6A9\uC9C0"
+    from: 0
+    to: 29
+  expandPrice: 000063472573db04
+  connectPrice: 000001608e430509
+  connectTimeMoney: 002c37aa0c090000
+  connectTMLargeUnit: 0
+  trainExpandPrice: 15000000000000000
+  trainExpandPassenger: 24800000000
+  trainExPsngrLargeUnit: 0
+  screenDoorPrice: 000050ecc22b1a0b
+  screenDoorReputation: 64000000
+  isLargeUnit: 0
