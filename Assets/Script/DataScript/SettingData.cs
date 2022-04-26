@@ -9,7 +9,6 @@ public class SettingData
     public bool playTimeActive;
     public bool updateAlarm;
     public bool peaceEventGameActive;
-    public bool peddlerEventGameActive;
     public int easyPurchaseType;
     public bool addedMoneyEffect;
     /// <summary>
@@ -25,7 +24,6 @@ public class SettingData
         playTimeActive = true;
         updateAlarm = true;
         peaceEventGameActive = true;
-        peddlerEventGameActive = true;
         easyPurchaseType = 1;
         addedMoneyEffect = true;
     }

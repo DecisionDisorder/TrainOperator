@@ -13,13 +13,42 @@ public class TestManager : MonoBehaviour {
     public LineManager lineManager;
     public BankManager bankManager;
     public BankSpecialManager bankSpecialManager;
-    public Company_Peace_Controller company_Peace_Controller;
+    public PeaceManager peaceManager;
     public condition_Sanitory_Controller condition_Sanitory_Controller;
     public AcceptRent_Controller acceptRent_Controller;
+    public MiniGameManager miniGameManager;
 
     public TouchEarning touchEarning;
     public GameObject macroTestMenu;
     public InputField touchAmountInput;
+
+    public bool TestMode;
+    public GameObject testButton;
+
+    private void Start()
+    {
+        if (TestMode)
+        {
+            StartCoroutine(TestInput());
+        }
+        else
+            testButton.SetActive(false);
+    }
+
+    IEnumerator TestInput()
+    {
+        yield return new WaitForEndOfFrame();
+
+        if (Input.GetKey(KeyCode.F9))
+            miniGameManager.InitMiniGame();
+        if (Input.GetKey(KeyCode.F10))
+            miniGameManager.peaceMiniGameManager.InitPeaceMiniGame();
+        else if (Input.GetKey(KeyCode.F11))
+            miniGameManager.peddlerMiniGameManager.InitPeddlerMiniGame();
+        else if(Input.GetKey(KeyCode.F12))
+            miniGameManager.tempMiniGameManager.InitTempControlGame();
+        StartCoroutine(TestInput());
+    }
 
     public void Presskey(int nKey)
     {
@@ -93,7 +122,7 @@ public class TestManager : MonoBehaviour {
     }
     public void GetPeace(string peace)
     {
-        company_Peace_Controller.PeaceValue = int.Parse(peace);
+        peaceManager.PeaceValue = int.Parse(peace);
     }
     public void GetSanitory(string peace)
     {

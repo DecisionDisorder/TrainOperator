@@ -88,6 +88,7 @@ public class ItemManager : MonoBehaviour
     public AssetInfoUpdater assetInfoUpdater;
     public TouchEarning touchEarning;
     public MessageManager messageManager;
+    public MiniGameManager miniGameManager;
 
     private void Start()
     {
@@ -187,8 +188,7 @@ public class ItemManager : MonoBehaviour
             colorCardTMFactor = (ulong)colorCardAbilities[card].ability[1];
 
             TouchEarning.randomSetTime += duration; // 이벤트 시간 미룸
-            Company_Peace_Controller.eventOccurTimer += duration;
-            PeddlerEvent_Manager.eventOccurTimer += duration;
+            miniGameManager.timeLeft += duration;
 
             CompanyReputationManager.instance.RenewPassengerRandom();
             assetInfoUpdater.UpdateTimeMoneyText();
@@ -237,8 +237,7 @@ public class ItemManager : MonoBehaviour
             cardTimer.sprite = rareCardAbilities[card].cardSprite;
 
             TouchEarning.randomSetTime += duration; // 이벤트 시간 미룸
-            Company_Peace_Controller.eventOccurTimer += duration;
-            PeddlerEvent_Manager.eventOccurTimer += duration;
+            miniGameManager.timeLeft += duration;
 
             ActiveCards(false);
             StartCoroutine(AutoClicker(rareCardAbilities[card].ability[0], duration, duration));

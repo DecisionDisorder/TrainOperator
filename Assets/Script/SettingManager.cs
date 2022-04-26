@@ -27,11 +27,9 @@ public class SettingManager : MonoBehaviour {
     public Image updateAlarm_optionbutton;
     public bool UpdateAlarm { get { return settingData.updateAlarm; } set { settingData.updateAlarm = value; } } // int to bool
 
-    public bool PeaceEventGameActive { get { return settingData.peaceEventGameActive; } set { settingData.peaceEventGameActive = value; } }
+    public bool MiniGameActive { get { return settingData.peaceEventGameActive; } set { settingData.peaceEventGameActive = value; } }
     public Image Peace_button;
     public Text peace_text;
-
-    public bool PeddlerEventGameActive { get { return settingData.peddlerEventGameActive; } set { settingData.peddlerEventGameActive = value; } }
 
     public bool AddedMoneyEffect  { get { return settingData.addedMoneyEffect; } set { settingData.addedMoneyEffect = value; } }
     public Image addedMoneyEImg;
@@ -73,7 +71,7 @@ public class SettingManager : MonoBehaviour {
         VolumeSet();
         SetPlayTime(PlaytimeActive);
         SetPatchAlarm(UpdateAlarm);
-        SetMiniGame(PeaceEventGameActive);
+        SetMiniGame(MiniGameActive);
         SetEasyPurchaseSpeed(EasyPurchaseType);
         SetAddedMoneyEffect(AddedMoneyEffect);
         SetBackupRecommend(BackupRecommend);
@@ -104,7 +102,7 @@ public class SettingManager : MonoBehaviour {
                 SetPatchAlarm(!UpdateAlarm);
                 break;
             case 9:
-                SetMiniGame(!PeaceEventGameActive);
+                SetMiniGame(!MiniGameActive);
                 break;
             case 11:
                 SetAddedMoneyEffect(!AddedMoneyEffect);
@@ -155,15 +153,13 @@ public class SettingManager : MonoBehaviour {
         {
             Peace_button.color = Disabled_color;
             peace_text.text = "미니게임 OFF";
-            PeddlerEventGameActive = false;
-            PeaceEventGameActive = false;
+            MiniGameActive = false;
         }
         else
         {
             Peace_button.color = Color.white;
             peace_text.text = "미니게임 ON";
-            PeddlerEventGameActive = true;
-            PeaceEventGameActive = true;
+            MiniGameActive = true;
         }
     }
 

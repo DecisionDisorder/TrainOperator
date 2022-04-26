@@ -127,15 +127,6 @@ public class SanitoryManager : MonoBehaviour {
             FullSanitory();
         }
     }
-    /*
-	public static void SaveTime()
-	{
-		PlayerPrefs.SetInt ("CoolTime_San",CoolTime);
-	}
-	public static void LoadTime()
-	{
-		CoolTime = PlayerPrefs.GetInt ("CoolTime_San", 5);
-	}*/
 	void FullSanitory()
 	{
         messageManager.ShowMessage("더 이상 깨끗해질 수 없습니다!");

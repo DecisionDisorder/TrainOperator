@@ -477,7 +477,6 @@ public class DataConverter : MonoBehaviour
         setting.settingData.playTimeActive = GetPlayerPrefIntToBool("Bool_Playtime_o", 1);
         setting.settingData.updateAlarm = GetPlayerPrefIntToBool("Bool_updateAlarm", 1);
         setting.settingData.peaceEventGameActive = bool.Parse(PlayerPrefs.GetString("Bool_peace", "TRUE"));
-        setting.settingData.peddlerEventGameActive = bool.Parse(PlayerPrefs.GetString("Bool_peddler", "TRUE"));
         setting.settingData.easyPurchaseType = PlayerPrefs.GetInt("EasyPurchaseType", 1);
         setting.settingData.addedMoneyEffect = bool.Parse(PlayerPrefs.GetString("BoolAddedMoneyEffect", "TRUE"));
     }

@@ -23,7 +23,6 @@ public class condition_Sanitory_Controller : MonoBehaviour {
 	public Text Station_text;
 	public Text Average_text;
 	public Text Condition_text;
-	public Text ChangedRep_text;
 
     public GameObject[] dirtyImgs;
     public GameObject[] cleanImgs;
@@ -37,9 +36,7 @@ public class condition_Sanitory_Controller : MonoBehaviour {
         conditionSanitoryUpdateDisplay.onEnableUpdate += UpdateText;
         StartCoroutine(Timer(SetTime()));
 
-        //LoadSanitory();
         CheckSanitory();
-        //CalReputation();
     }
 
     IEnumerator Timer(float time)
@@ -49,7 +46,6 @@ public class condition_Sanitory_Controller : MonoBehaviour {
         if (SanitoryValue > -100)
         {
             SanitoryValue -= MinusSanitory();
-            //Debug.Log("-" + MinusSanitory());
             if (SanitoryValue < -100)
             {
                 SanitoryValue = -100;
@@ -63,7 +59,6 @@ public class condition_Sanitory_Controller : MonoBehaviour {
     public void UpdateText()
     {
         CheckSanitory();
-        //CalReputation();
 
         if (SanitoryValue == 0)
         {
@@ -72,15 +67,6 @@ public class condition_Sanitory_Controller : MonoBehaviour {
         else
         {
             Average_text.text = SanitoryValue + "점";
-        }
-
-        if (ChangedReputation == 0)
-        {
-            ChangedRep_text.text = "변경된 고객 만족도: 0P";
-        }
-        else
-        {
-            ChangedRep_text.text = "변경된 고객 만족도: " + ChangedReputation + "P";
         }
     }
     int SetTime()
@@ -117,10 +103,6 @@ public class condition_Sanitory_Controller : MonoBehaviour {
         }
         return Score;
     }
-	/*public void CalReputation()
-	{
-		ChangedReputation = CompanyReputationManager.reputationValueCalculated - company_Reputation_Controller.ReputationValue;
-	}*/
 
 	public void CheckSanitory()
 	{
@@ -128,48 +110,36 @@ public class condition_Sanitory_Controller : MonoBehaviour {
 		{
 			Condition_text.text = "상태: " + "역겨움";
 			Condition = 1; 
-            //ValuePoint_Manager.Sanitory_Percentage = 80;
-            //company_Reputation_Controller.Rep_Percentage = 7;
             company_Reputation_Controller.RenewReputation();
 		}
 		if(-40 <= SanitoryValue && SanitoryValue < 0)
 		{
 			Condition_text.text = "상태: " + "더러움";
 			Condition = 2;
-            //ValuePoint_Manager.Sanitory_Percentage = 90;
-            //company_Reputation_Controller.Rep_Percentage = 9;
             company_Reputation_Controller.RenewReputation();
 		}
 		if(0 <= SanitoryValue && SanitoryValue <= 50)
 		{
 			Condition_text.text = "상태: " + "평범함";
 			Condition = 3;
-            //ValuePoint_Manager.Sanitory_Percentage = 100;
-            //company_Reputation_Controller.Rep_Percentage = 10;
             company_Reputation_Controller.RenewReputation();
 		}
 		if(50 < SanitoryValue && SanitoryValue <= 80)
 		{
 			Condition_text.text = "상태: " + "깨끗함";
 			Condition = 4;
-            //ValuePoint_Manager.Sanitory_Percentage = 120;
-            //company_Reputation_Controller.Rep_Percentage = 11;
             company_Reputation_Controller.RenewReputation();
 		}
 		if(80 < SanitoryValue && SanitoryValue <= 100)
 		{
 			Condition_text.text = "상태: " + "아주 깔끔함";
 			Condition = 5;
-            //ValuePoint_Manager.Sanitory_Percentage = 140;
-            //company_Reputation_Controller.Rep_Percentage = 12;
             company_Reputation_Controller.RenewReputation();
 		}
 	}
 
     IEnumerator CSetSanitoryImage(float delay)
     {
-        yield return new WaitForSeconds(delay);
-
         if (Condition < 3)
         {
             cleanImgs[0].SetActive(false);
@@ -177,7 +147,6 @@ public class condition_Sanitory_Controller : MonoBehaviour {
 
             dirtyImgs[currentIndex].SetActive(false);
             dirtyImgs[GetNextIndex()].SetActive(true);
-            StartCoroutine(cSetSanitoryImage = CSetSanitoryImage(delay));
         }
         else if (Condition == 3)
         {
@@ -185,7 +154,7 @@ public class condition_Sanitory_Controller : MonoBehaviour {
             cleanImgs[1].SetActive(false);
 
             dirtyImgs[0].SetActive(false);
-            dirtyImgs[0].SetActive(false);
+            dirtyImgs[1].SetActive(false);
         }
         else if (Condition > 3)
         {
@@ -194,34 +163,49 @@ public class condition_Sanitory_Controller : MonoBehaviour {
 
             dirtyImgs[0].SetActive(false);
             dirtyImgs[1].SetActive(false);
-            StartCoroutine(cSetSanitoryImage = CSetSanitoryImage(delay));
         }
+        yield return new WaitForSeconds(delay);
+
+        if(Condition != 3)
+            StartCoroutine(cSetSanitoryImage = CSetSanitoryImage(delay));
+    }
+
+    private bool IsArrayObjectActive(GameObject[] objects)
+    {
+        for(int i = 0; i < objects.Length; i++)
+        {
+            if (objects[i].activeInHierarchy)
+                return true;
+        }
+        return false;
+    }
+
+    private bool NeedSanitoryImageChange()
+    {
+        if (Condition < 3 && !IsArrayObjectActive(dirtyImgs))
+            return true;
+        else if (Condition > 3 && !IsArrayObjectActive(cleanImgs))
+            return true;
+        else if (Condition == 3 && (IsArrayObjectActive(cleanImgs) || IsArrayObjectActive(dirtyImgs)))
+            return true;
+        else
+            return false;
     }
 
     private void SetSanitoryImage()
     {
-        if (cSetSanitoryImage != null)
-            StopCoroutine(cSetSanitoryImage);
+        if (NeedSanitoryImageChange())
+        {
+            if (cSetSanitoryImage != null)
+                StopCoroutine(cSetSanitoryImage);
 
-        cSetSanitoryImage = CSetSanitoryImage(0.8f);
-        StartCoroutine(cSetSanitoryImage);
+            cSetSanitoryImage = CSetSanitoryImage(0.8f);
+            StartCoroutine(cSetSanitoryImage);
+        }
     }
     private int GetNextIndex()
     {
         currentIndex = currentIndex == 0 ? 1 : 0;
         return currentIndex;
     }
-    /*
-    public static void SaveSanitory()
-	{
-		PlayerPrefs.SetInt ("ASC",Average_Sanitory_Condition);
-	}
-	public static void LoadSanitory()
-	{
-		Average_Sanitory_Condition = PlayerPrefs.GetInt ("ASC",20);
-	}
-	public static void ResetSanitory()
-	{
-		Average_Sanitory_Condition = 20;
-	}*/
 }

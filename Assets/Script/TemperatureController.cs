@@ -89,6 +89,8 @@ public class TemperatureController
         {
             dial.interactable = false;
             isCompleted = true;
+            trainImage.color = tempMiniGameManager.completeColor;
+            tempMiniGameManager.clickAudio.Play();
             checkCompleted();
         }
     }

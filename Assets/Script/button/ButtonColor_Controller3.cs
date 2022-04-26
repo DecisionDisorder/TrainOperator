@@ -17,7 +17,7 @@ public class ButtonColor_Controller3 : MonoBehaviour {
     public GameObject Rent_Menu;
 
     public RentManager rentManager;
-    public Company_Peace_Controller company_Peace_Controller;
+    public PeaceManager peaceManager;
     public condition_Sanitory_Controller condition_Sanitory_Controller;
     public PeaceManager button_Peace;
     public SanitoryManager button_Sanitory;
@@ -26,7 +26,7 @@ public class ButtonColor_Controller3 : MonoBehaviour {
     {
         for(int i = 0; i < peacePuechaseButtons.Length; i++)
         {
-            if (AssetMoneyCalculator.instance.CheckPuchasable(button_Peace.peaceLowPrices[i], button_Peace.peaceHighPrices[i]) && company_Peace_Controller.PeaceValue < 100)
+            if (AssetMoneyCalculator.instance.CheckPuchasable(button_Peace.peaceLowPrices[i], button_Peace.peaceHighPrices[i]) && peaceManager.PeaceValue < 100)
             {
                 if (i.Equals(peacePuechaseButtons.Length - 1))
                 {

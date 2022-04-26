@@ -31,7 +31,7 @@ MonoBehaviour:
     to: 3
   - name: "\uC7A0\uC2E4~\uBAA8\uB780"
     from: 4
-    to: 16
+    to: 17
   expandPrice: 00204aa9d101000000409452a3030000
   connectPrice: 0070a6c174030000008028a546070000
   connectTimeMoney: 00c2eb0b0000000000b1081900000000

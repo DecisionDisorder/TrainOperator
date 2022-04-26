@@ -17,11 +17,14 @@ public class EventManager : MonoBehaviour {
     private bool IsRecommended { get { return eventData.isRecommended; } set { eventData.isRecommended = value; } } // int to bool
     private bool IsSurveyed { get { return eventData.isSurveyed; } set { eventData.isSurveyed = value; } }
     private bool IsUpdateSurveyed { get { return eventData.isUpdateSurveyed; } set { eventData.isUpdateSurveyed = value; } }
+    private bool DidNormalSurvey { get { return eventData.didNormalSurvey; } set { eventData.didNormalSurvey = value; } }
+
+    public string surveyURL = "https://forms.gle/RRYyvUKMVDqDTNb46";
 
     void Start () {
-        if(!IsUpdateSurveyed && LineManager.instance.lineCollections[0].lineData.numOfTrain > 0)
+        if(!DidNormalSurvey && LineManager.instance.lineCollections[0].lineData.numOfTrain > 0)
         {
-            StartCoroutine(WaitOpenEventMenu(600f));
+            StartCoroutine(WaitOpenEventMenu(30f));
         }
 	}
 
@@ -57,25 +60,13 @@ public class EventManager : MonoBehaviour {
                     messageManager.ShowMessage("이미 1회 지급이 된 상태 이므로 카드팩은 지급되지않았습니다.", 2.0f);
                 }
                 break;
-            case 3:
-                Application.OpenURL("https://forms.gle/MvFncvwM3D9TwsEy8");
-                if (!IsSurveyed)
-                {
-                    itemManager.CardPoint += 600;
-                    messageManager.ShowMessage("카드 포인트 600P가 지급되었습니다.\n소중한 의견 정말 감사드립니다!", 2.0f);
-                    IsSurveyed = true;
-                    //SaveEvent();
-                }
-                else
-                    messageManager.ShowMessage("소중한 의견 정말 감사드립니다!", 2.0f);
-                break;
             case 4:
-                Application.OpenURL("https://forms.gle/5GJ6vpSb2eH6KGrp9");
-                if(!IsUpdateSurveyed)
+                Application.OpenURL(surveyURL);
+                if(!DidNormalSurvey)
                 {
                     itemManager.CardPoint += 600;
                     messageManager.ShowMessage("카드 포인트 600P가 지급되었습니다.\n소중한 의견 정말 감사드립니다!", 2.0f);
-                    IsUpdateSurveyed = true;
+                    DidNormalSurvey = true;
                 }
                 else
                     messageManager.ShowMessage("소중한 의견 정말 감사드립니다!", 2.0f);

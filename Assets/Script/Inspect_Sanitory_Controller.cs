@@ -8,7 +8,6 @@ public class Inspect_Sanitory_Controller : MonoBehaviour {
 
     public static ulong Bonus_Percentage;
 	public static ulong Bonus_money;
-	public static ulong Bonus_Cal;
 
     public int clearTime;
 

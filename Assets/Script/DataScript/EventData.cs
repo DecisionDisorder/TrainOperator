@@ -8,4 +8,5 @@ public class EventData
     public bool isRecommended;
     public bool isSurveyed;
     public bool isUpdateSurveyed;
+    public bool didNormalSurvey;
 }

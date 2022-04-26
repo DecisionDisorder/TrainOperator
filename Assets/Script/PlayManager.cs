@@ -11,6 +11,9 @@ public class PlayManager : MonoBehaviour
 
     public MessageManager messageManager;
 
+    /// <summary>
+    /// 1ÃÊ´ç Æò±Õ ÅÍÄ¡ È½¼ö
+    /// </summary>
     public int averageTouch;
 
     public delegate void AfterAnimationPlay();

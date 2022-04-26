@@ -16,6 +16,7 @@ public class LineCollection : MonoBehaviour
     public UpdateManager updateManager;
 
     public string addedStationFileName;
+    [SerializeField]
     private AddedStationData addedStationData;
 
     public void InitializeData()
