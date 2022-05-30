@@ -15,6 +15,7 @@ public class SettingData
     /// 1: true, 2: false
     /// </summary>
     public int backupRecommend;
+    public int currentLineIndex;
     public int currentStationIndex;
     public bool isStationReversed;
 

@@ -51,8 +51,28 @@ public class TrainBackgroundManager : MonoBehaviour
         else
         {
             trainDoorAnimations[1].gameObject.SetActive(true);
+            SyncScreendoorAnimation();
             doors.transform.localPosition = new Vector3(doors.transform.localPosition.x, screendoorTrainY);
             trainAnimation.transform.localPosition = new Vector3(trainAnimation.transform.localPosition.x, screendoorTrainY);
+        }
+    }
+
+    private int GetPlayingDoorIndex()
+    {
+        if (trainDoorAnimations[0].clip.Equals(normalDoorClips[0]))
+            return 0;
+        else
+            return 1;
+    }
+
+    private void SyncScreendoorAnimation()
+    {
+        if (trainDoorAnimations[0].isPlaying)
+        {
+            int playingIndex = GetPlayingDoorIndex();
+            trainDoorAnimations[1].clip = screendoorClips[playingIndex];
+            trainDoorAnimations[1].Play();
+            trainDoorAnimations[1][screendoorClips[playingIndex].name].time = trainDoorAnimations[0][normalDoorClips[playingIndex].name].time;
         }
     }
 
