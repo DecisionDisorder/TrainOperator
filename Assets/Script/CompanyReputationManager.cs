@@ -10,7 +10,18 @@ public class CompanyReputationManager : MonoBehaviour {
 
     public CompanyData companyData;
 
-	public int ReputationValue { get { return companyData.reputationTotalValue; } set { companyData.reputationTotalValue = value; UpdateText(); } }
+	public int ReputationValue
+    {
+        get
+        {
+            return companyData.reputationTotalValue;
+        }
+        set
+        {
+            companyData.reputationTotalValue = value; 
+            UpdateText();
+        }
+    }
 
     public int revenueMagnificationInterval;
     public int reputationInterval;
