@@ -1,5 +1,7 @@
 <dependencies>
   <packages>
+    <package>com.android.support:support-annotations:28.0.0</package>
+    <package>com.facebook.android:audience-network-sdk:6.4.0</package>
     <package>com.google.ads.mediation:facebook:6.6.0.0</package>
     <package>com.google.android.ads:mediation-test-suite:2.0.0</package>
     <package>com.google.android.gms:play-services-ads:20.0.0</package>
@@ -57,28 +59,28 @@
     <file>Assets/Plugins/Android/androidx.viewpager2.viewpager2-1.0.0.aar</file>
     <file>Assets/Plugins/Android/androidx.work.work-runtime-2.7.0.aar</file>
     <file>Assets/Plugins/Android/com.android.volley.volley-1.2.0.aar</file>
-    <file>Assets/Plugins/Android/com.facebook.android.audience-network-sdk-6.8.0.aar</file>
-    <file>Assets/Plugins/Android/com.google.ads.mediation.facebook-6.8.0.1.aar</file>
+    <file>Assets/Plugins/Android/com.facebook.android.audience-network-sdk-6.11.0.aar</file>
+    <file>Assets/Plugins/Android/com.google.ads.mediation.facebook-6.11.0.0.aar</file>
     <file>Assets/Plugins/Android/com.google.android.ads.mediation-test-suite-2.0.0.aar</file>
     <file>Assets/Plugins/Android/com.google.android.flexbox-1.1.1.aar</file>
-    <file>Assets/Plugins/Android/com.google.android.gms.play-services-ads-20.6.0.aar</file>
-    <file>Assets/Plugins/Android/com.google.android.gms.play-services-ads-base-20.6.0.aar</file>
-    <file>Assets/Plugins/Android/com.google.android.gms.play-services-ads-identifier-17.0.0.aar</file>
-    <file>Assets/Plugins/Android/com.google.android.gms.play-services-ads-lite-20.6.0.aar</file>
-    <file>Assets/Plugins/Android/com.google.android.gms.play-services-appset-16.0.0.aar</file>
-    <file>Assets/Plugins/Android/com.google.android.gms.play-services-auth-19.0.0.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-ads-21.0.0.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-ads-base-21.0.0.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-ads-identifier-18.0.1.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-ads-lite-21.0.0.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-appset-16.0.2.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-auth-19.2.0.aar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-auth-api-phone-17.0.0.aar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-auth-base-17.0.0.aar</file>
-    <file>Assets/Plugins/Android/com.google.android.gms.play-services-base-17.6.0.aar</file>
-    <file>Assets/Plugins/Android/com.google.android.gms.play-services-basement-17.6.0.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-base-18.0.1.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-basement-18.0.0.aar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-drive-17.0.0.aar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-games-21.0.0.aar</file>
-    <file>Assets/Plugins/Android/com.google.android.gms.play-services-measurement-base-18.0.3.aar</file>
-    <file>Assets/Plugins/Android/com.google.android.gms.play-services-measurement-sdk-api-18.0.3.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-measurement-base-20.1.2.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-measurement-sdk-api-20.1.2.aar</file>
     <file>Assets/Plugins/Android/com.google.android.gms.play-services-nearby-17.0.0.aar</file>
-    <file>Assets/Plugins/Android/com.google.android.gms.play-services-tasks-17.2.1.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.gms.play-services-tasks-18.0.1.aar</file>
     <file>Assets/Plugins/Android/com.google.android.material.material-1.1.0.aar</file>
-    <file>Assets/Plugins/Android/com.google.android.ump.user-messaging-platform-1.0.0.aar</file>
+    <file>Assets/Plugins/Android/com.google.android.ump.user-messaging-platform-2.0.0.aar</file>
     <file>Assets/Plugins/Android/com.google.code.gson.gson-2.8.5.jar</file>
     <file>Assets/Plugins/Android/com.google.games.gpgs-plugin-support-0.10.12.aar</file>
     <file>Assets/Plugins/Android/com.google.guava.listenablefuture-1.0.jar</file>

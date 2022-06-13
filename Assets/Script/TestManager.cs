@@ -27,8 +27,9 @@ public class TestManager : MonoBehaviour {
 
     private void Start()
     {
-        if (TestMode)
+        if (TestMode) 
         {
+            testButton.SetActive(true);
             StartCoroutine(TestInput());
         }
         else

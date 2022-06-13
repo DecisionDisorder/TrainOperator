@@ -60,6 +60,7 @@ public class TimeMoneyManager : MonoBehaviour
                 PlayManager.ArrangeUnit(revenue.lowUnit, revenue.highUnit, ref revenueLow, ref revenueHigh, true);
                 AssetMoneyCalculator.instance.ArithmeticOperation(revenue, true);
                 revenueReportText.text = "자리를 비우신 사이에 <color=green>" + revenueHigh + revenueLow + "$</color>만큼의 수익이 발생하였습니다.";
+                DataManager.instance.SaveAll();
                 offlineRevenueReport.SetActive(true);
             }
         }
