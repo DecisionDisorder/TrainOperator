@@ -10,7 +10,18 @@ public class CompanyReputationManager : MonoBehaviour {
 
     public CompanyData companyData;
 
-	public int ReputationValue { get { return companyData.reputationTotalValue; } set { companyData.reputationTotalValue = value; UpdateText(); } }
+	public int ReputationValue
+    {
+        get
+        {
+            return companyData.reputationTotalValue;
+        }
+        set
+        {
+            companyData.reputationTotalValue = value; 
+            UpdateText();
+        }
+    }
 
     public int revenueMagnificationInterval;
     public int reputationInterval;
@@ -82,14 +93,16 @@ public class CompanyReputationManager : MonoBehaviour {
     {
         if (MyAsset.instance.PassengersLow >= 10 || MyAsset.instance.PassengersHigh > 0)
         {
-            ulong passengersRandomLow = 0, passengersRandomHigh = 0; 
+            ulong passengersRandomLow = 0, passengersRandomHigh = 0;
             //TODO: 이 함수도 수정하기
-            TouchMoneyManager.PercentCalculation(TouchEarning.passengerRandomFactor, TouchMoneyManager.PassengersBaseLow, TouchMoneyManager.PassengersBaseHigh, ref passengersRandomLow, ref passengersRandomHigh );
+            TouchMoneyManager.PercentCalculation(TouchEarning.passengerRandomFactor, TouchMoneyManager.PassengersBaseLow, TouchMoneyManager.PassengersBaseHigh, ref passengersRandomLow, ref passengersRandomHigh);
             TouchMoneyManager.PassengersRandomLow = passengersRandomLow;
             TouchMoneyManager.PassengersRandomHigh = passengersRandomHigh;
         }
         else
-            TouchMoneyManager.PassengersRandomLow = MyAsset.instance.PassengersLow;
+        {
+            TouchMoneyManager.PassengersRandomLow = TouchMoneyManager.PassengersBaseLow = MyAsset.instance.PassengersLow;
+        }
         RenewPassengerMoney();
     }
 

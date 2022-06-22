@@ -11,6 +11,8 @@ public static class CloudManager
     public static void Init()
     {
         //PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
+        
+        
         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().EnableSavedGames().Build();
         PlayGamesPlatform.InitializeInstance(config);
 

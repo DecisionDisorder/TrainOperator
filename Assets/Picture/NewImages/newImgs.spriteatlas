@@ -49,46 +49,66 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: 102034e093d818a4b92481c68a1aa83d, type: 3}
+  - {fileID: 21300000, guid: 0bfb1ee07e52d414eb3931122c587c13, type: 3}
   - {fileID: 21300000, guid: cee49ef0eeaf10a4b9a82985e0748182, type: 3}
-  - {fileID: 21300000, guid: 2feca5e133980714084b34c0bb24ca21, type: 3}
+  - {fileID: 21300000, guid: 6b09b511ea947c34fb65e90115ccc7d2, type: 3}
+  - {fileID: 21300000, guid: d565bf919d0139d4e802c13e9a0d3341, type: 3}
+  - {fileID: 21300000, guid: 811f15f1bb624e64486cab5762192fd8, type: 3}
   - {fileID: 21300000, guid: b4e1c2229101ed04398b28f94e45ecb9, type: 3}
-  - {fileID: 21300000, guid: f77a02320d2b5874190791781f3c78f2, type: 3}
   - {fileID: 21300000, guid: d64597828a51fba4f893134b01ce4a45, type: 3}
-  - {fileID: 21300000, guid: 235b9573e10f36c4480562081266e006, type: 3}
+  - {fileID: 21300000, guid: a417a753f13efa24096fbf5d8d6f6826, type: 3}
+  - {fileID: 21300000, guid: b01ff0934b190734588db3b6e010be08, type: 3}
+  - {fileID: 21300000, guid: bddb19e3bea47854fa30a4df43367b28, type: 3}
   - {fileID: 21300000, guid: c01087540e7d7484d9d1b042f8df183b, type: 3}
   - {fileID: 21300000, guid: 20321db4f4651324e92010763bea8f67, type: 3}
+  - {fileID: 21300000, guid: 37e5e3c42381bcf4bae0be8a25ecfb83, type: 3}
+  - {fileID: 21300000, guid: 7f725575f9148b14aba23b0de6815025, type: 3}
   - {fileID: 21300000, guid: 1ab0957671044df499b8729a84927c95, type: 3}
-  - {fileID: 21300000, guid: af060ac7fd7d28449b9b4472a2c25a31, type: 3}
   - {fileID: 21300000, guid: 0b8e29d76440a6f4ca1055f975492e4d, type: 3}
   - {fileID: 21300000, guid: 9a19eef765b97234cbced81d61861fe1, type: 3}
-  - {fileID: 21300000, guid: c04077285ea66324cbc1f3de296106ea, type: 3}
+  - {fileID: 21300000, guid: 81a97839b69d1d84b812e047ae3627c4, type: 3}
+  - {fileID: 21300000, guid: cfae6ef9f166d4445bdcd7be179eb622, type: 3}
+  - {fileID: 21300000, guid: edf9c03aea1dfbe418a3e60a801d3df1, type: 3}
   - {fileID: 21300000, guid: dc85fe6befcd95641a38d2d7534ca121, type: 3}
   - {fileID: 21300000, guid: 23a2ef6bd74f09c4a944ba3ceaf91328, type: 3}
+  - {fileID: 21300000, guid: bd0d647b189a1d24fa142b035e53aecf, type: 3}
   - {fileID: 21300000, guid: fc7d887b68f9efe46add6317a7aad931, type: 3}
   - {fileID: 21300000, guid: 13b6dabb0c0755e478d19bd3fdff6233, type: 3}
   - {fileID: 21300000, guid: ed68a5bc34a856d47b830f30dc608638, type: 3}
+  - {fileID: 21300000, guid: c80421cc59f25734b900d93fdf47d9b5, type: 3}
+  - {fileID: 21300000, guid: d4318d4d733ff8545a97fc77fe026a5f, type: 3}
+  - {fileID: 21300000, guid: d6b07dde62cb5ce459c9779112f4f73a, type: 3}
   - {fileID: 21300000, guid: 6fddc55f00193504798f8d707d21c50c, type: 3}
   m_PackedSpriteNamesToIndex:
-  - TrainMiddle_4
+  - StationNameArea
   - ScreenDoorRight
-  - TrainOpenFront_4
+  - TrainFront
+  - TrainOpen_4
+  - TrainOpenBack_4
   - Platform_ScreendoorClosed_Front
-  - TrainFront_4
   - manyPeople_1
-  - TrainDoor_4
+  - windowRect
+  - TrainOpenBack
+  - TrainMiddle_4
   - lessPeople_2
   - peddler
+  - TrainMiddle
+  - TrainOpenFront_4
   - manyPeople_2
-  - TrainOpenBack_4
   - lessPeople_1
   - Platform_ScreendoorOpened_Front
-  - TrainOpen_4
+  - doorColorRect
+  - StationArrow
+  - TrainDoor_4
   - Platform_NoDoor_Front
   - Platform_NoDoor
+  - TrainOpen
   - ScreenDoorLeft
   - Platform_NoDoor_Back
   - Platform_ScreendoorClosed_Back
+  - StationNameOutline
+  - TrainFront_4
+  - TrainDoor
   - Platform_ScreendoorClosed
   m_RenderDataMap: {}
   m_Tag: newImgs

@@ -1,9 +1,9 @@
 {
-    "m_SelectedDeviceId": "R5CT21A8KEZ",
+    "m_SelectedDeviceId": "ce071717e5ad7613047e",
     "m_SelectedPackage": {
-        "deviceId": "R5CT21A8KEZ",
+        "deviceId": "ce071717e5ad7613047e",
         "name": "com.saejong25.TrainOperator",
-        "processId": 15543,
+        "processId": 17427,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -11,7 +11,121 @@
         {
             "deviceId": "R5CT21A8KEZ",
             "name": "com.saejong25.TrainOperator",
-            "processId": 15543,
+            "processId": 16840,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CT21A8KEZ",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 32676,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CT21A8KEZ",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 6791,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CT21A8KEZ",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 9578,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CT21A8KEZ",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 19016,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CT21A8KEZ",
+            "name": "com.google.android.gms.ui",
+            "processId": 21855,
+            "exited": false
+        },
+        {
+            "deviceId": "R5CT21A8KEZ",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 24660,
+            "exited": false
+        },
+        {
+            "deviceId": "ce071717e5ad7613047e",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 31285,
+            "exited": true
+        },
+        {
+            "deviceId": "ce071717e5ad7613047e",
+            "name": "com.google.android.gms.ui",
+            "processId": 31730,
+            "exited": true
+        },
+        {
+            "deviceId": "ce071717e5ad7613047e",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 32642,
+            "exited": true
+        },
+        {
+            "deviceId": "ce071717e5ad7613047e",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 816,
+            "exited": true
+        },
+        {
+            "deviceId": "ce071717e5ad7613047e",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 2059,
+            "exited": true
+        },
+        {
+            "deviceId": "ce071717e5ad7613047e",
+            "name": "com.google.android.gms.ui",
+            "processId": 4860,
+            "exited": false
+        },
+        {
+            "deviceId": "ce071717e5ad7613047e",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 4577,
+            "exited": false
+        },
+        {
+            "deviceId": "ce071717e5ad7613047e",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 6031,
+            "exited": false
+        },
+        {
+            "deviceId": "ce071717e5ad7613047e",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 13773,
+            "exited": false
+        },
+        {
+            "deviceId": "ce071717e5ad7613047e",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 17427,
+            "exited": false
+        },
+        {
+            "deviceId": "RFCM907X9SZ",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 2498,
+            "exited": true
+        },
+        {
+            "deviceId": "RFCM907X9SZ",
+            "name": "com.google.android.gms.ui",
+            "processId": 3033,
+            "exited": false
+        },
+        {
+            "deviceId": "RFCM907X9SZ",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 4698,
             "exited": false
         }
     ],
@@ -65,7 +179,7 @@
         "MemoryGroup": 2,
         "Behavior": 0
     },
-    "m_Filter": "",
+    "m_Filter": "Reward",
     "m_FilterIsRegularExpression": false,
     "m_SymbolPaths": []
 }

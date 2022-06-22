@@ -363,7 +363,7 @@ public class DataConverter : MonoBehaviour
 
     private void ConvertCompanyData()
     {
-        company_Reputation_Controller.companyData.reputationTotalValue = PlayerPrefs.GetInt("Rep_Totalvalue", 500);
+        company_Reputation_Controller.companyData.reputationTotalValue = PlayerPrefs.GetInt("Rep_Totalvalue", 0);
         company_Reputation_Controller.companyData.additionalPercentage = PlayerPrefs.GetInt("Rep_Percentage", 100);
         company_Reputation_Controller.companyData.reputationPercentage = PlayerPrefs.GetInt("Rep_REP_Percentage", 10);
         company_Reputation_Controller.companyData.averageSanitoryCondition = PlayerPrefs.GetInt("ASC", 20);

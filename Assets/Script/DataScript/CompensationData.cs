@@ -10,4 +10,5 @@ public class CompensationData
     public bool expandTrainPassengerChecked;
     public bool version3_0_1_checked;
     public bool allExpandErrorChecked;
+    public bool reviseReputation;
 }

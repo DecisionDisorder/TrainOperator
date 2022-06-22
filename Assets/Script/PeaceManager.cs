@@ -75,6 +75,7 @@ public class PeaceManager : MonoBehaviour {
     {
         Fail_Menu.SetActive(false);
         Crime_Menu.SetActive(true);
+        Percentage_text.text = successPossibility[peaceStage] + "%";
         gage = 50;
         GageSlider.value = gage;
     }
@@ -85,7 +86,6 @@ public class PeaceManager : MonoBehaviour {
 
         if (gage > 0)
         {
-            Percentage_text.text = successPossibility + "%";
             gage -= gageIncrements[peaceStage] / 2;
             GageSlider.value = gage;
             StartCoroutine(GageDecrement());
