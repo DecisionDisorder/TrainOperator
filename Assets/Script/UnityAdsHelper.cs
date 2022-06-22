@@ -44,9 +44,13 @@ public class UnityAdsHelper : MonoBehaviour, IUnityAdsListener
         remainTime--;
         coolTimeTexts[index].text = remainTime + "초";
         if (remainTime > 0)
+        {
             StartCoroutine(CoolTimer(remainTime, index));
+        }
         else
+        {
             FinishCoolTime(index);
+        }
     }
 
     public void ShowRewardedAd()

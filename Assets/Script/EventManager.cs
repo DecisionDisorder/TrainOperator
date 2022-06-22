@@ -9,6 +9,7 @@ public class EventManager : MonoBehaviour {
     public MessageManager messageManager;
     //public OpeningCardPack openingCardPack;
     public ItemManager itemManager;
+    public TutorialManager tutorialManager;
 
     public GameObject reportMenu;
 
@@ -32,8 +33,11 @@ public class EventManager : MonoBehaviour {
     {
         yield return new WaitForSeconds(delay);
 
-        Event_Menu.SetActive(true);
-        messageManager.ShowMessage("업데이트가 어땠는지 설문조사 해주시고, 보상으로 카드 포인트를 받아보세요!", 2.0f);
+        if(!tutorialManager.tutorialgroups[1].activeInHierarchy)
+        {
+            Event_Menu.SetActive(true);
+            messageManager.ShowMessage("업데이트가 어땠는지 설문조사 해주시고, 보상으로 카드 포인트를 받아보세요!", 2.0f);
+        }
     }
 
 	public void PressKey(int nKey)

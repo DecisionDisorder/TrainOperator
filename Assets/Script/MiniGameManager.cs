@@ -8,6 +8,7 @@ public class MiniGameManager : MonoBehaviour
     public PeddlerMiniGameManager peddlerMiniGameManager;
     public PeaceManager peaceMiniGameManager;
     public TempMiniGameManager tempMiniGameManager;
+    public TutorialManager tutorialManager;
 
     public int[] possibilities;
     public int timeLeft;
@@ -25,7 +26,8 @@ public class MiniGameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
 
-        timeLeft--;
+        if(!tutorialManager.tutorialgroups[1].activeInHierarchy)
+            timeLeft--;
 
         if (timeLeft <= 0)
         {

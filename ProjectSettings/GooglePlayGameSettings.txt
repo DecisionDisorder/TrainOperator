@@ -1,5 +1,5 @@
-lastUpgrade=01012
-proj.pluginVersion=0.10.12
+lastUpgrade=01014
+proj.pluginVersion=0.10.14
 proj.AppId=754389786380
 and.BundleId=com.saejong25.TrainOperator
 proj.classDir=Assets

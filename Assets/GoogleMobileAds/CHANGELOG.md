@@ -1,7 +1,112 @@
 Google Mobile Ads Unity Plugin Change Log
 
 **************
-Next version
+Version 7.0.2
+**************
+
+Plugin:
+- Added support for GMA Android SDK v21. Requires using GMA Android SDK v21.0.0 or higher.
+
+Built and tested with:
+- Google Mobile Ads Android SDK 21.0.0.
+- Google Mobile Ads iOS SDK 9.0.0
+- External Dependency Manager for Unity 1.2.171.
+
+**************
+Version 7.0.1
+**************
+
+Plugin:
+- Fixed Github issue [1943](https://github.com/googleads/googleads-mobile-unity/issues/1943) related App Id saving.
+- Fixed Github issue [2001](https://github.com/googleads/googleads-mobile-unity/issues/2001) related to Android manifest.
+- Fixed Github issue [2003](https://github.com/googleads/googleads-mobile-unity/issues/2003) related to Ad Inspector crash.
+- Added Dummy AdInspector for Unity editor.
+
+Built and tested with:
+- Google Play services 20.2.0
+- Google Mobile Ads iOS SDK 9.0.0
+- External Dependency Manager for Unity 1.2.171.
+
+**************
+Version 7.0.0
+**************
+
+Plugin:
+- Added support for GMA iOS SDK v9. Requires using GMA iOS SDK v9.0.0 or higher.
+- Fixed https://github.com/googleads/googleads-mobile-unity/issues/1620
+- Updated to use External Dependency Manager for Unity 1.2.169.
+
+Built and tested with:
+- Google Play services 20.2.0
+- Google Mobile Ads iOS SDK 9.0.0
+- External Dependency Manager for Unity 1.2.171.
+
+**************
+Version 6.1.2
+**************
+
+Plugin:
+- Fixed Github issue [1786](https://github.com/googleads/googleads-mobile-unity/issues/1786) related to GoogleMobileAdsSettings.
+- Fixed issue related to missing GADUAdNetworkExtras.h file when using some mediation adapters.
+
+Built and tested with:
+- Google Play services 20.2.0
+- Google Mobile Ads iOS SDK 8.8.0
+- External Dependency Manager for Unity 1.2.165.
+
+Known issue:
+- iOS Resolver library cannot be loaded in Unity 2021.1.11 and 2021.1.12. It can be loaded properly with Unity 2021.1.10. See https://github.com/googlesamples/unity-jar-resolver/issues/441 for more information.
+
+**************
+Version 6.1.1
+**************
+
+Plugin:
+- Added support for ad inspector.
+
+Built and tested with:
+- Google Play services 20.2.0
+- Google Mobile Ads iOS SDK 8.8.0
+- External Dependency Manager for Unity 1.2.165.
+
+Known issue:
+- iOS Resolver library cannot be loaded in Unity 2021.1.11 and 2021.1.12. It can be loaded properly with Unity 2021.1.10. See https://github.com/googlesamples/unity-jar-resolver/issues/441 for more information.
+
+
+**************
+Version 6.1.0
+**************
+
+Plugin:
+- Fixed https://github.com/googleads/googleads-mobile-unity/issues/1620
+- Added support for iOS 14+ [same app key](https://developers.google.com/admob/ios/ios14)
+- Added support for App Open ads.
+
+Built and tested with:
+- Google Play services 20.2.0
+- Google Mobile Ads iOS SDK 8.8.0
+- External Dependency Manager for Unity 1.2.165.
+
+Known issue:
+- iOS Resolver library cannot be loaded in Unity 2021.1.11 and 2021.1.12. It can be loaded properly with Unity 2021.1.10. See https://github.com/googlesamples/unity-jar-resolver/issues/441 for more information.
+
+**************
+Version 6.0.2
+**************
+
+Plugin:
+- Fixed https://github.com/googleads/googleads-mobile-unity/issues/1677 This version requires Xcode 12.4 where the previous version required Xcode 12.5.1.
+
+Built and tested with:
+- Google Play services 20.2.0
+- Google Mobile Ads iOS SDK 8.8.0
+- External Dependency Manager for Unity 1.2.165.
+
+Known issue:
+- iOS Resolver library cannot be loaded in Unity 2021.1.11 and 2021.1.12. It can be loaded properly with Unity 2021.1.10. See https://github.com/googlesamples/unity-jar-resolver/issues/441 for more information.
+
+**************
+Version 6.0.1
 **************
 
 Plugin:
@@ -13,6 +118,9 @@ Built and tested with:
 - Google Play services 20.0.0
 - Google Mobile Ads iOS SDK 8.2.0
 - External Dependency Manager for Unity 1.2.165.
+
+Known issue:
+- iOS Resolver library cannot be loaded in Unity 2021.1.11 and 2021.1.12. It can be loaded properly with Unity 2021.1.10. See https://github.com/googlesamples/unity-jar-resolver/issues/441 for more information.
 
 **************
 Version 6.0.0
@@ -29,7 +137,7 @@ Plugin:
 - Added support for ad load errors, please see https://developers.google.com/admob/unity/ad-load-errors for details.
 - Ad Manager integration now requires providing the app ID in the Unity Editor.
 - Changed package format to contain compiled assemblies in DLL format in place of the uncompiled code.
-- Prior to GMA iOS SDK v8.7.0 release, you need to disable "Add use_frameworks!" and "Always add the main target to Podfile" in Unity Editor -> Assets -> External Dependency Manager -> iOS Resolver -> Settings, or else the GMA plugin does not work.
+- You need to enable "Link frameworks statically" in Unity Editor -> Assets -> External Dependency Manager -> iOS Resolver -> Settings, or else the GMA plugin does not work.
 
 Built and tested with:
 - Google Play services 20.0.0

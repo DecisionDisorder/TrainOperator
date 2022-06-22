@@ -114,7 +114,7 @@ public class AdMob : MonoBehaviour {
     {
         if(rewardedInterstitialAd != null)
         {
-            unityAdsHelper.StartCoolTime(2);
+            unityAdsHelper.StartCoolTime(0);
             rewardedInterstitialAd.Show(userEarnedRewardCallback);
         }
         else
@@ -126,6 +126,7 @@ public class AdMob : MonoBehaviour {
     private void userEarnedRewardCallback(Reward reward)
     {
         unityAdsHelper.Reward();
+        RequestRewardedInterstitialAD();
     }
 
     #endregion

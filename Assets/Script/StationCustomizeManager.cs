@@ -22,6 +22,11 @@ public class StationCustomizeManager : MonoBehaviour
 
     public Color[] lineColors;
     public Image[] lineColorImages;
+    public TrainColor[] trainColors;
+    public Image[] trainDoorTops;
+    public Image[] trainDoorBottoms;
+    public Image[] trainTopBars;
+
     public Dropdown currentLineDropdown;
 
     public int CurrentLineIndex { get { return settingManager.settingData.currentLineIndex; } set { settingManager.settingData.currentLineIndex = value; } }
@@ -39,9 +44,10 @@ public class StationCustomizeManager : MonoBehaviour
 
     private void InitStationInfo()
     {
+        currentLineDropdown.value = CurrentLineIndex;
         SetStationNames(CurrentLineIndex);
         SelectName();
-        Apply();
+        ApplyToUI();
     }
 
     private int GetAvailableLineLength()
@@ -140,9 +146,17 @@ public class StationCustomizeManager : MonoBehaviour
     {
         CurrentStationIndex = currentStationDropdown.value;
         IsStationReversed = reverseSelected;
+        CurrentLineIndex = currentLineDropdown.value;
 
+        ApplyToUI();
+
+        SetChangeNameMenu(false);
+    }
+
+    private void ApplyToUI()
+    {
         UpdateStationName(stationNames[CurrentStationIndex], currentStationTexts);
-        for(int i = 0; i < currentStationRects.Length; i++)
+        for (int i = 0; i < currentStationRects.Length; i++)
         {
             var rectSize = currentStationRects[i].sizeDelta;
             rectSize.x = currentStationTexts[i].preferredWidth + textMargin;
@@ -155,11 +169,14 @@ public class StationCustomizeManager : MonoBehaviour
         UpdateStationName(nextStationExampleText.text, nextStationTexts);
         UpdateStationMark(nextStationExampleText.text, nextStationMarks);
 
-        CurrentLineIndex = currentLineDropdown.value;
         for (int i = 0; i < lineColorImages.Length; i++)
             lineColorImages[i].color = lineColors[CurrentLineIndex];
-
-        SetChangeNameMenu(false);
+        for (int i = 0; i < trainDoorTops.Length; i++)
+            trainDoorTops[i].color = trainColors[CurrentLineIndex].doorColorTop;
+        for (int i = 0; i < trainDoorBottoms.Length; i++)
+            trainDoorBottoms[i].color = trainColors[CurrentLineIndex].doorColorBottom;
+        for (int i = 0; i < trainTopBars.Length; i++)
+            trainTopBars[i].color = trainColors[CurrentLineIndex].barColor;
     }
 
     private void UpdateStationName(string name, Text[] texts)
@@ -186,4 +203,12 @@ public class StationCustomizeManager : MonoBehaviour
         SetLineNames();
         changeNameMenu.SetActive(active);
     }
+}
+
+[System.Serializable]
+public class TrainColor
+{
+    public Color doorColorTop;
+    public Color doorColorBottom;
+    public Color barColor;
 }

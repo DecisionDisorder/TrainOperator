@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using GoogleMobileAdsMediationTestSuite.Api;
+//using GoogleMobileAdsMediationTestSuite.Api;
 
 public class TestManager : MonoBehaviour {
 
@@ -167,7 +167,6 @@ public class TestManager : MonoBehaviour {
             pw_Menu.SetActive(false);
         }
     }
-
     public void SetAllClearAllLines()
     {
         SetAllClearNewLines();
@@ -206,7 +205,10 @@ public class TestManager : MonoBehaviour {
         }
         SaveDataForTest(lineDatas);
     }
-
+    public void TestMeditation()
+    {
+        //MediationTestSuite.Show();
+    }
     public void SaveDataForTest(LineData[] lineDatas)
     {
         BinaryFormatter formatter = new BinaryFormatter();
@@ -220,10 +222,6 @@ public class TestManager : MonoBehaviour {
         macroTestMenu.SetActive(active);
     }
 
-    public void MediationTest()
-    {
-        MediationTestSuite.Show();
-    }
 
     IEnumerator autoTouchMacro = null;
 

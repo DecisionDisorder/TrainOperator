@@ -9,6 +9,7 @@ public class TouchEarning : MonoBehaviour {
     public SettingManager button_Option;
     public LevelManager levelManager;
     public MacroDetector macroDetector;
+    public ItemManager itemManager;
     //-----------------------------------------------------------------------------
     public GameObject TouchMoney_Menu;
 	//-----------------------------------------------------------------------------
@@ -35,7 +36,8 @@ public class TouchEarning : MonoBehaviour {
     {
         yield return new WaitForSeconds(delay);
 
-        macroDetector.DetectTouchAmount(touchPerSecond);
+        if(!itemManager.itemActived)
+            macroDetector.DetectTouchAmount(touchPerSecond);
 
         randomSetTime--;
         touchPerSecond = 0;
@@ -69,7 +71,8 @@ public class TouchEarning : MonoBehaviour {
         if (touchPerSecond != 0)
             touchpersecond_text.text = "초당 " + touchPerSecond + "회 터치";
 
-        macroDetector.DetectInterval();
+        if (!itemManager.itemActived)
+            macroDetector.DetectInterval();
     }
 
     private void AddedMoneyEffect()

@@ -26,14 +26,14 @@ public class MacroDetector : MonoBehaviour
     }
 
     /// <summary>
-    /// 1초에 50회 이상을 10초 이상 유지시
+    /// 1초에 50회 이상을 45초 이상 유지시
     /// </summary>
     private void DetectTooMuchTouch(int touchPerSecond)
     {
-        if(touchPerSecond > 50)
+        if(touchPerSecond > 60)
         {
             tmtSeconds++;
-            if(tmtSeconds >= 10)
+            if(tmtSeconds >= 45)
             {
                 warnObj.SetActive(true);
             }
@@ -45,14 +45,14 @@ public class MacroDetector : MonoBehaviour
     }
 
     /// <summary>
-    /// 1초에 30회 이상 1분 이상 유지시
+    /// 1초에 30회 이상 3분 이상 유지시
     /// </summary>
     private void DetectMuchTouch(int touchPerSecond)
     {
         if (touchPerSecond > 30)
         {
             mtSeconds++;
-            if (mtSeconds >= 60)
+            if (mtSeconds >= 180)
             {
                 warnObj.SetActive(true);
             }
