@@ -182,17 +182,7 @@ public class ItemManager : MonoBehaviour
             cardTimerImg.sprite = colorCardAbilities[card].cardSprite;
             cardTimer.sprite = colorCardAbilities[card].cardSprite;
 
-            priorPassengerRandomFactor = TouchEarning.passengerRandomFactor;
-            TouchEarning.passengerRandomFactor *= (ulong)colorCardAbilities[card].ability[0];
-
-            colorCardTMFactor = (ulong)colorCardAbilities[card].ability[1];
-
-            TouchEarning.randomSetTime += duration; // 이벤트 시간 미룸
-            miniGameManager.timeLeft += duration;
-
-            CompanyReputationManager.instance.RenewPassengerRandom();
-            assetInfoUpdater.UpdateTimeMoneyText();
-
+            SetMassiveIncomeEnable(duration, (ulong)colorCardAbilities[card].ability[0], (ulong)colorCardAbilities[card].ability[1]);
 
             ActiveCards(false);
             StartCoroutine(ColorCardTimer(duration, duration));
@@ -201,13 +191,32 @@ public class ItemManager : MonoBehaviour
             messageManager.ShowMessage(colorCardAbilities[card].name + "를 보유하고 있지 않습니다.");
     }
 
-    private void DisableColorCardEffect()
+    public void SetMassiveIncomeEnable(int duration, ulong touchMoneyAbility, ulong timeMoneyAbility)
     {
-        DisableCardEffect();
+        priorPassengerRandomFactor = TouchEarning.passengerRandomFactor;
+        TouchEarning.passengerRandomFactor *= touchMoneyAbility;
+
+        colorCardTMFactor = timeMoneyAbility;
+
+        TouchEarning.randomSetTime += duration; // 이벤트 시간 미룸
+        miniGameManager.timeLeft += duration;
+
+        CompanyReputationManager.instance.RenewPassengerRandom();
+        assetInfoUpdater.UpdateTimeMoneyText();
+    }
+
+    public void SetMassiveIncomeDisable()
+    {
         TouchEarning.passengerRandomFactor = priorPassengerRandomFactor;
         colorCardTMFactor = 1;
         assetInfoUpdater.UpdateTimeMoneyText();
         CompanyReputationManager.instance.RenewPassengerRandom();
+    }
+
+    private void DisableColorCardEffect()
+    {
+        DisableCardEffect();
+        SetMassiveIncomeDisable();
     }
 
     IEnumerator ColorCardTimer(float remainTime, float fullTime, float interval = 0.1f)
@@ -282,8 +291,17 @@ public class ItemManager : MonoBehaviour
 
     private void ActiveCards(bool active)
     {
+        SetActiveColorCard(active);
+        SetActiveRareCard(active);
+    }
+
+    public void SetActiveColorCard(bool active)
+    {
         for (int i = 0; i < colorCardButtons.Length; i++)
             colorCardButtons[i].interactable = active;
+    }
+    public void SetActiveRareCard(bool active)
+    {
         for (int i = 0; i < rareCardButtons.Length; i++)
             rareCardButtons[i].interactable = active;
     }

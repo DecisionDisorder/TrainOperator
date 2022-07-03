@@ -1,25 +1,13 @@
 {
-    "m_SelectedDeviceId": "ce071717e5ad7613047e",
+    "m_SelectedDeviceId": "R5CT21A8KEZ",
     "m_SelectedPackage": {
-        "deviceId": "ce071717e5ad7613047e",
+        "deviceId": "R5CT21A8KEZ",
         "name": "com.saejong25.TrainOperator",
-        "processId": 17427,
+        "processId": 31991,
         "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
-        {
-            "deviceId": "R5CT21A8KEZ",
-            "name": "com.saejong25.TrainOperator",
-            "processId": 16840,
-            "exited": true
-        },
-        {
-            "deviceId": "R5CT21A8KEZ",
-            "name": "com.saejong25.TrainOperator",
-            "processId": 32676,
-            "exited": true
-        },
         {
             "deviceId": "R5CT21A8KEZ",
             "name": "com.saejong25.TrainOperator",
@@ -42,12 +30,24 @@
             "deviceId": "R5CT21A8KEZ",
             "name": "com.google.android.gms.ui",
             "processId": 21855,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "R5CT21A8KEZ",
             "name": "com.saejong25.TrainOperator",
             "processId": 24660,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CT21A8KEZ",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 31991,
+            "exited": false
+        },
+        {
+            "deviceId": "R5CT21A8KEZ",
+            "name": "com.google.android.gms.ui",
+            "processId": 32528,
             "exited": false
         },
         {

@@ -10,6 +10,7 @@ public class TouchEarning : MonoBehaviour {
     public LevelManager levelManager;
     public MacroDetector macroDetector;
     public ItemManager itemManager;
+    public FeverManager feverManager;
     //-----------------------------------------------------------------------------
     public GameObject TouchMoney_Menu;
 	//-----------------------------------------------------------------------------
@@ -65,13 +66,15 @@ public class TouchEarning : MonoBehaviour {
         touchPerSecond++;
         AssetMoneyCalculator.instance.ArithmeticOperation(TouchMoneyManager.TouchMoneyLow, TouchMoneyManager.TouchMoneyHigh, true);
         levelManager.AddExp();
-        if(button_Option.AddedMoneyEffect)
+        if(!feverManager.feverActived)
+            feverManager.AddFeverStack();
+        if (button_Option.AddedMoneyEffect)
             AddedMoneyEffect();
 
         if (touchPerSecond != 0)
             touchpersecond_text.text = "초당 " + touchPerSecond + "회 터치";
 
-        if (!itemManager.itemActived)
+        if (!itemManager.itemActived && !feverManager.feverActived)
             macroDetector.DetectInterval();
     }
 
