@@ -95,7 +95,7 @@ public class CompanyReputationManager : MonoBehaviour {
         {
             ulong passengersRandomLow = 0, passengersRandomHigh = 0;
             //TODO: 이 함수도 수정하기
-            TouchMoneyManager.PercentCalculation(TouchEarning.passengerRandomFactor, TouchMoneyManager.PassengersBaseLow, TouchMoneyManager.PassengersBaseHigh, ref passengersRandomLow, ref passengersRandomHigh);
+            TouchMoneyManager.PercentCalculation(TouchEarning.PassengerRandomFactor, TouchMoneyManager.PassengersBaseLow, TouchMoneyManager.PassengersBaseHigh, ref passengersRandomLow, ref passengersRandomHigh);
             TouchMoneyManager.PassengersRandomLow = passengersRandomLow;
             TouchMoneyManager.PassengersRandomHigh = passengersRandomHigh;
         }

@@ -7,7 +7,19 @@ using UnityEngine.UI;
 public class TimeMoneyManager : MonoBehaviour
 {
     public LargeVariable mediumTimeMoney { get { return myAsset.TimePerEarning * (revenueMagnification / 100f); } }
-    public LargeVariable finalTimeMoney { get { return mediumTimeMoney * levelManager.RevenueMagnification * itemManager.colorCardTMFactor; } }
+    public LargeVariable finalTimeMoney { get { return mediumTimeMoney * levelManager.RevenueMagnification * ExternalCoefficient; } }
+    public ulong externalCoefficient = 0;
+    private ulong ExternalCoefficient
+    {
+        get
+        {
+            if (externalCoefficient < 1)
+                return 1;
+            else
+                return externalCoefficient;
+        }
+    }
+
     private ulong revenueMagnification { get { return (ulong)companyReputationManager.revenueMagnification; } }
     public DateTime recentConnectedTime { get { return PlayManager.instance.playData.recentConnectedTime; } set { PlayManager.instance.playData.recentConnectedTime = value; } }
 

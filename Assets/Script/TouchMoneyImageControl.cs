@@ -23,20 +23,20 @@ public class TouchMoneyImageControl : MonoBehaviour {
     {
         yield return new WaitForSeconds(delay);
 
-        if (TouchEarning.passengerRandomFactor >= 140)
+        if (TouchEarning.PassengerRandomFactor >= 140)
         {
             delay = 0.5f;
             peopleImage.sprite = manyPeopleSprite[GetNextIndex()];
             adEffectAni.Play();
         }
-        else if (TouchEarning.passengerRandomFactor >= 100 && TouchEarning.passengerRandomFactor < 140)//터치당돈이 기준값보다 높을때
+        else if (TouchEarning.PassengerRandomFactor >= 100 && TouchEarning.PassengerRandomFactor < 140)//터치당돈이 기준값보다 높을때
         {
             delay = 0.8f;
             peopleImage.sprite = manyPeopleSprite[GetNextIndex()];
             adEffectAni.Stop();
             peopleImage.color = Color.white;
         }
-        else if (TouchEarning.passengerRandomFactor < 100)
+        else if (TouchEarning.PassengerRandomFactor < 100)
         {
             delay = 1.2f;
             peopleImage.sprite = lessPeopleSprite[GetNextIndex()];

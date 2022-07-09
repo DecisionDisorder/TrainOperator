@@ -50,17 +50,28 @@ public class StationCustomizeManager : MonoBehaviour
         ApplyToUI();
     }
 
-    private int GetAvailableLineLength()
+    private bool[] GetExpandedLines()
     {
-        int count = 0;
+        bool[] expandedLines = new bool[(int)Line.Gyeonggang];
         for(int i = 0; i < lineManager.lineCollections.Length; i++)
         {
             if (lineManager.lineCollections[i].isExpanded())
-                count++;
+                expandedLines[i] = true;
             else
-                break;
+                expandedLines[i] = false;
         }
-        return count;
+        return expandedLines;
+    }
+
+    private int GetAvailableLineLength()
+    {
+        int len = 0;
+        for (int i = 0; i < lineManager.lineCollections.Length; i++)
+        {
+            if (lineManager.lineCollections[i].isExpanded())
+                len++;
+        }
+        return len;
     }
 
     private void SetLineNames()
@@ -68,10 +79,15 @@ public class StationCustomizeManager : MonoBehaviour
         int lineLength = GetAvailableLineLength();
         lineNames = new string[lineLength];
         currentLineDropdown.ClearOptions();
-        for(int i = 0; i < lineLength; i++)
+        bool[] expandedLines = GetExpandedLines();
+
+        for(int i = 0; i < lineManager.lineCollections.Length; i++)
         {
-            lineNames[i] = lineManager.lineCollections[i].purchaseTrain.lineName;
-            currentLineDropdown.options.Add(new Dropdown.OptionData(lineNames[i]));
+            if (expandedLines[i])
+            {
+                lineNames[i] = lineManager.lineCollections[i].purchaseTrain.lineName;
+                currentLineDropdown.options.Add(new Dropdown.OptionData(lineNames[i]));
+            }
         }
         currentLineDropdown.value = CurrentLineIndex;
         currentLineDropdown.RefreshShownValue();

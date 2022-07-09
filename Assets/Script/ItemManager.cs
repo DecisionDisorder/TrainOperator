@@ -48,6 +48,7 @@ public class ItemManager : MonoBehaviour
     public AudioClip[] cardAudioClips;
 
     private delegate void AfterAnimation(int card);
+    public TimeMoneyManager timeMoneyManager;
 
     public int[] ColorCardAmounts
     {
@@ -72,8 +73,8 @@ public class ItemManager : MonoBehaviour
 
     public int CardPoint { get { return itemData.cardPoint; } set { itemData.cardPoint = value; SetCardPointText(); } }
 
-    private ulong priorPassengerRandomFactor;
-    public ulong colorCardTMFactor = 1;
+    private ulong activedTouchAbility;
+    public ulong activedTimeAbility;
 
     public int[] purchaseAmounts;
     public int[] colorPackPrices;
@@ -182,7 +183,7 @@ public class ItemManager : MonoBehaviour
             cardTimerImg.sprite = colorCardAbilities[card].cardSprite;
             cardTimer.sprite = colorCardAbilities[card].cardSprite;
 
-            SetMassiveIncomeEnable(duration, (ulong)colorCardAbilities[card].ability[0], (ulong)colorCardAbilities[card].ability[1]);
+            SetMassiveIncomeEnable(duration, (ulong)colorCardAbilities[card].ability[0], (ulong)colorCardAbilities[card].ability[1], ref activedTouchAbility, ref activedTimeAbility);
 
             ActiveCards(false);
             StartCoroutine(ColorCardTimer(duration, duration));
@@ -191,12 +192,13 @@ public class ItemManager : MonoBehaviour
             messageManager.ShowMessage(colorCardAbilities[card].name + "를 보유하고 있지 않습니다.");
     }
 
-    public void SetMassiveIncomeEnable(int duration, ulong touchMoneyAbility, ulong timeMoneyAbility)
+    public void SetMassiveIncomeEnable(int duration, ulong touchMoneyAbility, ulong timeMoneyAbility, ref ulong activedTouchAbility, ref ulong activedTimeAbility)
     {
-        priorPassengerRandomFactor = TouchEarning.passengerRandomFactor;
-        TouchEarning.passengerRandomFactor *= touchMoneyAbility;
+        TouchEarning.externalCoefficient += touchMoneyAbility;
+        activedTouchAbility = touchMoneyAbility;
 
-        colorCardTMFactor = timeMoneyAbility;
+        activedTimeAbility = timeMoneyAbility;
+        timeMoneyManager.externalCoefficient += timeMoneyAbility;
 
         TouchEarning.randomSetTime += duration; // 이벤트 시간 미룸
         miniGameManager.timeLeft += duration;
@@ -205,10 +207,10 @@ public class ItemManager : MonoBehaviour
         assetInfoUpdater.UpdateTimeMoneyText();
     }
 
-    public void SetMassiveIncomeDisable()
+    public void SetMassiveIncomeDisable(ulong activedTouchAbility, ulong activedTimeAbility)
     {
-        TouchEarning.passengerRandomFactor = priorPassengerRandomFactor;
-        colorCardTMFactor = 1;
+        TouchEarning.externalCoefficient -= activedTouchAbility;
+        timeMoneyManager.externalCoefficient -= activedTimeAbility;
         assetInfoUpdater.UpdateTimeMoneyText();
         CompanyReputationManager.instance.RenewPassengerRandom();
     }
@@ -216,7 +218,7 @@ public class ItemManager : MonoBehaviour
     private void DisableColorCardEffect()
     {
         DisableCardEffect();
-        SetMassiveIncomeDisable();
+        SetMassiveIncomeDisable(activedTouchAbility, activedTimeAbility);
     }
 
     IEnumerator ColorCardTimer(float remainTime, float fullTime, float interval = 0.1f)

@@ -19,11 +19,20 @@ public class FeverManager : MonoBehaviour
     public int possibilityOfAutoTouching = 30;
     public int massiveIncomeAmount = 5;
 
+    private ulong activedTouchAbility;
+    public ulong activedTimeAbility;
+
     public Color fillingColor;
     public Color filledColor;
 
     public Image feverImg;
     public Button feverButton;
+
+    public Animation feverStartAnimation;
+    public Image feverOuterLineImg;
+    public Sprite[] feverOuterLineSprites;
+
+    private int spriteIndex = 0;
 
     public TouchEarning touchEarning;
     public ItemManager itemManager;
@@ -85,6 +94,7 @@ public class FeverManager : MonoBehaviour
     {
         feverButton.image.raycastTarget = false;
         feverButton.enabled = false;
+        feverButton.gameObject.SetActive(false);
     }
 
     private void DisableFeverMode()
@@ -92,17 +102,19 @@ public class FeverManager : MonoBehaviour
         feverStack = 0;
         feverActived = false;
         SetFeverStackImage(0, true);
+        feverButton.gameObject.SetActive(true);
+        feverStartAnimation.gameObject.SetActive(false);
 
         // 이펙트 비활성화
-        if(selectedFeverMode == FeverMode.MassiveIncome)
+        if (selectedFeverMode == FeverMode.MassiveIncome)
         {
             // 수익율 원상복구
-            itemManager.SetMassiveIncomeDisable();
-            itemManager.SetActiveColorCard(true);
+            itemManager.SetMassiveIncomeDisable(activedTouchAbility, activedTimeAbility);
+            //itemManager.SetActiveColorCard(true);
         }
         else
         {
-            itemManager.SetActiveRareCard(true);
+            //itemManager.SetActiveRareCard(true);
         }
     }
 
@@ -113,17 +125,18 @@ public class FeverManager : MonoBehaviour
         if(rand < possibilityOfAutoTouching)
         {
             selectedFeverMode = FeverMode.AutoTouching;
-            itemManager.SetActiveRareCard(false);
+            //itemManager.SetActiveRareCard(false);
             StartAutoTouchingFever();
         }
         else
         {
             selectedFeverMode = FeverMode.MassiveIncome;
-            itemManager.SetActiveColorCard(false);
+            //itemManager.SetActiveColorCard(false);
             StartMassiveIncomeFever();
         }
         feverActived = true;
         DisableFeverButton();
+        StartFeverStartEffect();
     }
 
     private void StartAutoTouchingFever()
@@ -135,7 +148,7 @@ public class FeverManager : MonoBehaviour
     private void StartMassiveIncomeFever()
     {
         // 터치 및 시간형 수익 증가
-        itemManager.SetMassiveIncomeEnable((int)duration, (ulong)massiveIncomeAmount, (ulong)massiveIncomeAmount);
+        itemManager.SetMassiveIncomeEnable((int)duration, (ulong)massiveIncomeAmount, (ulong)massiveIncomeAmount, ref activedTouchAbility, ref activedTimeAbility);
         // 이펙트 활성화
         StartCoroutine(FeverModeTimer(duration));
     }
@@ -169,5 +182,27 @@ public class FeverManager : MonoBehaviour
             StartCoroutine(AutoTouching(touchAmountPerSecond, timeLeft));
         else
             DisableFeverMode();
+    }
+
+    private void StartFeverStartEffect()
+    {
+        feverStartAnimation.gameObject.SetActive(true);
+        feverStartAnimation.Play();
+        PlayManager.instance.WaitAnimation(feverStartAnimation, StartFeverSpreteChange);
+    }
+
+    private void StartFeverSpreteChange()
+    {
+        StartCoroutine(FeverSpriteChange(0.4f));
+    }
+
+    IEnumerator FeverSpriteChange(float interval)
+    {
+        yield return new WaitForSeconds(interval);
+
+        feverOuterLineImg.sprite = feverOuterLineSprites[(spriteIndex++) % 2];
+
+        if (feverActived)
+            StartCoroutine(FeverSpriteChange(interval));
     }
 }

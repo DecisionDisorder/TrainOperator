@@ -15,6 +15,17 @@ public class TouchEarning : MonoBehaviour {
     public GameObject TouchMoney_Menu;
 	//-----------------------------------------------------------------------------
 	public static ulong passengerRandomFactor;
+    public static ulong PassengerRandomFactor { get { return passengerRandomFactor * ExternalCoefficient; } }
+    public static ulong externalCoefficient = 0;
+    private static ulong ExternalCoefficient {
+        get
+        {
+            if (externalCoefficient < 1)
+                return 1;
+            else
+                return externalCoefficient;
+        }
+    }
 	//-----------------------------------------------------------------------------
 	
 	public static int randomSetTime = 0;
