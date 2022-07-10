@@ -28,11 +28,6 @@ public class ItemManager : MonoBehaviour
     public GameObject[] openCardPackMenus;
     public GameObject cardHelpMenu;
 
-    public GameObject purchaseCheckMenu;
-    public Text productText;
-    public Text amountText;
-    public Text priceText;
-
     public GameObject[] colorCardPackOpenImgs;
     public GameObject[] rareCardPackOpenImgs;
     public Animation[] colorPackOpenAni;
@@ -81,6 +76,8 @@ public class ItemManager : MonoBehaviour
     public int[] rarePackPrices;
     private int purchasePackType;
     private int purchaseAmountType;
+
+    public Color purchaseBackgroundColor;
 
     public bool itemActived;
 
@@ -313,51 +310,53 @@ public class ItemManager : MonoBehaviour
     {
         purchasePackType = 0;
         purchaseAmountType = type;
-        productText.text = "제품: 컬러 카드팩";
-        amountText.text = "수량: " + purchaseAmounts[type] + "개";
-        priceText.text = string.Format("가격: {0:#,##0}P", colorPackPrices[type]);
-        purchaseCheckMenu.SetActive(true);
+        string title = "카드팩 구매 확인";
+        string product = "제품: 컬러 카드팩";
+        string amount = "수량: " + purchaseAmounts[type] + "개";
+        string price = string.Format("가격: {0:#,##0}P", colorPackPrices[type]);
+
+        messageManager.SetPurchaseCheckMenu(title, product, amount, price, purchaseBackgroundColor, PurchasePack, Cancel);
     }
     public void OpenRarePackPurchaseCheck(int type)
     {
         purchasePackType = 1;
         purchaseAmountType = type;
-        productText.text = "제품: 레어 카드팩";
-        amountText.text = "수량: " + purchaseAmounts[type] + "개";
-        priceText.text = string.Format("가격: {0:#,##0}P", rarePackPrices[type]);
-        purchaseCheckMenu.SetActive(true);
+        string title = "카드팩 구매 확인";
+        string product = "제품: 레어 카드팩";
+        string amount = "수량: " + purchaseAmounts[type] + "개";
+        string price = string.Format("가격: {0:#,##0}P", rarePackPrices[type]);
+
+        messageManager.SetPurchaseCheckMenu(title, product, amount, price, purchaseBackgroundColor, PurchasePack, Cancel);
     }
 
-    public void PurchasePack(bool confirm)
+    private void Cancel() { }
+
+    public void PurchasePack()
     {
-        if (confirm)
+        if (purchasePackType.Equals(0))
         {
-            if (purchasePackType.Equals(0))
+            if (CardPoint >= colorPackPrices[purchaseAmountType])
             {
-                if (CardPoint >= colorPackPrices[purchaseAmountType])
-                {
-                    CardPoint -= colorPackPrices[purchaseAmountType];
-                    ColorPackAmount += purchaseAmounts[purchaseAmountType];
-                    messageManager.ShowMessage("컬러 카드팩 " + purchaseAmounts[purchaseAmountType] + "개를 구매하였습니다.");
-                    purchaseAudio.Play();
-                }
-                else
-                    messageManager.ShowMessage("카드 포인트가 부족합니다.");
+                CardPoint -= colorPackPrices[purchaseAmountType];
+                ColorPackAmount += purchaseAmounts[purchaseAmountType];
+                messageManager.ShowMessage("컬러 카드팩 " + purchaseAmounts[purchaseAmountType] + "개를 구매하였습니다.");
+                purchaseAudio.Play();
             }
             else
-            {
-                if (CardPoint >= rarePackPrices[purchaseAmountType])
-                {
-                    CardPoint -= rarePackPrices[purchaseAmountType];
-                    RarePackAmount += purchaseAmounts[purchaseAmountType];
-                    messageManager.ShowMessage("레어 카드팩 " + purchaseAmounts[purchaseAmountType] + "개를 구매하였습니다.");
-                    purchaseAudio.Play();
-                }
-                else
-                    messageManager.ShowMessage("카드 포인트가 부족합니다.");
-            }
+                messageManager.ShowMessage("카드 포인트가 부족합니다.");
         }
-        purchaseCheckMenu.SetActive(false);
+        else
+        {
+            if (CardPoint >= rarePackPrices[purchaseAmountType])
+            {
+                CardPoint -= rarePackPrices[purchaseAmountType];
+                RarePackAmount += purchaseAmounts[purchaseAmountType];
+                messageManager.ShowMessage("레어 카드팩 " + purchaseAmounts[purchaseAmountType] + "개를 구매하였습니다.");
+                purchaseAudio.Play();
+            }
+            else
+                messageManager.ShowMessage("카드 포인트가 부족합니다.");
+        }
     }
 
     private void SetPackAmountText()

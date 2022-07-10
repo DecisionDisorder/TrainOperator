@@ -16,8 +16,17 @@ public class MessageManager : MonoBehaviour
     public Image commonCheckMenu;
     public Text checkTitleText;
     public Text checkMessageText;
-    public delegate void CheckCallBack();
-    private CheckCallBack checkCallBack;
+    public delegate void CallBackFunc();
+    private CallBackFunc checkCallBack;
+
+    public GameObject purchaseCheckMenu;
+    public Image backgroundImg;
+    public Text titleText;
+    public Text productText;
+    public Text amountText;
+    public Text priceText;
+    private CallBackFunc purchaseCallback;
+    private CallBackFunc cancelCallback;
 
     IEnumerator erase = null;
 
@@ -57,7 +66,7 @@ public class MessageManager : MonoBehaviour
         StartCoroutine(DisablePopupMessage());
     }
 
-    public void OpenCommonCheckMenu(string title, string message, Color backgroundColor, CheckCallBack checkCallBackFunc)
+    public void OpenCommonCheckMenu(string title, string message, Color backgroundColor, CallBackFunc checkCallBackFunc)
     {
         checkTitleText.text = title;
         checkMessageText.text = message;
@@ -73,6 +82,27 @@ public class MessageManager : MonoBehaviour
             checkCallBack();
         }
         commonCheckMenu.gameObject.SetActive(false);
+    }
+
+    public void SetPurchaseCheckMenu(string title, string productName, string amount, string price, Color backgroundColor, CallBackFunc purchaseCallback, CallBackFunc cancelCallback)
+    {
+        titleText.text = title;
+        productText.text = productName;
+        amountText.text = amount;
+        priceText.text = price;
+        backgroundImg.color = backgroundColor;
+        this.purchaseCallback = purchaseCallback;
+        this.cancelCallback = cancelCallback;
+        purchaseCheckMenu.SetActive(true);
+    }
+
+    public void Purchase(bool confirm)
+    {
+        if (confirm)
+            purchaseCallback();
+        else
+            cancelCallback();
+        purchaseCheckMenu.SetActive(false);
     }
 
     IEnumerator DisablePopupMessage()
