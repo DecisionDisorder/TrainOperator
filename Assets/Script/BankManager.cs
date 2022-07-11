@@ -55,6 +55,9 @@ public class BankManager : MonoBehaviour {
     private ulong totalMoney;
     private ulong totalAddedMoney;
 
+    public GameObject bankProductMenu;
+    public GameObject lotteryTicketMenu;
+
     void Start()
     {
         StartCoroutine(CalTimer());
@@ -84,6 +87,16 @@ public class BankManager : MonoBehaviour {
 
         StartCoroutine(CalTimer());
     }
+
+    public void SetBankProductMenu(bool active)
+    {
+        bankProductMenu.SetActive(active);
+    }
+    public void SetLotteryTicketMenu(bool active)
+    {
+        lotteryTicketMenu.SetActive(active);
+    }
+
     public void PressKey(int nKey)
     {
         switch (nKey)

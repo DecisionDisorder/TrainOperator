@@ -7,14 +7,24 @@ public class LotteryTicketManager : MonoBehaviour
 {
     public DrawSet[] drawSets;
     public LotteryTicket[] lotteryTickets = new LotteryTicket[5];
+    public Text[] purchasedNumberTicketTexts;
+    public Text purchasedTicketPriceText;
+
+    public float lotteryIntervalTime;
+    public float lotteryRestartIntervalTime;
 
     private enum DrawProduct { Jackpot, Normal, Simple }
     private DrawProduct selectedDrawProduct;
 
+    private int numOfFilledTickets = 0;
     private int selectedTicket = 0;
     public Text selectedTicketText;
     private bool[] selectedStatus;
-    private int numOfSelected = 0;
+    private int numOfSelectedNumber = 0;
+
+    public ulong ticketPriceMultiply = 50;
+    public Text ticketPriceText;
+    public Text totalPriceText;
 
     public Button[] numberButtons;
     public Color selectedColor;
@@ -24,13 +34,17 @@ public class LotteryTicketManager : MonoBehaviour
     public GameObject purchaseTicketMenu;
 
     private bool timerStop = false;
+    public Text timerText;
 
     public Color purchaseBackgroundColor;
     public MessageManager messageManager;
+    public AudioSource purchaseAudioSource;
 
     private void Start()
     {
-        StartCoroutine(DrawTimer(10f));
+        StartCoroutine(DrawTimer(lotteryIntervalTime));
+        InitStatusOnPurchaseTexts();
+        SetPurchasedTicketText();
     }
 
     IEnumerator DrawTimer(float timeLeft, float interval = 1f)
@@ -40,15 +54,44 @@ public class LotteryTicketManager : MonoBehaviour
         if(!timerStop)
             timeLeft -= interval;
 
-        // 타이머 텍스트 갱신
+        timerText.text = "복권 추첨 시간: " + timeLeft + "초";
 
         if(timeLeft <= 0)
         {
-            //CompareDraws(GetDrawNumbers(drawSets[(int)selectedDrawProduct]));
+            DecideWin();
+            
+            //timeLeft = ;
+            // TODO : 번호 뽑고 난 뒤에는 일정 딜레이 후 재시작 시키기
+            yield return new WaitForSeconds(lotteryRestartIntervalTime);
+
+            timeLeft = lotteryIntervalTime;
         }
 
-        // TODO : 번호 뽑고 난 뒤에는 일정 딜레이 후 재시작 시키기
         StartCoroutine(DrawTimer(timeLeft));
+    }
+
+    private void DecideWin()
+    {
+        for (int i = 0; i < lotteryTickets.Length; i++)
+        {
+            if (lotteryTickets[i].selectedNumbers.Length > 0)
+            {
+                int correctAmount = CompareDraws(GetDrawNumbers(drawSets[(int)selectedDrawProduct]), lotteryTickets[i].selectedNumbers);
+                int maxAmount = drawSets[(int)selectedDrawProduct].numberOfPick;
+                if (correctAmount == maxAmount)
+                {
+                    // 1등
+                }
+                else if (correctAmount == maxAmount - 1)
+                {
+                    // 2등
+                }
+                else if (correctAmount == maxAmount - 2)
+                {
+                    // 3등
+                }
+            }
+        }
     }
 
     public void SetSelectProductMenu(bool active)
@@ -58,11 +101,36 @@ public class LotteryTicketManager : MonoBehaviour
 
     public void SelectDrawProduct(int index)
     {
-        timerStop = true;
-        selectedDrawProduct = (DrawProduct)index;
-        purchaseTicketMenu.SetActive(true);
-        InitStatusOnPurchaseTexts();
-        InitNumberButtons();
+        if (!CheckAlreadyPurchasedTicket())
+        {
+            timerStop = true;
+            selectedDrawProduct = (DrawProduct)index;
+            purchaseTicketMenu.SetActive(true);
+            InitStatusOnPurchaseTexts();
+            InitNumberButtons();
+            SetTicketPriceText();
+        }
+        else
+            messageManager.ShowMessage("이미 이번 회차의 복권을 구매하여 더이상 구매가 불가능합니다.");
+    }
+
+    private bool CheckAlreadyPurchasedTicket()
+    {
+        for (int i = 0; i < lotteryTickets.Length; i++)
+            if (lotteryTickets[i].selectedNumbers.Length > 0)
+                return true;
+
+        return false;
+    }
+
+    private void SetTicketPriceText()
+    {
+        SetTicketPriceText(ticketPriceText, "1장당 ", GetPricePerTicket());
+    }
+
+    private void SetTotalPriceText()
+    {
+        SetTicketPriceText(totalPriceText, "총액: ", GetTotalPrice());
     }
 
     public void SelectTicket(int index)
@@ -70,7 +138,7 @@ public class LotteryTicketManager : MonoBehaviour
         InitNumberButtons();
         selectedTicketText.text = "티켓 번호: " + (index + 1);
         selectedTicket = index;
-        if (lotteryTickets[index].selectedNumbers != null)
+        if (lotteryTickets[index].selectedNumbers.Length > 0)
         {
             for (int i = 0; i < lotteryTickets[index].selectedNumbers.Length; i++)
             {
@@ -82,7 +150,7 @@ public class LotteryTicketManager : MonoBehaviour
 
     private void InitNumberButtons()
     {
-        numOfSelected = 0;
+        numOfSelectedNumber = 0;
         selectedStatus = new bool[drawSets[(int)selectedDrawProduct].drawSize];
         for(int i = 0; i < numberButtons.Length; i++)
         {
@@ -97,6 +165,7 @@ public class LotteryTicketManager : MonoBehaviour
 
     private void InitStatusOnPurchaseTexts()
     {
+        numOfFilledTickets = 0;
         for (int i = 0; i < statusOnPurchaseTexts.Length; i++)
         {
             statusOnPurchaseTexts[i].text = (i + 1) + "번: 0 0 0 0 0";
@@ -105,19 +174,29 @@ public class LotteryTicketManager : MonoBehaviour
         }
     }
 
+    private void InitPurchasedNumbersText()
+    {
+        for (int i = 0; i < purchasedNumberTicketTexts.Length; i++)
+        {
+            purchasedNumberTicketTexts[i].text = (i + 1) + "번: 0 0 0 0 0";
+            if (drawSets[(int)selectedDrawProduct].numberOfPick.Equals(6))
+                purchasedNumberTicketTexts[i].text += " 0";
+        }
+    }
+
     public void NumberClick(int num)
     {
         if(selectedStatus[num])
         {
-            numOfSelected--;
+            numOfSelectedNumber--;
             selectedStatus[num] = false;
             numberButtons[num].image.color = Color.white;
         }
         else
         {
-            if (numOfSelected < drawSets[(int)selectedDrawProduct].numberOfPick)
+            if (numOfSelectedNumber < drawSets[(int)selectedDrawProduct].numberOfPick)
             {
-                numOfSelected++;
+                numOfSelectedNumber++;
                 selectedStatus[num] = true;
                 numberButtons[num].image.color = selectedColor;
             }
@@ -126,7 +205,7 @@ public class LotteryTicketManager : MonoBehaviour
 
     public void SelectNumberOnTicket()
     {
-        if (numOfSelected == drawSets[(int)selectedDrawProduct].numberOfPick)
+        if (numOfSelectedNumber == drawSets[(int)selectedDrawProduct].numberOfPick)
         {
             int[] selectedNumbers = new int[drawSets[(int)selectedDrawProduct].numberOfPick];
             int selectedCount = 0;
@@ -141,6 +220,8 @@ public class LotteryTicketManager : MonoBehaviour
                 }
             }
             lotteryTickets[selectedTicket].selectedNumbers = selectedNumbers;
+            numOfFilledTickets++;
+            SetTotalPriceText();
         }
         else
         {
@@ -150,17 +231,65 @@ public class LotteryTicketManager : MonoBehaviour
 
     public void CheckPurchase()
     {
-        string title = "복권 구매 확인";
-        string product = "제품: " + drawSets[(int)selectedDrawProduct].name;
-        string amount = "수량: "; // TODO : 수량 구하기
-        string price = "가격: "; // TODO : 가격 산정하기
-        messageManager.SetPurchaseCheckMenu(title, product, amount, price, purchaseBackgroundColor, BuyTickets, Cancel);
+        if (numOfFilledTickets > 0)
+        {
+            string title = "복권 구매 확인";
+            string product = "제품: " + drawSets[(int)selectedDrawProduct].name;
+            string amount = "수량: " + numOfFilledTickets + "장";
+            string priceLow = "", priceHigh = "";
+            LargeVariable priceVariable = GetTotalPrice();
+            PlayManager.ArrangeUnit(priceVariable.lowUnit, priceVariable.highUnit, ref priceLow, ref priceHigh, true);
+            string price = "가격: " + priceHigh + priceLow + "$";
+            messageManager.SetPurchaseCheckMenu(title, product, amount, price, purchaseBackgroundColor, BuyTickets, Cancel);
+        }
+        else
+        {
+            messageManager.ShowMessage("선택한 복권 번호가 없습니다.");
+        }
+    }
+
+    private void SetPurchasedTicketText()
+    {
+        for (int i = 0; i < purchasedNumberTicketTexts.Length; i++)
+        {
+            if (lotteryTickets[i].selectedNumbers.Length > 0)
+            {
+                purchasedNumberTicketTexts[i].text = (i + 1) + "번: ";
+                for (int j = 0; j < lotteryTickets[i].selectedNumbers.Length; j++)
+                    purchasedNumberTicketTexts[i].text += lotteryTickets[i].selectedNumbers[j] + " ";
+            }
+        }
+    }
+    private LargeVariable GetPricePerTicket()
+    {
+        return MyAsset.instance.GetTotalRevenue() * ticketPriceMultiply;
+    }
+
+    private LargeVariable GetTotalPrice()
+    {
+        return GetPricePerTicket() * numOfFilledTickets;
     }
 
     public void BuyTickets()
     {
-        purchaseTicketMenu.SetActive(false);
-        timerStop = false;
+        if (AssetMoneyCalculator.instance.ArithmeticOperation(GetTotalPrice(), false))
+        {
+            purchaseTicketMenu.SetActive(false);
+            timerStop = false;
+            SetPurchasedTicketText();
+            SetTicketPriceText(purchasedTicketPriceText, "기준 구매 금액: ", GetPricePerTicket());
+            purchaseAudioSource.Play();
+            messageManager.ShowMessage("복권을 " + numOfFilledTickets + "장 구매했습니다.");
+        }
+        else
+            PlayManager.instance.LackOfMoney();
+    }
+
+    private void SetTicketPriceText(Text text, string title, LargeVariable price)
+    {
+        string priceLow = "", priceHigh = "";
+        PlayManager.ArrangeUnit(price.lowUnit, price.highUnit, ref priceLow, ref priceHigh, true);
+        text.text = title + priceHigh + priceLow + "$";
     }
 
     private void Cancel() { }
@@ -169,6 +298,7 @@ public class LotteryTicketManager : MonoBehaviour
     {
         lotteryTickets = new LotteryTicket[5];
         purchaseTicketMenu.SetActive(false);
+        totalPriceText.text = "";
         timerStop = false;
     }
 
@@ -218,6 +348,6 @@ public class DrawSet
 [System.Serializable]
 public class LotteryTicket
 {
-    public int[] selectedNumbers = null;
+    public int[] selectedNumbers;
     public ulong purchaseAmount;
 }

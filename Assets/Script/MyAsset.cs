@@ -132,6 +132,16 @@ public class MyAsset : MonoBehaviour {
 		highUnit = tmHigh + PassengersHigh;
     }
 
+	public LargeVariable GetTotalRevenue()
+    {
+		LargeVariable variable = TimePerEarning;
+		LargeVariable passenger = new LargeVariable(PassengersLow, PassengersHigh);
+		variable *= 0.15f;
+		variable += passenger;
+
+		return variable;
+    }
+
 	public bool TimeEarningOperator(ulong firstUnit, ulong secondUnit, bool plus)//외부 스크립트 호출용
 	{
 		ulong tineMoneyLow = TimePerEarningLow;
