@@ -28,13 +28,11 @@ public class TimeMoneyManager : MonoBehaviour
     /// </summary>
     public readonly int maxRewardTime = 7200;
 
-    public GameObject offlineRevenueReport;
-    public Text revenueReportText;
-
     public MyAsset myAsset;
     public CompanyReputationManager companyReputationManager;
     public LevelManager levelManager;
     public ItemManager itemManager;
+    public MessageManager messageManager;
 
     void Start()
     {
@@ -71,15 +69,11 @@ public class TimeMoneyManager : MonoBehaviour
                 string revenueLow = "", revenueHigh = "";
                 PlayManager.ArrangeUnit(revenue.lowUnit, revenue.highUnit, ref revenueLow, ref revenueHigh, true);
                 AssetMoneyCalculator.instance.ArithmeticOperation(revenue, true);
-                revenueReportText.text = "자리를 비우신 사이에 <color=green>" + revenueHigh + revenueLow + "$</color>만큼의 수익이 발생하였습니다.";
+                string title = "시간형 수익 발생 보고서";
+                string revenueReportMsg = "자리를 비우신 사이에 <color=green>" + revenueHigh + revenueLow + "$</color>만큼의 수익이 발생하였습니다.";
+                messageManager.ShowRevenueReport(title, revenueReportMsg);
                 DataManager.instance.SaveAll();
-                offlineRevenueReport.SetActive(true);
             }
         }
-    }
-
-    public void ConfirmReport()
-    {
-        offlineRevenueReport.SetActive(false);
     }
 }

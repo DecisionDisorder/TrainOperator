@@ -28,6 +28,10 @@ public class MessageManager : MonoBehaviour
     private CallBackFunc purchaseCallback;
     private CallBackFunc cancelCallback;
 
+    public GameObject revenueAlarmMenu;
+    public Text revenueTitleText;
+    public Text revenueMessageText;
+
     IEnumerator erase = null;
 
     public void ShowMessage(string msg, float time = 1.0f)
@@ -103,6 +107,18 @@ public class MessageManager : MonoBehaviour
         else
             cancelCallback();
         purchaseCheckMenu.SetActive(false);
+    }
+
+    public void ShowRevenueReport(string title, string msg)
+    {
+        revenueTitleText.text = title;
+        revenueMessageText.text = msg;
+        revenueAlarmMenu.SetActive(true);
+    }
+
+    public void CloseRevenueReport()
+    {
+        revenueAlarmMenu.SetActive(false);
     }
 
     IEnumerator DisablePopupMessage()

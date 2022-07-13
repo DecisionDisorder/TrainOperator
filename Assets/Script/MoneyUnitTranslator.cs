@@ -303,4 +303,27 @@ public struct LargeVariable
         else
             return false;
     }
+    public static bool operator ==(LargeVariable variable1, LargeVariable variable2)
+    {
+        int result = MoneyUnitTranslator.Compare(variable1.lowUnit, variable1.highUnit, variable2.lowUnit, variable2.highUnit);
+        if (result == 0)
+            return true;
+        else
+            return false;
+    }
+    public static bool operator !=(LargeVariable variable1, LargeVariable variable2)
+    {
+        int result = MoneyUnitTranslator.Compare(variable1.lowUnit, variable1.highUnit, variable2.lowUnit, variable2.highUnit);
+        if (result != 0)
+            return true;
+        else
+            return false;
+    }
+
+    public override string ToString()
+    {
+        string low = "", high = "";
+        PlayManager.ArrangeUnit(lowUnit, highUnit, ref low, ref high);
+        return high + low;
+    }
 }
