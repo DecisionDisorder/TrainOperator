@@ -17,5 +17,10 @@ public class LotteryData
 
     public LargeVariable unreceivedReward;
 
-    public float drawTimeLeft;
+    public int drawTimeLeft;
+
+    public LotteryData()
+    {
+        drawTimeLeft = 600;
+    }
 }
