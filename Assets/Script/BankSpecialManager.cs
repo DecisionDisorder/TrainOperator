@@ -75,6 +75,8 @@ public class BankSpecialManager : MonoBehaviour
 
     public static ulong standard_maximum = 10000000000000000;
 
+    public AchievementManager achievementManager;
+
     void Start()
     {
         StartCoroutine(CalTimer());
@@ -624,9 +626,11 @@ public class BankSpecialManager : MonoBehaviour
 
     void Cal_Merchandise_withdraw()
     {
+        LargeVariable interest = LargeVariable.zero;
         if (merchandiseWD_text.text == "상품: 스페셜A")
         {
             AssetMoneyCalculator.instance.ArithmeticOperation(withdrawMoneyLow, withdrawMoneyHigh, true);
+            interest = new LargeVariable(AddedMoneyLow[0], AddedMoneyHigh[0]);
             AddedMoneyLow[0] = 0;
             SavedMoneyHigh[0] = 0;
             AddedMoneyHigh[0] = 0;
@@ -636,6 +640,7 @@ public class BankSpecialManager : MonoBehaviour
         else if (merchandiseWD_text.text == "상품: 스페셜S")
         {
             AssetMoneyCalculator.instance.ArithmeticOperation(withdrawMoneyLow, withdrawMoneyHigh, true);
+            interest = new LargeVariable(AddedMoneyLow[1], AddedMoneyHigh[1]);
             AddedMoneyLow[1] = 0;
             SavedMoneyHigh[1] = 0;
             AddedMoneyHigh[1] = 0;
@@ -645,12 +650,14 @@ public class BankSpecialManager : MonoBehaviour
         else if (merchandiseWD_text.text == "상품: 스페셜S+")
         {
             AssetMoneyCalculator.instance.ArithmeticOperation(withdrawMoneyLow, withdrawMoneyHigh, true);
+            interest = new LargeVariable(AddedMoneyLow[2], AddedMoneyHigh[2]);
             AddedMoneyLow[2] = 0;
             SavedMoneyHigh[2] = 0;
             AddedMoneyHigh[2] = 0;
             ContractTime[2] = 0;
             IsRegistered[2] = false;
         }
+        achievementManager.cumulativeInterest += interest * 1.1f;
     }
     private void CalculateMoney()
     {

@@ -123,7 +123,7 @@ public class LineManager : MonoBehaviour
 
     public Line GetRecentlyOpenedLine()
     {
-        for(int i = (int)Line.Gyeonggang; i >= 0; i--)
+        for(int i = lineCollections.Length - 1; i >= 0; i--)
         {
             if (lineCollections[i].isExpanded())
                 return (Line)i;

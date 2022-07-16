@@ -27,6 +27,40 @@ public class PlayManager : MonoBehaviour
         TouchMoneyManager.Multiply(instance.averageTouch * clearTime, ref rewardLow, ref rewardHigh);
     }
 
+    public static string GetSimpleUnit(ulong lowValue, ulong highValue)
+    {
+        string result = "";
+        if (lowValue == 0 && highValue == 0)
+            result = "0";
+        else
+        {
+            if(highValue == 0)
+            {
+                if (lowValue < 10000)
+                    result = lowValue.ToString();
+                else if (lowValue < 100000000)
+                    result = (lowValue / 10000) + "만";
+                else if (lowValue < 1000000000000)
+                    result = (lowValue / 100000000) + "억";
+                else
+                    result = (lowValue / 1000000000000) + "조";
+            }
+            else
+            {
+                if (highValue < 10000)
+                    result = highValue + "경";
+                else if (highValue < 100000000)
+                    result = (highValue / 10000) + "해";
+                else if (highValue < 1000000000000)
+                    result = (highValue / 100000000) + "자";
+                else
+                    result = (highValue / 1000000000000) + "양";
+            }
+        }
+
+        return result;
+    }
+
     public static void ArrangeUnit(ulong lowValue, ulong highValue, ref string resultLow, ref string resultHigh, bool detailed = false)
     {
         if (lowValue == 0)

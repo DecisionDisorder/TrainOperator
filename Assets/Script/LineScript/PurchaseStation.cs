@@ -30,6 +30,7 @@ public class PurchaseStation : MonoBehaviour
     public LineCollection lineCollection;
     public LineManager lineManager;
     public LineDataManager lineDataManager;
+    public AchievementManager achievementManager;
 
     public AudioSource purchaseSound;
 
@@ -95,6 +96,7 @@ public class PurchaseStation : MonoBehaviour
                             lineManager.lineCollections[(int)Line.SuinBundang].lineData.hasStation[i + 26] = true;
                         stationImgs[i].color = buttonColorManager.lineColor;
                         MyAsset.instance.NumOfStations++;
+                        achievementManager.totalStationAmount++;
                         purchaseCount++;
                         DataManager.instance.SaveAll();
                         purchaseSound.Play();

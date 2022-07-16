@@ -58,6 +58,8 @@ public class BankManager : MonoBehaviour {
     public GameObject bankProductMenu;
     public GameObject lotteryTicketMenu;
 
+    public AchievementManager achievementManager;
+
     void Start()
     {
         StartCoroutine(CalTimer());
@@ -518,9 +520,12 @@ public class BankManager : MonoBehaviour {
 
     void Cal_Merchandise_withdraw()
     {
+        LargeVariable interest = LargeVariable.zero;
         if (merchandiseWD_text.text == "상품: A")
         {
             AssetMoneyCalculator.instance.ArithmeticOperation(withdrawMoney, 0, true);
+            interest = new LargeVariable(AddedMoney[0], 0);
+            
             SavedMoney[0] = 0;
             AddedMoney[0] = 0;
             ContractTime[0] = 0;
@@ -529,6 +534,8 @@ public class BankManager : MonoBehaviour {
         else if (merchandiseWD_text.text == "상품: B")
         {
             AssetMoneyCalculator.instance.ArithmeticOperation(withdrawMoney, 0, true);
+            interest = new LargeVariable(AddedMoney[1], 0);
+
             SavedMoney[1] = 0;
             AddedMoney[1] = 0;
             ContractTime[1] = 0;
@@ -537,11 +544,14 @@ public class BankManager : MonoBehaviour {
         else if (merchandiseWD_text.text == "상품: C")
         {
             AssetMoneyCalculator.instance.ArithmeticOperation(withdrawMoney, 0, true);
+            interest = new LargeVariable(AddedMoney[2], 0);
+
             SavedMoney[2] = 0;
             AddedMoney[2] = 0;
             ContractTime[2] = 0;
             IsRegistered[2] = false;
         }
+        achievementManager.cumulativeInterest += interest * 1.1f;
     }
     private void CalculateMoney()
     {

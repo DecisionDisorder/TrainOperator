@@ -11,6 +11,7 @@ public class TouchEarning : MonoBehaviour {
     public MacroDetector macroDetector;
     public ItemManager itemManager;
     public FeverManager feverManager;
+    public AchievementManager achievementManager;
     //-----------------------------------------------------------------------------
     public GameObject TouchMoney_Menu;
 	//-----------------------------------------------------------------------------
@@ -75,6 +76,7 @@ public class TouchEarning : MonoBehaviour {
 	{
         touchAudio.PlayOneShot(audioclip);
         touchPerSecond++;
+        achievementManager.touchCount++;
         AssetMoneyCalculator.instance.ArithmeticOperation(TouchMoneyManager.TouchMoneyLow, TouchMoneyManager.TouchMoneyHigh, true);
         levelManager.AddExp();
         if(!feverManager.feverActived)
