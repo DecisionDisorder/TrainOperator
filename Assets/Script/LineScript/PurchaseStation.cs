@@ -96,7 +96,7 @@ public class PurchaseStation : MonoBehaviour
                             lineManager.lineCollections[(int)Line.SuinBundang].lineData.hasStation[i + 26] = true;
                         stationImgs[i].color = buttonColorManager.lineColor;
                         MyAsset.instance.NumOfStations++;
-                        achievementManager.totalStationAmount++;
+                        achievementManager.TotalStationAmount++;
                         purchaseCount++;
                         DataManager.instance.SaveAll();
                         purchaseSound.Play();

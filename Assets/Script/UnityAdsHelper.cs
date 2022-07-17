@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Advertisements;
 
-public class UnityAdsHelper : MonoBehaviour, IUnityAdsListener
+public class UnityAdsHelper : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener
 {
     public MessageManager messageManager;
     //public OpeningCardPack openingCardPack;
@@ -20,8 +20,8 @@ public class UnityAdsHelper : MonoBehaviour, IUnityAdsListener
 
     private void Start()
     {
-		Advertisement.AddListener(this);
 		Advertisement.Initialize(gameID, testMode);
+        LoadAd();
     }
 
     public void StartCoolTime(int index)
@@ -53,26 +53,6 @@ public class UnityAdsHelper : MonoBehaviour, IUnityAdsListener
         }
     }
 
-    public void ShowRewardedAd()
-	{
-        StartCoroutine(ShowAdWhenReady());
-	}
-
-    IEnumerator ShowAdWhenReady()
-    {
-        while(!Advertisement.IsReady(myPlacementId))
-        {
-            yield return null;
-        }
-        StartCoolTime(1);
-        Advertisement.Show(myPlacementId);
-    }
-
-    private void OnDisable()
-    {
-        Advertisement.RemoveListener(this);
-    }
-
     public void Reward()
     {
         //openingCardPack.SilverCardAmount++;
@@ -85,41 +65,59 @@ public class UnityAdsHelper : MonoBehaviour, IUnityAdsListener
         DataManager.instance.SaveAll();
     }
 
-    #region UnityAdListener interfaces
-    public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
+    public void LoadAd()
     {
-        if (showResult == ShowResult.Finished)
+        Advertisement.Load(myPlacementId, this);
+    }
+
+    #region UnityAdsLoadListener Interface
+    public void OnUnityAdsAdLoaded(string placementId)
+    {
+        //Debug.LogFormat("OnUnityAdsAdLoaded: {0}", placementId);
+    }
+    public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
+    {
+        //Debug.LogFormat("OnUnityAdsFailedToLoad: {0}, {1}, {2}", placementId, error, message);
+    }
+    #endregion
+
+    #region UnityAdsShowListener interfaces
+    // Implement a method to execute when the user clicks the button.
+    public void ShowAd()
+    {
+        // Then show the ad:
+        StartCoolTime(1);
+        Advertisement.Show(myPlacementId, this);
+    }
+
+    public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
+    {
+        //Debug.LogFormat("OnUnityAdsShowFailure: {0}, {1}, {2}", placementId, error, message);
+    }
+
+    public void OnUnityAdsShowStart(string placementId)
+    {
+        //Debug.LogFormat("OnUnityAdsShowStart: {0}", placementId);
+    }
+
+    public void OnUnityAdsShowClick(string placementId)
+    {
+        //Debug.LogFormat("OnUnityAdsShowClick: {0}", placementId);
+    }
+
+    public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
+    {
+        Debug.LogFormat("OnUnityAdsShowComplete: {0}, {1}", placementId, showCompletionState.ToString());
+
+        if (myPlacementId.Equals(placementId) && showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
         {
+            //Debug.Log("Unity Ads Rewarded Ad Completed");
+            // Grant a reward.
+            //Debug.Log("보상을 받았습니다.");
             Reward();
-        }
-        else if (showResult == ShowResult.Skipped)
-        {
 
-        }
-        else if (showResult == ShowResult.Failed)
-        {
-            messageManager.ShowMessage("광고가 준비되지 않았습니다.", 1.5f);
-        }
-    }
-
-    public void OnUnityAdsReady(string placementId)
-    {
-        if (placementId == myPlacementId)
-        {
-            //Advertisement.Show();
-        }
-    }
-
-    public void OnUnityAdsDidError(string message)
-    {
-        Debug.LogError("OnUnityAdsDiderror : " + message);
-    }
-
-    public void OnUnityAdsDidStart(string placementId)
-    {
-        if (placementId == myPlacementId)
-        {
-            //Advertisement.Show();
+            // Load another ad:
+            Advertisement.Load(myPlacementId, this);
         }
     }
     #endregion

@@ -551,7 +551,7 @@ public class BankManager : MonoBehaviour {
             ContractTime[2] = 0;
             IsRegistered[2] = false;
         }
-        achievementManager.cumulativeInterest += interest * 1.1f;
+        achievementManager.CumulativeInterest += interest * 1.1f;
     }
     private void CalculateMoney()
     {

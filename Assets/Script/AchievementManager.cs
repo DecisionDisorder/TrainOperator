@@ -11,11 +11,13 @@ public class AchievementManager : MonoBehaviour
 
     public int maxAchvLevel = 5;
 
-    public int[] achvClearLevels = new int[9];
-    public LargeVariable maxMoney;
-    public int touchCount;
-    public int totalStationAmount;
-    public LargeVariable cumulativeInterest;
+    public AchievementData achievementData;
+
+    public int[] AchvClearLevels { set { achievementData.achvClearLevels = value; } get { return achievementData.achvClearLevels; } }
+    public LargeVariable MaxMoney { set { achievementData.maxMoney = value; } get { return achievementData.maxMoney; } }
+    public int TouchCount { set { achievementData.touchCount = value; } get { return achievementData.touchCount; } }
+    public int TotalStationAmount { set { achievementData.totalStationAmount = value; } get { return achievementData.totalStationAmount; } }
+    public LargeVariable CumulativeInterest { set { achievementData.cumulativeInterest = value; } get { return achievementData.cumulativeInterest; } }
     public int TotalTrainAmount {
         get
         {
@@ -57,6 +59,7 @@ public class AchievementManager : MonoBehaviour
     }
 
     public GameObject achivementMenu;
+    public GameObject alarmObj;
 
     public LevelManager levelManager;
     public DriversManager driversManager;
@@ -79,7 +82,9 @@ public class AchievementManager : MonoBehaviour
 
     void Start()
     {
-        totalStationAmount = CountTotalStationAmount(); // TODO: 최초 1회만
+        if(TotalStationAmount == 0 && MaxMoney == LargeVariable.zero)
+            TotalStationAmount = CountTotalStationAmount();
+        StartCoroutine(UpdateAlarm());
     }
 
     public void SetAchivementMenu(bool active)
@@ -103,27 +108,45 @@ public class AchievementManager : MonoBehaviour
             StartCoroutine(AchivementUpdater());
     }
 
+    IEnumerator UpdateAlarm()
+    {
+        yield return new WaitForSeconds(3);
+
+        bool active = false;
+        for (int i = 0; i < achievements.Length; i++)
+        {
+            if (CheckMeetConditions(i))
+            {
+                active = true;
+                break;
+            }
+        }
+        alarmObj.SetActive(active);
+
+        StartCoroutine(UpdateAlarm());
+    }
+
     public void ReceiveReward(int index)
     {
         if (CheckMeetConditions(index))
         {
             if (achievements[index].rewardType == AchievementRewardType.CardPoint)
             {
-                itemManager.CardPoint += achievements[index].rewardAmounts[achvClearLevels[index]];
+                itemManager.CardPoint += achievements[index].rewardAmounts[AchvClearLevels[index]];
             }
             else if (achievements[index].rewardType == AchievementRewardType.FeverCoupon)
             {
-                // 피버 충전 쿠폰 구현 후 추가 += achievements[index].rewardAmounts[achvClearLevels[index]];
+                itemManager.FeverRefillAmount += achievements[index].rewardAmounts[AchvClearLevels[index]];
             }
             else if (achievements[index].rewardType == AchievementRewardType.ColorCardPack)
             {
-                itemManager.ColorPackAmount += achievements[index].rewardAmounts[achvClearLevels[index]];
+                itemManager.ColorPackAmount += achievements[index].rewardAmounts[AchvClearLevels[index]];
             }
             else if (achievements[index].rewardType == AchievementRewardType.RareCardPack)
             {
-                itemManager.RarePackAmount += achievements[index].rewardAmounts[achvClearLevels[index]];
+                itemManager.RarePackAmount += achievements[index].rewardAmounts[AchvClearLevels[index]];
             }
-            achvClearLevels[index]++;
+            AchvClearLevels[index]++;
             UpdateRateAndSliders();
         }
         else
@@ -134,33 +157,42 @@ public class AchievementManager : MonoBehaviour
     {
         for(int i = 0; i < achievements.Length; i++)
         {
-            if (achvClearLevels[i] < maxAchvLevel)
+            if (AchvClearLevels[i] < maxAchvLevel)
             {
                 TargetVariable criteriaVariable = GetCriteriaAmount(i);
                 TargetVariable currentVariable = GetTargetVariable(i);
                 if (criteriaVariable.returnType == TargetVariable.ReturnType.Int)
                 {
-                    achievements[i].achivementSlider.maxValue = achievements[i].criteriaInt[achvClearLevels[i]];
+                    achievements[i].achivementSlider.maxValue = achievements[i].criteriaInt[AchvClearLevels[i]];
                     achievements[i].achivementSlider.value = currentVariable.TargetInt;
-                    achievements[i].rateText.text = currentVariable.TargetInt + "/" + achievements[i].criteriaInt[achvClearLevels[i]];
+                    string currentVal = string.Format("{0:#,##0}", currentVariable.TargetInt), criteriaVal = string.Format("{0:#,##0}", achievements[i].criteriaInt[AchvClearLevels[i]]);
+                    achievements[i].rateText.text =currentVal + "/" + criteriaVal;
                 }
                 else
                 {
-                    if (achievements[i].criteriaLargeVariable[achvClearLevels[i]].highUnit == 0)
+                    if (achievements[i].criteriaLargeVariable[AchvClearLevels[i]].highUnit == 0 && currentVariable.TargetLargeVariable.highUnit > 0)
                     {
-                        achievements[i].achivementSlider.maxValue = achievements[i].criteriaLargeVariable[achvClearLevels[i]].lowUnit;
-                        achievements[i].achivementSlider.value = currentVariable.TargetLargeVariable.lowUnit;
+                        achievements[i].achivementSlider.maxValue = achievements[i].criteriaLargeVariable[AchvClearLevels[i]].lowUnit;
+                        achievements[i].achivementSlider.value = achievements[i].achivementSlider.maxValue;
                     }
                     else
                     {
-                        achievements[i].achivementSlider.maxValue = achievements[i].criteriaLargeVariable[achvClearLevels[i]].highUnit;
-                        achievements[i].achivementSlider.value = currentVariable.TargetLargeVariable.highUnit;
+                        if (achievements[i].criteriaLargeVariable[AchvClearLevels[i]].highUnit == 0)
+                        {
+                            achievements[i].achivementSlider.maxValue = achievements[i].criteriaLargeVariable[AchvClearLevels[i]].lowUnit;
+                            achievements[i].achivementSlider.value = currentVariable.TargetLargeVariable.lowUnit;
+                        }
+                        else
+                        {
+                            achievements[i].achivementSlider.maxValue = achievements[i].criteriaLargeVariable[AchvClearLevels[i]].highUnit;
+                            achievements[i].achivementSlider.value = currentVariable.TargetLargeVariable.highUnit;
+                        }
                     }
                     string current = PlayManager.GetSimpleUnit(currentVariable.TargetLargeVariable.lowUnit, currentVariable.TargetLargeVariable.highUnit);
                     string criteria = PlayManager.GetSimpleUnit(criteriaVariable.TargetLargeVariable.lowUnit, criteriaVariable.TargetLargeVariable.highUnit);
                     achievements[i].rateText.text = current + "/" + criteria;
                 }
-                achievements[i].rewardAmountText.text = achievements[i].rewardAmounts[achvClearLevels[i]].ToString();
+                achievements[i].rewardAmountText.text = achievements[i].rewardAmounts[AchvClearLevels[i]].ToString();
             }
             else
             {
@@ -177,12 +209,12 @@ public class AchievementManager : MonoBehaviour
         switch(index)
         {
             case 0:
-                if (MyAsset.instance.Money > maxMoney)
-                    maxMoney = MyAsset.instance.Money;
-                targetVariable.TargetLargeVariable = maxMoney;
+                if (MyAsset.instance.Money > MaxMoney)
+                    MaxMoney = MyAsset.instance.Money;
+                targetVariable.TargetLargeVariable = MaxMoney;
                 break;
             case 1:
-                targetVariable.TargetInt = touchCount;
+                targetVariable.TargetInt = TouchCount;
                 break;
             case 2:
                 targetVariable.TargetInt = levelManager.Level;
@@ -194,7 +226,7 @@ public class AchievementManager : MonoBehaviour
                 targetVariable.TargetInt = TotalNumOfDrivers;
                 break;
             case 5:
-                targetVariable.TargetInt = totalStationAmount;
+                targetVariable.TargetInt = TotalStationAmount;
                 break;
             case 6:
                 targetVariable.TargetInt = TotalTrainExpandAmount;
@@ -203,7 +235,7 @@ public class AchievementManager : MonoBehaviour
                 targetVariable.TargetInt = TotalRentAmount;
                 break;
             case 8:
-                targetVariable.TargetLargeVariable = cumulativeInterest;
+                targetVariable.TargetLargeVariable = CumulativeInterest;
                 break;
         }
 
@@ -214,29 +246,34 @@ public class AchievementManager : MonoBehaviour
     {
         TargetVariable targetVariable = new TargetVariable();
         if (achievements[index].criteriaInt.Length > 0)
-            targetVariable.TargetInt = achievements[index].criteriaInt[achvClearLevels[index]];
+            targetVariable.TargetInt = achievements[index].criteriaInt[AchvClearLevels[index]];
         else
-            targetVariable.TargetLargeVariable = achievements[index].criteriaLargeVariable[achvClearLevels[index]];
+            targetVariable.TargetLargeVariable = achievements[index].criteriaLargeVariable[AchvClearLevels[index]];
         return targetVariable;
     }
 
     private bool CheckMeetConditions(int index)
     {
-        TargetVariable targetVariable = GetTargetVariable(index);
-        if(targetVariable.returnType == TargetVariable.ReturnType.Int)
+        if (AchvClearLevels[index] < maxAchvLevel)
         {
-            if (targetVariable.TargetInt >= achievements[index].criteriaInt[achvClearLevels[index]])
-                return true;
+            TargetVariable targetVariable = GetTargetVariable(index);
+            if (targetVariable.returnType == TargetVariable.ReturnType.Int)
+            {
+                if (targetVariable.TargetInt >= achievements[index].criteriaInt[AchvClearLevels[index]])
+                    return true;
+                else
+                    return false;
+            }
             else
-                return false;
+            {
+                if (targetVariable.TargetLargeVariable >= achievements[index].criteriaLargeVariable[AchvClearLevels[index]])
+                    return true;
+                else
+                    return false;
+            }
         }
         else
-        {
-            if (targetVariable.TargetLargeVariable >= achievements[index].criteriaLargeVariable[achvClearLevels[index]])
-                return true;
-            else
-                return false;
-        }
+            return false;
     }
 
     private int CountTotalStationAmount()

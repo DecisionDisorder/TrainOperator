@@ -7,7 +7,18 @@ public class FeverManager : MonoBehaviour
 {
     public bool feverActived = false;
 
-    public int feverStack;
+    public int FeverStack {
+        set
+        {
+            MyAsset.instance.myAssetData.feverStack = value;
+            SetFeverStackImage(GetFeverRatio(), true);
+            if (FeverStack >= targetFeverStack)
+            {
+                ActiveFeverMode();
+            }
+        }
+        get { return MyAsset.instance.myAssetData.feverStack; } 
+    }
     public int targetFeverStack = 500;
     public int feverStackLimitPerSecond = 25;
     private int feverStackLimitCache;
@@ -57,18 +68,13 @@ public class FeverManager : MonoBehaviour
         feverStackLimitCache++;
         if(feverStackLimitCache < feverStackLimitPerSecond)
         {
-            feverStack++;
-            SetFeverStackImage(GetFeverRatio(), true);
-            if(feverStack >= targetFeverStack)
-            {
-                ActiveFeverMode();
-            }
+            FeverStack++;
         }
     }
 
     private float GetFeverRatio()
     {
-        return (float)feverStack / targetFeverStack;
+        return (float)FeverStack / targetFeverStack;
     }
 
     private void SetFeverStackImage(float ratio, bool isAdding)
@@ -99,7 +105,6 @@ public class FeverManager : MonoBehaviour
 
     private void DisableFeverMode()
     {
-        feverStack = 0;
         feverActived = false;
         SetFeverStackImage(0, true);
         feverButton.gameObject.SetActive(true);
@@ -134,6 +139,7 @@ public class FeverManager : MonoBehaviour
             //itemManager.SetActiveColorCard(false);
             StartMassiveIncomeFever();
         }
+        FeverStack = 0;
         feverActived = true;
         DisableFeverButton();
         StartFeverStartEffect();

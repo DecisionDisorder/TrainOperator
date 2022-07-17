@@ -20,11 +20,13 @@ public class DataManager : MonoBehaviour{
 	public LineDataManager lineDataManager;
 	public LevelManager levelManager;
 	public LotteryTicketManager lotteryTicketManager;
+	public AchievementManager achievementManager;
 
 	public GeneralData AssembleGeneralData()
     {
 		return new GeneralData(myAsset.myAssetData, company_Reputation_Controller.companyData, rent.rentData, itemManager.itemData, playManager.playData, event_Manager.eventData,
-			bankManager.bankData, compensation_Manager.compensationData, drivers_Manager.driverData, setting.settingData, levelManager.levelData, lotteryTicketManager.lotteryData);
+			bankManager.bankData, compensation_Manager.compensationData, drivers_Manager.driverData, setting.settingData, levelManager.levelData, lotteryTicketManager.lotteryData, 
+			achievementManager.achievementData);
 	}
 
 	public void SetGeneralData(GeneralData generalData)
@@ -40,6 +42,7 @@ public class DataManager : MonoBehaviour{
 		drivers_Manager.driverData = generalData.driverData;
 		setting.settingData = generalData.settingData;
 		lotteryTicketManager.lotteryData = generalData.lotteryData;
+		achievementManager.achievementData = generalData.achievementData;
 
 		if (generalData.levelData != null)
 			levelManager.levelData = generalData.levelData;
@@ -122,9 +125,11 @@ public class GeneralData
 	public SettingData settingData;
 	public LevelData levelData;
 	public LotteryData lotteryData;
+	public AchievementData achievementData;
 
 	public GeneralData(MyAssetData myAssetData, CompanyData companyData, RentData rentData, ItemData itemData, PlayData playData,
-		EventData eventData, BankData bankData, CompensationData compensationData, DriverData driverData, SettingData settingData, LevelData levelData, LotteryData lotteryData)
+		EventData eventData, BankData bankData, CompensationData compensationData, DriverData driverData, SettingData settingData, 
+		LevelData levelData, LotteryData lotteryData, AchievementData achievementData)
     {
 		this.myAssetData = myAssetData;
 		this.companyData = companyData;
@@ -138,6 +143,7 @@ public class GeneralData
 		this.settingData = settingData;
 		this.levelData = levelData;
 		this.lotteryData = lotteryData;
+		this.achievementData = achievementData;
     }
 
 	public GeneralData()
@@ -154,5 +160,6 @@ public class GeneralData
 		settingData = new SettingData();
 		levelData = new LevelData();
 		lotteryData = new LotteryData();
+		achievementData = new AchievementData();
 	}
 }

@@ -76,7 +76,7 @@ public class TouchEarning : MonoBehaviour {
 	{
         touchAudio.PlayOneShot(audioclip);
         touchPerSecond++;
-        achievementManager.touchCount++;
+        achievementManager.TouchCount++;
         AssetMoneyCalculator.instance.ArithmeticOperation(TouchMoneyManager.TouchMoneyLow, TouchMoneyManager.TouchMoneyHigh, true);
         levelManager.AddExp();
         if(!feverManager.feverActived)

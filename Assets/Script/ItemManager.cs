@@ -18,6 +18,7 @@ public class ItemManager : MonoBehaviour
     public Text[] rarePackAmountText;
 
     public Text cardPointText;
+    public Text feverRefillText;
 
     public Image cardTimer;
     public Image cardTimerImg;
@@ -67,6 +68,8 @@ public class ItemManager : MonoBehaviour
     public int RarePackAmount { get { return itemData.rareCardPackAmount; } set { itemData.rareCardPackAmount = value; SetPackAmountText(); } }
 
     public int CardPoint { get { return itemData.cardPoint; } set { itemData.cardPoint = value; SetCardPointText(); } }
+    
+    public int FeverRefillAmount { get { return itemData.feverRefillAmount; } set { if (value >= 0) itemData.feverRefillAmount = value; UpdateFeverRefillText(); } }
 
     private ulong activedTouchAbility;
     public ulong activedTimeAbility;
@@ -78,6 +81,7 @@ public class ItemManager : MonoBehaviour
     private int purchaseAmountType;
 
     public Color purchaseBackgroundColor;
+    public Color feverBackgroundColor;
 
     public bool itemActived;
 
@@ -87,6 +91,7 @@ public class ItemManager : MonoBehaviour
     public TouchEarning touchEarning;
     public MessageManager messageManager;
     public MiniGameManager miniGameManager;
+    public FeverManager feverManager;
 
     private void Start()
     {
@@ -94,6 +99,7 @@ public class ItemManager : MonoBehaviour
         UpdateRareCardInfo();
         SetCardPointText();
         SetPackAmountText();
+        UpdateFeverRefillText();
     }
     
     #region 메뉴 관리
@@ -303,6 +309,32 @@ public class ItemManager : MonoBehaviour
     {
         for (int i = 0; i < rareCardButtons.Length; i++)
             rareCardButtons[i].interactable = active;
+    }
+
+    public void UseFeverRefill()
+    {
+        if (FeverRefillAmount > 0)
+        {
+            messageManager.OpenCommonCheckMenu("피버 충전 쿠폰 사용 확인", "피버 충전 쿠폰을 사용하여\n피버 게이지를 완전히 충전하시겠습니까?", feverBackgroundColor, RefillFever);
+        }
+        else
+            messageManager.ShowMessage("피버 충전 쿠폰이 없습니다.");
+    }
+
+    private void RefillFever()
+    {
+        if (feverManager.FeverStack < feverManager.targetFeverStack)
+        {
+            feverManager.FeverStack = feverManager.targetFeverStack;
+            FeverRefillAmount--;
+            messageManager.ShowMessage("피버 게이지를 완전히 충전했습니다!");
+        }
+        else
+            messageManager.ShowMessage("피버 게이지가 이미 완전히 충전되어있습니다.");
+    }
+    private void UpdateFeverRefillText()
+    {
+        feverRefillText.text = "피버 충전 쿠폰\n" + FeverRefillAmount + "개";
     }
     #endregion
     #region 카드팩 구매 기능
