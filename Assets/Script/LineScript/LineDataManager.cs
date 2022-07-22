@@ -130,6 +130,10 @@ public class LineData
     /// </summary>
     public int[] trainExpandStatus = new int[4];
     /// <summary>
+    /// 노선 제어 관리 레벨
+    /// </summary>
+    public int[] lineControlLevels;
+    /// <summary>
     /// 확장권 보유 여부
     /// </summary>
     public bool[] sectionExpanded;

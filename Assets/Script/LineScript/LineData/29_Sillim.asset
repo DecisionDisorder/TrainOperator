@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
+  m_Name: 29_Sillim
+  m_EditorClassIdentifier: 
+  trainPriceFactors: []
+  trainPassenger: 0
+  trainPassengerAdd: 0
+  totalTouch: 0
+  uTotalTouch: 0
+  basePrice: 0
+  basePriceEx: 0
+  basePriceAdd: 0
+  basePriceExAdd: 0
+  stationPrice: 0
+  sections: []
+  expandPrice: 
+  connectPrice: 
+  connectTimeMoney: 
+  connectTMLargeUnit: 0
+  trainExpandPrice: 0
+  trainExpandPassenger: 0
+  lineControlUpgradePrice: []
+  LineControlUpgradePrice: []
+  lineControlUpgradePassenger: []
+  LineControlUpgradePassenger: []
+  trainExPsngrLargeUnit: 0
+  screenDoorPrice: 
+  screenDoorReputation: 
+  isLargeUnit: 0

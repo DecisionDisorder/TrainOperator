@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
+  m_Name: 6_Line6
+  m_EditorClassIdentifier: 
+  trainPriceFactors:
+  - 0.0338
+  - 1.1325
+  - 248.83
+  trainPassenger: 250000
+  trainPassengerAdd: 10000
+  totalTouch: 0
+  uTotalTouch: 30279400
+  basePrice: 10000000000
+  basePriceEx: 5000000000
+  basePriceAdd: 3000000000
+  basePriceExAdd: 1250000000
+  stationPrice: 18000000000
+  sections:
+  - name: "\uC2E0\uB0B4~\uB3CC\uACF6\uC774"
+    from: 0
+    to: 5
+  - name: "\uC0C1\uC6D4\uACE1~\uC751\uC554"
+    from: 6
+    to: 38
+  expandPrice: 001265ca13000000004429353a000000
+  connectPrice: 004429353a000000002058a3a7000000
+  connectTimeMoney: c0ea210100000000c03b470300000000
+  connectTMLargeUnit: 0
+  trainExpandPrice: 9000000000
+  trainExpandPassenger: 185000
+  trainExPsngrLargeUnit: 0
+  screenDoorPrice: 00ece13c2c000000005cabefb7000000
+  screenDoorReputation: 0f00000055000000
+  isLargeUnit: 0

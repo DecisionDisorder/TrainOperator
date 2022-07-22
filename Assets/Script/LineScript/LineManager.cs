@@ -5,6 +5,8 @@ using UnityEngine;
 public enum Line { Line1, Line2, Line3, Line4, Line5, Line6, Line7, Line8, Line9, Busan1, Busan2, Busan3, Busan4, BusanKH, BusanDH, Daegu1, Daegu2, Daegu3, 
     Bundang, SinBundang, SuinBundang, Incheon1, Incheon2, GyeonguiJungang, Gyeongchun, Gyeonggang }
 
+public enum LightRailLine { UJB, GimpoGold, Busan4, BusanKH, Daegu3, ULRT, Everline, Incheon2, Sillim }
+
 public class LineManager : MonoBehaviour
 {
     public static LineManager instance;

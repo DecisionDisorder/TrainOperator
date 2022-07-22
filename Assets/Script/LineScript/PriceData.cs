@@ -75,6 +75,14 @@ public class PriceData : ScriptableObject
     public ulong TrainExapndPassenger { get { return trainExpandPassenger; } }
 
     [SerializeField]
+    private LargeVariable[] lineControlUpgradePrice;
+    public LargeVariable[] LineControlUpgradePrice;
+
+    [SerializeField]
+    private LargeVariable[] lineControlUpgradePassenger;
+    public LargeVariable[] LineControlUpgradePassenger;
+
+    [SerializeField]
     private bool trainExPsngrLargeUnit;
     /// <summary>
     /// 열차 확장의 승객 수 보상이 large unit인지
