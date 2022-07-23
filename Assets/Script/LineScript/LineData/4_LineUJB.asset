@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
   m_Name: 4_LineUJB
   m_EditorClassIdentifier: 
+  isLightRail: 1
   trainPriceFactors: []
   trainPassenger: 0
   trainPassengerAdd: 0

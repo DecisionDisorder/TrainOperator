@@ -52,6 +52,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 652d8e80d1288e64cbd11abbd345d52a, type: 3}
   - {fileID: 21300000, guid: 6d3be70149d7fff47b50b81b47468e05, type: 3}
   - {fileID: 21300000, guid: 1a42c341d01bce34782463257adfce48, type: 3}
+  - {fileID: 21300000, guid: f1bc09227d63dd047bd50750534216a4, type: 3}
   - {fileID: 21300000, guid: 84907d42d657e2b45aa6b66db025d06d, type: 3}
   - {fileID: 21300000, guid: 48de1fb355f68724eb345b788698e7de, type: 3}
   - {fileID: 21300000, guid: 76d8c7d34ff5bd14aade2ab8bc89f88c, type: 3}
@@ -67,6 +68,7 @@ SpriteAtlas:
   - basicBackgroundBlack
   - Button_noFrame
   - talk
+  - UpgradeStatus
   - Button
   - AchievementGage
   - basicBackgroundBlackThin

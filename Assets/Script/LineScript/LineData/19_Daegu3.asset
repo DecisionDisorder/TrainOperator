@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
   m_Name: 19_Daegu3
   m_EditorClassIdentifier: 
+  isLightRail: 1
   trainPriceFactors:
   - 0.1675
   - 2.2713
@@ -35,6 +36,10 @@ MonoBehaviour:
   connectTMLargeUnit: 0
   trainExpandPrice: 15000000000000000
   trainExpandPassenger: 24800000000
+  lineControlUpgradePrice: []
+  LineControlUpgradePrice: []
+  lineControlUpgradePassenger: []
+  LineControlUpgradePassenger: []
   trainExPsngrLargeUnit: 0
   screenDoorPrice: 000050ecc22b1a0b
   screenDoorReputation: 64000000

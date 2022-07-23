@@ -4,6 +4,10 @@ using UnityEngine;
 public class PriceData : ScriptableObject
 {
     [SerializeField]
+    private bool isLightRail;
+    public bool IsLightRail { get { return IsLightRail; } }
+
+    [SerializeField]
     private float[] trainPriceFactors;
     public float[] TrainPriceFactors { get { return trainPriceFactors; } }
 

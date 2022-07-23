@@ -43,11 +43,6 @@ public class PurchaseStation : MonoBehaviour
             LoadStationNames();
     }
 
-    private void Start()
-    {
-        //LoadColor();
-    }
-
     public void SetLineMenu(bool onOff)
     {
         lineMenu.SetActive(onOff);
@@ -92,8 +87,6 @@ public class PurchaseStation : MonoBehaviour
                     if (result)
                     {
                         lineCollection.lineData.hasStation[i] = true;
-                        if (lineCollection.line.Equals(Line.Bundang))
-                            lineManager.lineCollections[(int)Line.SuinBundang].lineData.hasStation[i + 26] = true;
                         stationImgs[i].color = buttonColorManager.lineColor;
                         MyAsset.instance.NumOfStations++;
                         achievementManager.TotalStationAmount++;

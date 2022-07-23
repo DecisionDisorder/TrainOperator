@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Line { Line1, Line2, Line3, Line4, Line5, Line6, Line7, Line8, Line9, Busan1, Busan2, Busan3, Busan4, BusanKH, BusanDH, Daegu1, Daegu2, Daegu3, 
-    Bundang, SinBundang, SuinBundang, Incheon1, Incheon2, GyeonguiJungang, Gyeongchun, Gyeonggang }
+public enum Line { Line1, Line2, Line3, Line4, UJB, Line5, Line6, Line7, Line8, Line9, GimpoGold, Busan1, Busan2, Busan3, Busan4, BusanKH, BusanDH, Daegu1, Daegu2, Daegu3,
+    ULRT, SinBundang, SuinBundang, Everline, Incheon1, Incheon2, GyeonguiJungang, Gyeongchun, Gyeonggang, Sillim, Airline, Seohae, Gwangju1, Daejeon1 }
 
 public enum LightRailLine { UJB, GimpoGold, Busan4, BusanKH, Daegu3, ULRT, Everline, Incheon2, Sillim }
 

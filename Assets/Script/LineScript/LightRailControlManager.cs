@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class LightRailControlManager : MonoBehaviour
 {
+    public GameObject trainExpandMenu;
+    public GameObject upgradeLineMenu;
+
     public GameObject upgradeMenu;
     public Text targetLineText;
 
@@ -16,9 +19,20 @@ public class LightRailControlManager : MonoBehaviour
 
     private LightRailLine targetLine;
 
+    public int maxLevel = 5;
+
     public PriceData[] lightRailPriceData;
     public LineManager lineManager;
     public MessageManager messageManager;
+
+    public void SetTrainExpandMenu(bool active)
+    {
+        trainExpandMenu.SetActive(active);
+    }
+    public void SetUpgradeLineMenu(bool active)
+    {
+        upgradeLineMenu.SetActive(active);
+    }
 
     public void SelectTargetLine(int index)
     {
@@ -32,21 +46,38 @@ public class LightRailControlManager : MonoBehaviour
     {
         for(int i = 0; i < upgradeSliders.Length; i++)
         {
-            upgradeSliders[i].value = GetLineControlLevel(i);
-            upgradePriceTexts[i].text = "가격: " + GetPrice(i).ToString() + "$";
-            upgradePassengerTexts[i].text = "승객 수 +" + GetPassenger(i).ToString() + "명";
+            int level = GetLineControlLevel(i);
+            upgradeSliders[i].value = level;
+
+            if (level < maxLevel)
+            {
+                upgradePriceTexts[i].text = "가격: " + GetPrice(i).ToString() + "$";
+                upgradePassengerTexts[i].text = "승객 수 +" + GetPassenger(i).ToString() + "명";
+            }
+            else
+            {
+                upgradePriceTexts[i].text = "";
+                upgradePassengerTexts[i].text = "";
+            }
         }
     }
     
     public void UpgradeControlSystem(int product)
     {
-        if (AssetMoneyCalculator.instance.ArithmeticOperation(GetPrice(product), false))
+        if (GetLineControlLevel(product) < maxLevel)
         {
-            AddLineControlLevel(product);
-            UpdateUpgradeState();
+            if (AssetMoneyCalculator.instance.ArithmeticOperation(GetPrice(product), false))
+            {
+                AddLineControlLevel(product);
+                UpdateUpgradeState();
+            }
+            else
+                messageManager.ShowMessage("돈이 부족하여 업그레이드할 수 없습니다.");
         }
         else
-            messageManager.ShowMessage("돈이 부족하여 업그레이드할 수 없습니다.");
+        {
+            messageManager.ShowMessage("최대 업그레이드 레벨입니다.");
+        }
     }
     
     private LargeVariable GetPrice(int product)

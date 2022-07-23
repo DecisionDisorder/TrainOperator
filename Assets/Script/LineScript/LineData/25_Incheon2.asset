@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
   m_Name: 25_Incheon2
   m_EditorClassIdentifier: 
+  isLightRail: 1
   trainPriceFactors:
   - 0.3356
   - 3.4789
@@ -35,6 +36,10 @@ MonoBehaviour:
   connectTMLargeUnit: 0
   trainExpandPrice: 220
   trainExpandPassenger: 2200000000000
+  lineControlUpgradePrice: []
+  LineControlUpgradePrice: []
+  lineControlUpgradePassenger: []
+  LineControlUpgradePassenger: []
   trainExPsngrLargeUnit: 0
   screenDoorPrice: c422000000000000
   screenDoorReputation: 64000000

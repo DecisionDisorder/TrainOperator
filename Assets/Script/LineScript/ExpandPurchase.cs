@@ -9,6 +9,9 @@ public class ExpandPurchase : MonoBehaviour
     public MessageManager messageManager;
     public ButtonColorManager buttonColorManager;
 
+    private int normalLineCriteria = 100;
+    private int lightRailCriteria = 25;
+
     public GameObject lineMenu;
 
     public GameObject sectionGroup;
@@ -83,11 +86,16 @@ public class ExpandPurchase : MonoBehaviour
             AlreadyPurchased();
     }
 
+    private int GetTrainAmountCriteria()
+    {
+        return lineManager.lineCollections[(int)lineCollection.line - 1].expandPurchase.priceData.IsLightRail ? lightRailCriteria : normalLineCriteria;
+    }
+
     public void SetQualification()
     {
         if (!lineCollection.line.Equals(Line.Line1))
         {
-            if (lineManager.lineCollections[(int)lineCollection.line - 1].lineData.numOfTrain < 100)
+            if (lineManager.lineCollections[(int)lineCollection.line - 1].lineData.numOfTrain < GetTrainAmountCriteria())
             {
                 SetLessTrainImgs(true);
             }

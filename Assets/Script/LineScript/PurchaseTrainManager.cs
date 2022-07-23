@@ -6,6 +6,9 @@ public class PurchaseTrainManager : MonoBehaviour, IContinuousPurchase
 {
     public string lineName;
 
+    private int lightRailBaseLimit = 1;
+    private int normalLineBaseLimit = 20;
+    public int BaseLimit { get { return priceData.IsLightRail ? lightRailBaseLimit : normalLineBaseLimit; } }
     public static int baseAdd = 10;
     public static int baseExpandAdd = 5;
 
@@ -91,7 +94,7 @@ public class PurchaseTrainManager : MonoBehaviour, IContinuousPurchase
         {
             if (IsExpanded())
             {
-                if (lineCollection.lineData.numOfBase < 20)
+                if (lineCollection.lineData.numOfBase < BaseLimit)
                 {
                     bool result;
                     if (priceData.IsLargeUnit)

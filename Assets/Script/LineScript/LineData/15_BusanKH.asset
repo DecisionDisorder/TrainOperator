@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
   m_Name: 15_BusanKH
   m_EditorClassIdentifier: 
+  isLightRail: 1
   trainPriceFactors:
   - 0.0895
   - 2.0669
@@ -35,6 +36,10 @@ MonoBehaviour:
   connectTMLargeUnit: 0
   trainExpandPrice: 175000000000000
   trainExpandPassenger: 800000000
+  lineControlUpgradePrice: []
+  LineControlUpgradePrice: []
+  lineControlUpgradePassenger: []
+  LineControlUpgradePassenger: []
   trainExPsngrLargeUnit: 0
   screenDoorPrice: 0000c16ff2862300
   screenDoorReputation: 64000000
