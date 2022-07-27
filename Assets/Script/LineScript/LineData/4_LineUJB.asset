@@ -13,28 +13,52 @@ MonoBehaviour:
   m_Name: 4_LineUJB
   m_EditorClassIdentifier: 
   isLightRail: 1
-  trainPriceFactors: []
-  trainPassenger: 0
-  trainPassengerAdd: 0
+  trainPriceFactors:
+  - 0
+  - 1.4583
+  - 163.54
+  trainPassenger: 20000
+  trainPassengerAdd: 5000
   totalTouch: 0
-  uTotalTouch: 0
-  basePrice: 0
-  basePriceEx: 0
+  uTotalTouch: 5479400
+  basePrice: 800000000
+  basePriceEx: 400000000
   basePriceAdd: 0
-  basePriceExAdd: 0
-  stationPrice: 0
-  sections: []
-  expandPrice: 
-  connectPrice: 
-  connectTimeMoney: 
+  basePriceExAdd: 100000000
+  stationPrice: 1500000000
+  sections:
+  - name: "\uD0D1\uC11D~\uBC1C\uACE1 "
+    from: 0
+    to: 14
+  expandPrice: 00c817a804000000
+  connectPrice: 0045d34a0b000000
+  connectTimeMoney: 80841e0000000000
   connectTMLargeUnit: 0
   trainExpandPrice: 0
   trainExpandPassenger: 0
-  lineControlUpgradePrice: []
-  LineControlUpgradePrice: []
-  lineControlUpgradePassenger: []
-  LineControlUpgradePassenger: []
   trainExPsngrLargeUnit: 0
-  screenDoorPrice: 
-  screenDoorReputation: 
+  lineControlUpgradePrice:
+  - lowUnit: 3073230000
+    highUnit: 0
+  - lowUnit: 4609845000
+    highUnit: 0
+  - lowUnit: 6146460000
+    highUnit: 0
+  - lowUnit: 7683075000
+    highUnit: 0
+  - lowUnit: 9219690000
+    highUnit: 0
+  lineControlUpgradePassenger:
+  - lowUnit: 150000
+    highUnit: 0
+  - lowUnit: 225000
+    highUnit: 0
+  - lowUnit: 300000
+    highUnit: 0
+  - lowUnit: 375000
+    highUnit: 0
+  - lowUnit: 450000
+    highUnit: 0
+  screenDoorPrice: 0087af510e000000
+  screenDoorReputation: 64000000
   isLargeUnit: 0

@@ -10,6 +10,8 @@ public class CompanyReputationManager : MonoBehaviour {
 
     public CompanyData companyData;
 
+    public ReputationSet[] reputationSets;
+
 	public int ReputationValue
     {
         get
@@ -42,7 +44,7 @@ public class CompanyReputationManager : MonoBehaviour {
 
     void Start ()
     {
-		RenewReputation ();
+        RenewReputation ();
         reputationConditionUpdateDisplay.onEnableUpdate += UpdateText;
     }
 
@@ -66,12 +68,23 @@ public class CompanyReputationManager : MonoBehaviour {
 
 	private void CalculateReputation()
 	{
-        revenueMagnification = 100 + (int)(revenueMagnificationInterval * ((float)ReputationValue / reputationInterval));
-        if (revenueMagnification > 300)
-            revenueMagnification = 300;
+        int setIndex = GetReputationSetIndex(ReputationValue);
+        revenueMagnification = (int)(reputationSets[setIndex].revenue * ((float)(ReputationValue - reputationSets[setIndex].from) / reputationSets[setIndex].interval)) 
+            + reputationSets[setIndex].stepRevenue + reputationSets[setIndex].priorCumRevenue + 100;
+        if (revenueMagnification > 350)
+            revenueMagnification = 350;
 
         if(instance != null)
             RenewPassengerBase();
+    }
+    private int GetReputationSetIndex(int reputation)
+    {
+        for(int i = 0; i < reputationSets.Length; i++)
+        {
+            if (reputation < reputationSets[i].to)
+                return i;
+        }
+        return -1;
     }
 
     public void RenewReputation()
@@ -129,4 +142,15 @@ public class CompanyReputationManager : MonoBehaviour {
 		reputation_Totalvalue = 500;
 		additional_Percentage = 100;
 	}*/
+}
+
+[System.Serializable]
+public class ReputationSet
+{
+    public int from;
+    public int to;
+    public int interval;
+    public int revenue;
+    public int priorCumRevenue;
+    public int stepRevenue;
 }

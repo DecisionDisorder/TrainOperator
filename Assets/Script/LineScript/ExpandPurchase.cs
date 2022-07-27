@@ -24,6 +24,7 @@ public class ExpandPurchase : MonoBehaviour
     public LineManager lineManager;
     public LineDataManager lineDataManager;
     public SettingManager buttonOption;
+    public StationCustomizeManager stationCustomizeManager;
 
     public UpdateDisplay expandUpdateDisplay;
 
@@ -143,9 +144,16 @@ public class ExpandPurchase : MonoBehaviour
 
         if (result)
         {
-            if(IsFirstExpand() && buttonOption.BackupRecommend)
+            bool firstExpand = IsFirstExpand();
+            if (firstExpand && buttonOption.BackupRecommend)
             {
                 messageManager.OpenCommonCheckMenu("클라우드 백업하러 가시겠습니까?", "신규 노선의 확장권을 구입하셨습니다.\n혹시 모를 상황을 대비하여 클라우드 백업을 권장합니다.", Color.cyan, OpenCloud);
+            }
+            
+            if(firstExpand)
+            {
+                stationCustomizeManager.SetBackgroundToRecentLine(lineCollection.line);
+                messageManager.ShowMessage("새로운 노선의 배경으로 변경되었습니다!\n배경 노선/역을 변경하려면\n\"설정-노선/역 설정\"을 이용해주세요!", 2f);
             }
 
             if(lineCollection.line.Equals(Line.Line2))

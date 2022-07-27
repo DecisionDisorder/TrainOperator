@@ -12,30 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
   m_Name: 28_Gyeonggang
   m_EditorClassIdentifier: 
+  isLightRail: 0
   trainPriceFactors:
-  - 0.6107
-  - 2.9645
-  - 4796.4
-  trainPassenger: 50000000000000
-  trainPassengerAdd: 1000000000000
-  totalTouch: 0.8137071
+  - 0.352
+  - 1.8177
+  - 3697.8
+  trainPassenger: 10000000000000
+  trainPassengerAdd: 250000000000
+  totalTouch: 0.14531319
   uTotalTouch: 0
-  basePrice: 10000
-  basePriceEx: 5000
-  basePriceAdd: 3000
-  basePriceExAdd: 1250
-  stationPrice: 7350
+  basePrice: 2000
+  basePriceEx: 1000
+  basePriceAdd: 500
+  basePriceExAdd: 250
+  stationPrice: 1250
   sections:
   - name: "\uD310\uAD50~\uC5EC\uC8FC"
     from: 0
     to: 10
-  expandPrice: 60ea000000000000
-  connectPrice: a086010000000000
-  connectTimeMoney: 00e083e778592300
+  expandPrice: e02e000000000000
+  connectPrice: e02e000000000000
+  connectTimeMoney: 00a0bef25cfe0700
   connectTMLargeUnit: 0
-  trainExpandPrice: 4400
-  trainExpandPassenger: 25000000000000
+  trainExpandPrice: 575
+  trainExpandPassenger: 5500000000000
   trainExPsngrLargeUnit: 0
-  screenDoorPrice: f049020000000000
+  lineControlUpgradePrice: []
+  lineControlUpgradePassenger: []
+  screenDoorPrice: a861000000000000
   screenDoorReputation: 64000000
   isLargeUnit: 1

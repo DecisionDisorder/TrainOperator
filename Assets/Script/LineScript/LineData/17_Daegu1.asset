@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
   m_Name: 17_Daegu1
   m_EditorClassIdentifier: 
+  isLightRail: 0
   trainPriceFactors:
   - 0.1236
   - 2.6675
@@ -19,23 +20,25 @@ MonoBehaviour:
   trainPassenger: 9000000000
   trainPassengerAdd: 250000000
   totalTouch: 0
-  uTotalTouch: 1358889779400
-  basePrice: 2150000000000000
-  basePriceEx: 1075000000000000
-  basePriceAdd: 645000000000000
-  basePriceExAdd: 265000000000000
-  stationPrice: 1950000000000000
+  uTotalTouch: 1019441779400
+  basePrice: 2250000000000000
+  basePriceEx: 1100000000000000
+  basePriceAdd: 550000000000000
+  basePriceExAdd: 275000000000000
+  stationPrice: 1650000000000000
   sections:
   - name: "\uC548\uC2EC~\uC124\uD654\uBA85\uACE1"
     from: 0
     to: 31
-  expandPrice: 000004bfc91b8e00
-  connectPrice: 00008a5d78456301
+  expandPrice: 0000434fd7946a00
+  connectPrice: 0000c9ed85be3f01
   connectTimeMoney: 00204aa9d1010000
   connectTMLargeUnit: 0
-  trainExpandPrice: 2150000000000000
+  trainExpandPrice: 1500000000000000
   trainExpandPassenger: 5300000000
   trainExPsngrLargeUnit: 0
-  screenDoorPrice: 00000c3d5d53aa01
+  lineControlUpgradePrice: []
+  lineControlUpgradePassenger: []
+  screenDoorPrice: 00004bcd6acc8601
   screenDoorReputation: 64000000
   isLargeUnit: 0

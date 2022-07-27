@@ -21,6 +21,7 @@ public class BalanceReviser : MonoBehaviour
     public BankManager bankManager;
     public BankSpecialManager bankSpecialManager;
     public CompanyReputationManager companyReputationManager;
+    public LightRailControlManager lightRailControlManager;
 
     public GameObject RevisedMenu;
     public Text revisedLogText;
@@ -49,7 +50,7 @@ public class BalanceReviser : MonoBehaviour
         else if (lineManager.lineCollections[0].lineData.numOfTrain.Equals(0))
             IsRevised = true;
 
-        if (lineManager.lineCollections[(int)Line.SuinBundang].lineData.connected.Length > 1)
+        /*if (lineManager.lineCollections[(int)Line.SuinBundang].lineData.connected.Length > 1)
         {
             bool subdConnected = lineManager.lineCollections[(int)Line.SuinBundang].lineData.connected[0];
             lineManager.lineCollections[(int)Line.SuinBundang].lineData.connected = new bool[1];
@@ -61,7 +62,7 @@ public class BalanceReviser : MonoBehaviour
             bool subdExpanded = lineManager.lineCollections[(int)Line.SuinBundang].lineData.sectionExpanded[0];
             lineManager.lineCollections[(int)Line.SuinBundang].lineData.sectionExpanded = new bool[1];
             lineManager.lineCollections[(int)Line.SuinBundang].lineData.sectionExpanded[0] = subdExpanded;
-        }
+        }*/
     }
 
     public void CloseRevisedMenu()
@@ -216,5 +217,63 @@ public class BalanceReviser : MonoBehaviour
         }
         log += string.Format("고객 만족도: {0:#,##0}, 수익 변화율: {1}%\n", companyReputationManager.ReputationValue, "0");
 
+    }
+
+    private void ConvertNormal2LightRailData()
+    {
+        int[] targetIndex = { 14, 15, 19, 25 };
+        for(int i = 0; i < targetIndex.Length; i++)
+        {
+            if (lineManager.lineCollections[i].lineData.numOfTrain > 100)
+                lineManager.lineCollections[i].lineData.numOfTrain = 25;
+            else
+                lineManager.lineCollections[i].lineData.numOfTrain = lineManager.lineCollections[i].lineData.numOfTrain / 4;
+
+            if (lineManager.lineCollections[i].lineData.numOfBase > 1)
+                lineManager.lineCollections[i].lineData.numOfBase = 1;
+
+            if (lineManager.lineCollections[i].lineData.numOfBaseEx > 3)
+                lineManager.lineCollections[i].lineData.numOfBase = 3;
+
+            int expandAmount = lineManager.lineCollections[i].lineData.trainExpandStatus[1] + lineManager.lineCollections[i].lineData.trainExpandStatus[2] * 2 + lineManager.lineCollections[i].lineData.trainExpandStatus[3] * 3;
+            expandAmount /= 12;
+            while(expandAmount > 0)
+            {
+                for (int k = 0; k < lineManager.lineCollections[i].lineData.lineControlLevels.Length; k++)
+                {
+                    lineManager.lineCollections[i].lineData.lineControlLevels[k]++;
+                    expandAmount--;
+                    if (expandAmount <= 0)
+                        break;
+                }
+            }
+            lineManager.lineCollections[i].lineData.trainExpandStatus = new int[0];
+        }    
+    }
+
+    private void ApplyLineUpgrade()
+    {
+        int[] targetIndex = { 14, 15, 19, 25 };
+        for (int i = 0; i < targetIndex.Length; i++)
+        {
+            for(int product = 0; product < 5; product++)
+            {
+                for(int lev = 0; lev < lightRailControlManager.GetLineControlLevel(product); lev++)
+                {
+                    LargeVariable passenger = lightRailControlManager.GetPassenger(product, lev);
+                    TouchMoneyManager.ArithmeticOperation(passenger.lowUnit, passenger.highUnit, true);
+                }
+            }
+        }
+    }
+
+    private void ReviseAfter3_1_4()
+    {
+        ConvertNormal2LightRailData();
+
+        RevisePassenger();
+        ApplyLineUpgrade();
+        //시간형 수익 재계산 (임대시설 수치 조정 반영)
+        ReviseLineConnectReward();
     }
 }

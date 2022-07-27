@@ -41,8 +41,14 @@ public class DataManager : MonoBehaviour{
 		compensation_Manager.compensationData = generalData.compensationData;
 		drivers_Manager.driverData = generalData.driverData;
 		setting.settingData = generalData.settingData;
-		lotteryTicketManager.lotteryData = generalData.lotteryData;
-		achievementManager.achievementData = generalData.achievementData;
+		if (generalData.lotteryData != null)
+			lotteryTicketManager.lotteryData = generalData.lotteryData;
+		else
+			lotteryTicketManager.lotteryData = new LotteryData();
+		if (generalData.achievementData != null)
+			achievementManager.achievementData = generalData.achievementData;
+		else
+			achievementManager.achievementData = new AchievementData();
 
 		if (generalData.levelData != null)
 			levelManager.levelData = generalData.levelData;

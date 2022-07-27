@@ -22,5 +22,11 @@ public class LotteryData
     public LotteryData()
     {
         drawTimeLeft = 600;
+        lotteryTickets = new LotteryTicket[5];
+        for (int i = 0; i < lotteryTickets.Length; i++)
+        {
+            lotteryTickets[i] = new LotteryTicket();
+            lotteryTickets[i].selectedNumbers = new int[0];
+        }
     }
 }

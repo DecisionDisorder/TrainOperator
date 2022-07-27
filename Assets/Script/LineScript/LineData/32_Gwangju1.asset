@@ -12,28 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
   m_Name: 32_Gwangju1
   m_EditorClassIdentifier: 
-  trainPriceFactors: []
-  trainPassenger: 0
-  trainPassengerAdd: 0
-  totalTouch: 0
+  isLightRail: 0
+  trainPriceFactors:
+  - 0.4833
+  - 1.6931
+  - 4997.8
+  trainPassenger: 100000000000000
+  trainPassengerAdd: 2500000000000
+  totalTouch: 1.8595632
   uTotalTouch: 0
-  basePrice: 0
-  basePriceEx: 0
-  basePriceAdd: 0
-  basePriceExAdd: 0
-  stationPrice: 0
-  sections: []
-  expandPrice: 
-  connectPrice: 
-  connectTimeMoney: 
+  basePrice: 32500
+  basePriceEx: 16750
+  basePriceAdd: 8300
+  basePriceExAdd: 4150
+  stationPrice: 10000
+  sections:
+  - name: "\uD3C9\uB3D9~\uB179\uB3D9"
+    from: 0
+    to: 19
+  expandPrice: 400d030000000000
+  connectPrice: e093040000000000
+  connectTimeMoney: 00000f29e2284e00
   connectTMLargeUnit: 0
-  trainExpandPrice: 0
-  trainExpandPassenger: 0
-  lineControlUpgradePrice: []
-  LineControlUpgradePrice: []
-  lineControlUpgradePassenger: []
-  LineControlUpgradePassenger: []
+  trainExpandPrice: 9590
+  trainExpandPassenger: 55000000000000
   trainExPsngrLargeUnit: 0
-  screenDoorPrice: 
-  screenDoorReputation: 
-  isLargeUnit: 0
+  lineControlUpgradePrice: []
+  lineControlUpgradePassenger: []
+  screenDoorPrice: 3057050000000000
+  screenDoorReputation: 64000000
+  isLargeUnit: 1

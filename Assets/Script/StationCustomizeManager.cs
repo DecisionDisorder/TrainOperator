@@ -50,9 +50,18 @@ public class StationCustomizeManager : MonoBehaviour
         ApplyToUI();
     }
 
+    public void SetBackgroundToRecentLine(Line line)
+    {
+        CurrentLineIndex = (int)line;
+        CurrentStationIndex = 0;
+        SetStationNames(CurrentStationIndex);
+
+        ApplyToUI();
+    }
+
     private bool[] GetExpandedLines()
     {
-        bool[] expandedLines = new bool[(int)Line.Gyeonggang];
+        bool[] expandedLines = new bool[lineManager.lineCollections.Length];
         for(int i = 0; i < lineManager.lineCollections.Length; i++)
         {
             if (lineManager.lineCollections[i].isExpanded())

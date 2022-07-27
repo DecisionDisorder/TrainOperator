@@ -12,28 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
   m_Name: 33_Daejeon1
   m_EditorClassIdentifier: 
-  trainPriceFactors: []
-  trainPassenger: 0
-  trainPassengerAdd: 0
-  totalTouch: 0
+  isLightRail: 0
+  trainPriceFactors:
+  - 0.5426
+  - 1.7634
+  - 5397.7
+  trainPassenger: 250000000000000
+  trainPassengerAdd: 5000000000000
+  totalTouch: 4.097063
   uTotalTouch: 0
-  basePrice: 0
-  basePriceEx: 0
-  basePriceAdd: 0
-  basePriceExAdd: 0
+  basePrice: 80000
+  basePriceEx: 40000
+  basePriceAdd: 20000
+  basePriceExAdd: 10000
   stationPrice: 0
-  sections: []
-  expandPrice: 
-  connectPrice: 
-  connectTimeMoney: 
-  connectTMLargeUnit: 0
-  trainExpandPrice: 0
-  trainExpandPassenger: 0
-  lineControlUpgradePrice: []
-  LineControlUpgradePrice: []
-  lineControlUpgradePassenger: []
-  LineControlUpgradePassenger: []
+  sections:
+  - name: "\uBC18\uC11D~\uD310\uC554"
+    from: 0
+    to: 21
+  expandPrice: d0dd060000000000
+  connectPrice: 10eb090000000000
+  connectTimeMoney: 0500000000000000
+  connectTMLargeUnit: 1
+  trainExpandPrice: 23000
+  trainExpandPassenger: 125000000000000
   trainExPsngrLargeUnit: 0
-  screenDoorPrice: 
-  screenDoorReputation: 
-  isLargeUnit: 0
+  lineControlUpgradePrice: []
+  lineControlUpgradePassenger: []
+  screenDoorPrice: 00350c0000000000
+  screenDoorReputation: 64000000
+  isLargeUnit: 1

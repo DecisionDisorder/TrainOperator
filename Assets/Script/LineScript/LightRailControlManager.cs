@@ -68,6 +68,8 @@ public class LightRailControlManager : MonoBehaviour
         {
             if (AssetMoneyCalculator.instance.ArithmeticOperation(GetPrice(product), false))
             {
+                LargeVariable passenger = GetPassenger(product);
+                TouchMoneyManager.ArithmeticOperation(passenger.lowUnit, passenger.highUnit, true);
                 AddLineControlLevel(product);
                 UpdateUpgradeState();
             }
@@ -83,6 +85,11 @@ public class LightRailControlManager : MonoBehaviour
     private LargeVariable GetPrice(int product)
     {
         int level = GetLineControlLevel(product);
+        return GetPrice(product, level);
+    }
+
+    public LargeVariable GetPrice(int product, int level)
+    {
         if (level < 5)
             return lightRailPriceData[(int)targetLine].LineControlUpgradePrice[product] * division[level];
         else
@@ -92,15 +99,20 @@ public class LightRailControlManager : MonoBehaviour
     private LargeVariable GetPassenger(int product)
     {
         int level = GetLineControlLevel(product);
+        return GetPassenger(product, level);
+    }
+
+    public LargeVariable GetPassenger(int product, int level)
+    {
         if (level < 5)
             return lightRailPriceData[(int)targetLine].LineControlUpgradePassenger[product] * division[level];
         else
             return LargeVariable.zero;
     }
 
-    private int GetLineControlLevel(int product)
+    public int GetLineControlLevel(int product)
     {
-        return lineManager.lineCollections[GetEntireLineIndex(targetLine)].lineData.lineControlLevels[product];
+        return lineManager.lineCollections[GetEntireLineIndex(targetLine)].LineControlLevels[product];
     }
 
     private void AddLineControlLevel(int product)
@@ -119,5 +131,13 @@ public class LightRailControlManager : MonoBehaviour
         }
 
         return -1;
+    }
+
+    public int GetTotalLevel(int lineIndex)
+    {
+        int level = 0;
+        for (int i = 0; i < lineManager.lineCollections[lineIndex].LineControlLevels.Length; i++)
+            level += lineManager.lineCollections[lineIndex].LineControlLevels[i];
+        return level;
     }
 }

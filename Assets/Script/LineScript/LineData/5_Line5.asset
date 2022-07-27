@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
   m_Name: 5_Line5
   m_EditorClassIdentifier: 
+  isLightRail: 0
   trainPriceFactors:
-  - 0.0275
-  - 1.2651
-  - 198.71
+  - 0.0201
+  - 2.2087
+  - 147.77
   trainPassenger: 50000
   trainPassengerAdd: 4000
   totalTouch: 0
-  uTotalTouch: 5479400
-  basePrice: 1500000000
-  basePriceEx: 750000000
-  basePriceAdd: 450000000
-  basePriceExAdd: 187500000
+  uTotalTouch: 7479400
+  basePrice: 2000000000
+  basePriceEx: 1000000000
+  basePriceAdd: 500000000
+  basePriceExAdd: 200000000
   stationPrice: 3000000000
   sections:
   - name: "\uBC29\uD654~\uD654\uACE1"
@@ -41,13 +42,15 @@ MonoBehaviour:
   - name: "\uB454\uCD0C\uB3D9~\uB9C8\uCC9C"
     from: 49
     to: 55
-  expandPrice: 00216e830100000000216e8301000000007f3e3602000000007841cb0200000000bca06501000000
-  connectPrice: 00325f9d0800000000325f9d08000000006d3e390c000000004a4d220f0000000040597307000000
-  connectTimeMoney: 00093d000000000000093d0000000000408058000000000000dd6d0000000000e067350000000000
+  expandPrice: 001a711802000000001a7118020000000042dc060300000000a0acb9030000000050d6dc01000000
+  connectPrice: 00902f500900000000902f500900000000c411810d00000000d088c310000000009e292608000000
+  connectTimeMoney: 00093d000000000000093d0000000000408058000000000050a06e000000000080ee360000000000
   connectTMLargeUnit: 0
-  trainExpandPrice: 1500000000
+  trainExpandPrice: 1750000000
   trainExpandPassenger: 62000
+  lineControlUpgradePrice: []
+  lineControlUpgradePassenger: []
   trainExPsngrLargeUnit: 0
-  screenDoorPrice: 004cd0b50a000000004cd0b50a000000004350b70f0000000048ca8e1300000000902f5009000000
+  screenDoorPrice: 00743ba40b00000000743ba40b00000000fff01c110000000033d34d150000000053cd200a000000
   screenDoorReputation: 0f0000000f00000019000000210000000c000000
   isLargeUnit: 0

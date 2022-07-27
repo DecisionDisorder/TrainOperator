@@ -79,6 +79,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: c0b93acdd70cd4d4680a66b1041c1449, type: 3}
   - {fileID: 21300000, guid: 3324bfae8de82234f85f582d9aea6809, type: 3}
   - {fileID: 21300000, guid: b49200be0138c7d48ac0dc8b55ae8483, type: 3}
+  - {fileID: 21300000, guid: 0d1662cec58128546bf2cd5d1de4cdf3, type: 3}
   - {fileID: 21300000, guid: c1839a1f287283f4bbea0c51f76bf94e, type: 3}
   - {fileID: 21300000, guid: 2f5d515f8b0005942bdfa4f899a91c21, type: 3}
   - {fileID: 21300000, guid: 6700eaefc59ec3a43b83814da2dbfb0b, type: 3}
@@ -113,6 +114,7 @@ SpriteAtlas:
   - reportIcon
   - simpled_RareCardPack
   - simpled_ColorCardPack
+  - GJDJIcon
   - buyVehicleBaseIcon
   - busanIcon
   - achievementIcon

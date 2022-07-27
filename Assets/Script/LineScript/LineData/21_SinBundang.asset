@@ -12,30 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
   m_Name: 21_SinBundang
   m_EditorClassIdentifier: 
+  isLightRail: 0
   trainPriceFactors:
-  - 0.2549
-  - 2.5429
-  - 2797.2
-  trainPassenger: 200000000000
-  trainPassengerAdd: 5000000000
-  totalTouch: 0.003782139
-  uTotalTouch: 0
-  basePrice: 22
-  basePriceEx: 11
-  basePriceAdd: 6
-  basePriceExAdd: 3
-  stationPrice: 15
+  - 0.1988
+  - 2.1404
+  - 2297.7
+  trainPassenger: 100000000000
+  trainPassengerAdd: 2000000000
+  totalTouch: 0
+  uTotalTouch: 11731941779400
+  basePrice: 65000000000000000
+  basePriceEx: 30000000000000000
+  basePriceAdd: 15000000000000000
+  basePriceExAdd: 7500000000000000
+  stationPrice: 40000000000000000
   sections:
   - name: "\uC2E0\uC0AC~\uAD11\uAD50"
     from: 0
     to: 15
-  expandPrice: b400000000000000
-  connectPrice: 4f01000000000000
-  connectTimeMoney: 00d00361ed280000
+  expandPrice: 0000b2d3595bf006
+  connectPrice: 0000b333e89ef50f
+  connectTimeMoney: 0040e59c30120000
   connectTMLargeUnit: 0
-  trainExpandPrice: 10
-  trainExpandPassenger: 111800000000
+  trainExpandPrice: 20000000000000000
+  trainExpandPassenger: 49700000000
   trainExPsngrLargeUnit: 0
-  screenDoorPrice: b801000000000000
+  lineControlUpgradePrice: []
+  lineControlUpgradePassenger: []
+  screenDoorPrice: 0000167b0d12d114
   screenDoorReputation: 64000000
-  isLargeUnit: 1
+  isLargeUnit: 0

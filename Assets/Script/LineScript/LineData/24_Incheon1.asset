@@ -12,30 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
   m_Name: 24_Incheon1
   m_EditorClassIdentifier: 
+  isLightRail: 0
   trainPriceFactors:
-  - 0.3142
-  - 2.6131
-  - 3397.1
-  trainPassenger: 1000000000000
-  trainPassengerAdd: 50000000000
-  totalTouch: 0.018207138
+  - 0.2614
+  - 1.8784
+  - 2797.9
+  trainPassenger: 500000000000
+  trainPassengerAdd: 10000000000
+  totalTouch: 0.008488194
   uTotalTouch: 0
-  basePrice: 155
-  basePriceEx: 75
-  basePriceAdd: 45
-  basePriceExAdd: 18
-  stationPrice: 50
+  basePrice: 60
+  basePriceEx: 30
+  basePriceAdd: 15
+  basePriceExAdd: 7
+  stationPrice: 15
   sections:
   - name: "\uACC4\uC591~\uC1A1\uB3C4\uB2EC\uBE5B\uCD95\uC81C\uACF5\uC6D0"
     from: 0
     to: 29
-  expandPrice: d403000000000000
-  connectPrice: 8408000000000000
-  connectTimeMoney: 00907292c6390100
+  expandPrice: c201000000000000
+  connectPrice: 3403000000000000
+  connectTimeMoney: 00407a10f35a0000
   connectTMLargeUnit: 0
-  trainExpandPrice: 70
-  trainExpandPassenger: 868700000000
+  trainExpandPrice: 20
+  trainExpandPassenger: 248700000000
   trainExPsngrLargeUnit: 0
-  screenDoorPrice: d10b000000000000
+  lineControlUpgradePrice: []
+  lineControlUpgradePassenger: []
+  screenDoorPrice: 0604000000000000
   screenDoorReputation: 64000000
   isLargeUnit: 1

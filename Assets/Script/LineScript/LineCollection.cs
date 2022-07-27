@@ -7,6 +7,14 @@ public class LineCollection : MonoBehaviour
     public Line line;
 
     public LineData lineData;
+    public int[] LineControlLevels { set { lineData.lineControlLevels = value; } 
+        get { 
+            if (lineData.lineControlLevels == null && purchaseStation.priceData.IsLightRail)
+                lineData.lineControlLevels = new int[5]; 
+            return lineData.lineControlLevels; 
+        } 
+    }
+
     public PurchaseTrainManager purchaseTrain;
     public PurchaseStation purchaseStation;
     public ExpandPurchase expandPurchase;

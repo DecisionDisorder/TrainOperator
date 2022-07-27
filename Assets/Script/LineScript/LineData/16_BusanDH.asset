@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
   m_Name: 16_BusanDH
   m_EditorClassIdentifier: 
+  isLightRail: 0
   trainPriceFactors:
   - 0.1022
   - 1.8017
@@ -19,23 +20,25 @@ MonoBehaviour:
   trainPassenger: 4000000000
   trainPassengerAdd: 100000000
   totalTouch: 0
-  uTotalTouch: 463889779400
-  basePrice: 350000000000000
-  basePriceEx: 175000000000000
-  basePriceAdd: 105000000000000
-  basePriceExAdd: 43750000000000
-  stationPrice: 950000000000000
+  uTotalTouch: 124441779400
+  basePrice: 250000000000000
+  basePriceEx: 125000000000000
+  basePriceAdd: 60000000000000
+  basePriceExAdd: 30000000000000
+  stationPrice: 600000000000000
   sections:
   - name: "\uD0DC\uD654\uAC15~\uBD80\uC804"
     from: 0
     to: 22
-  expandPrice: 0000c16ff2862300
-  connectPrice: 00005de2d1ca7800
+  expandPrice: 0080257214800d00
+  connectPrice: 0080d5cd60b65100
   connectTimeMoney: 00362862d0000000
   connectTMLargeUnit: 0
-  trainExpandPrice: 635000000000000
+  trainExpandPrice: 320000000000000
   trainExpandPassenger: 2200000000
   trainExPsngrLargeUnit: 0
-  screenDoorPrice: 000004bfc91b8e00
+  lineControlUpgradePrice: []
+  lineControlUpgradePassenger: []
+  screenDoorPrice: 0000434fd7946a00
   screenDoorReputation: 64000000
   isLargeUnit: 0

@@ -5,7 +5,7 @@ public class PriceData : ScriptableObject
 {
     [SerializeField]
     private bool isLightRail;
-    public bool IsLightRail { get { return IsLightRail; } }
+    public bool IsLightRail { get { return isLightRail; } }
 
     [SerializeField]
     private float[] trainPriceFactors;
@@ -79,19 +79,19 @@ public class PriceData : ScriptableObject
     public ulong TrainExapndPassenger { get { return trainExpandPassenger; } }
 
     [SerializeField]
-    private LargeVariable[] lineControlUpgradePrice;
-    public LargeVariable[] LineControlUpgradePrice;
-
-    [SerializeField]
-    private LargeVariable[] lineControlUpgradePassenger;
-    public LargeVariable[] LineControlUpgradePassenger;
-
-    [SerializeField]
     private bool trainExPsngrLargeUnit;
     /// <summary>
     /// 열차 확장의 승객 수 보상이 large unit인지
     /// </summary>
     public bool TrainExPsngrLargeUnit { get { return trainExPsngrLargeUnit; } }
+
+    [SerializeField]
+    private LargeVariable[] lineControlUpgradePrice;
+    public LargeVariable[] LineControlUpgradePrice { get { return lineControlUpgradePrice; } }
+
+    [SerializeField]
+    private LargeVariable[] lineControlUpgradePassenger;
+    public LargeVariable[] LineControlUpgradePassenger { get { return lineControlUpgradePassenger; } }
 
     [SerializeField]
     private ulong[] screenDoorPrice;
