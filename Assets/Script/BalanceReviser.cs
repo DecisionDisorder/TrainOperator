@@ -14,6 +14,7 @@ public class BalanceReviser : MonoBehaviour
         0.0247064219227298f, 0.0166791836993827f, 0.0138492544537495f, 0.0147889995378792f };
 
     public bool IsRevised { get { return PlayManager.instance.playData.isRevised; } set { PlayManager.instance.playData.isRevised = value; } }
+    public bool IsRevised_3_1_4 { get { return PlayManager.instance.playData.isRevised_3_1_4; } set { PlayManager.instance.playData.isRevised_3_1_4 = value; } }
 
     public LineManager lineManager;
     public DriversManager driversManager;
@@ -63,6 +64,17 @@ public class BalanceReviser : MonoBehaviour
             lineManager.lineCollections[(int)Line.SuinBundang].lineData.sectionExpanded = new bool[1];
             lineManager.lineCollections[(int)Line.SuinBundang].lineData.sectionExpanded[0] = subdExpanded;
         }*/
+        if(!IsRevised_3_1_4 && lineManager.lineCollections[0].lineData.numOfTrain > 0)
+        {
+            ReviseAfter3_1_4();
+            IsRevised_3_1_4 = true;
+            DataManager.instance.SaveAll();
+            //TODO: 안내 메시지
+
+#if UNITY_EDITOR
+            Debug.Log("3.1.4 Data Revised");
+#endif
+        }
     }
 
     public void CloseRevisedMenu()
@@ -267,6 +279,18 @@ public class BalanceReviser : MonoBehaviour
         }
     }
 
+    private void ResetRent()
+    {
+        MyAsset.instance.TimePerEarning = LargeVariable.zero;
+        for(int i = 0; i < rentManager.NumOfFacilities.Length; i++)
+        {
+            for(int j = 0; j < rentManager.NumOfFacilities[i]; j++)
+            {
+                MyAsset.instance.TimeEarningOperator(rentManager.GetTimeMoney(i, j), 0, true);
+            }
+        }
+    }
+
     private void ReviseAfter3_1_4()
     {
         ConvertNormal2LightRailData();
@@ -274,6 +298,7 @@ public class BalanceReviser : MonoBehaviour
         RevisePassenger();
         ApplyLineUpgrade();
         //시간형 수익 재계산 (임대시설 수치 조정 반영)
+        ResetRent();
         ReviseLineConnectReward();
     }
 }

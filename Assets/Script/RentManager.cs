@@ -26,6 +26,7 @@ public class RentManager : MonoBehaviour
         }
     }
 
+
     public Text[] facilityPriceTexts;
     public Text[] facilityTimeMoneyTexts;
     public Text[] conditionTexts;
@@ -35,11 +36,15 @@ public class RentManager : MonoBehaviour
     public UpdateDisplay rentUpdateDisplay;
     public ButtonColor_Controller3 buttonColor_Controller3;
 
+    private int[] openedAmount; // 0: normal line, 1: light rail
+    private int[] lineAmount; // 0: normal line, 1: light rail
+
     private void Start()
     {
         SetTexts();
         rentUpdateDisplay.onEnable += SetTexts;
         rentUpdateDisplay.onEnableUpdate += buttonColor_Controller3.SetRent;
+        rentUpdateDisplay.onEnable += SetLineAmount;
     }
 
     public void PurchaseFacility(int item)
@@ -119,6 +124,15 @@ public class RentManager : MonoBehaviour
         }
     }
 
+    private void SetLineAmount()
+    {
+        openedAmount[0] = lineManager.GetOpenedNormalLineAmount();
+        openedAmount[1] = lineManager.GetOpenedLightRailAmount();
+
+        lineAmount[0] = lineManager.GetNormalLineAmount();
+        lineAmount[1] = lineManager.GetLightRailAmount();
+    }
+
     /// <summary>
     /// 해당 시설의 시간형 수익 보상을 구함
     /// </summary>
@@ -127,17 +141,40 @@ public class RentManager : MonoBehaviour
         int line = GetLine(index);
         return facilityDatas[index].standardTimeMoney[line] + facilityDatas[index].incrementTimeMoney[line] * ((ulong)GetAmountPerLine(index) - 1);
     }
+    public ulong GetTimeMoney(int index, int num)
+    {
+        int line = GetLine(index, num);
+        return facilityDatas[index].standardTimeMoney[line] + facilityDatas[index].incrementTimeMoney[line] * ((ulong)GetAmountPerLine(index, num) - 1);
+    }
 
     /// <summary>
     /// 해당 인덱스의 시설이 어느 노선에 해당되는지 리턴함
     /// </summary>
     private int GetLine(int index)
     {
-        int line = NumOfFacilities[index] / facilityDatas[index].limit;
-        if (line > (int)Line.Gyeonggang)
-            return (int)Line.Gyeonggang;
-        else
-            return line;
+        return GetLine(index, NumOfFacilities[index]);
+    }
+    private int GetLine(int index, int amount)
+    {
+        int numOfFacility = amount, line;
+        for (line = 0; line < lineManager.lineCollections.Length; line++)
+        {
+            if (lineManager.lineCollections[line].lineConnection.priceData.IsLightRail)
+            {
+                if (numOfFacility < facilityDatas[index].lightRailLimit)
+                    break;
+                else
+                    numOfFacility -= facilityDatas[index].lightRailLimit;
+            }
+            else
+            {
+                if (numOfFacility < facilityDatas[index].limit)
+                    break;
+                else
+                    numOfFacility -= facilityDatas[index].limit;
+            }
+        }
+        return line;
     }
 
     public bool CheckLimit(int index)
@@ -153,7 +190,7 @@ public class RentManager : MonoBehaviour
     /// </summary>
     public int GetTotalLimit(int index)
     {
-        return facilityDatas[index].limit * ((int)lineManager.GetRecentlyOpenedLine() + 1);
+        return facilityDatas[index].limit * openedAmount[0] + facilityDatas[index].lightRailLimit * openedAmount[1];
     }
 
     /// <summary>
@@ -161,7 +198,7 @@ public class RentManager : MonoBehaviour
     /// </summary>
     public int GetMaxLimit(int index)
     {
-        return facilityDatas[index].limit * ((int)Line.Gyeonggang + 1);
+        return facilityDatas[index].limit * lineAmount[0] + facilityDatas[index].lightRailLimit * lineAmount[1];
     }
 
     /// <summary>
@@ -169,12 +206,30 @@ public class RentManager : MonoBehaviour
     /// </summary>
     private int GetAmountPerLine(int index)
     {
-        int amount = (NumOfFacilities[index] + 1) % facilityDatas[index].limit;
+        return GetAmountPerLine(index, NumOfFacilities[index]);
+    }
+    private int GetAmountPerLine(int index, int num)
+    {
+        int amountLeft = num, line;
+        for (line = 0; line < lineManager.lineCollections.Length; line++)
+        {
+            if (lineManager.lineCollections[line].lineConnection.priceData.IsLightRail)
+            {
+                if (amountLeft < facilityDatas[index].lightRailLimit)
+                    break;
+                else
+                    amountLeft -= facilityDatas[index].lightRailLimit;
+            }
+            else
+            {
+                if (amountLeft < facilityDatas[index].limit)
+                    break;
+                else
+                    amountLeft -= facilityDatas[index].limit;
+            }
+        }
 
-        if (amount.Equals(0))
-            return facilityDatas[index].limit;
-        else
-            return amount;
+        return amountLeft;
     }
 
 
@@ -194,6 +249,7 @@ public class FacilityData
 {
     public string name;
     public int limit;
+    public int lightRailLimit;
     public ulong priceLow;
     public ulong priceHigh;
     public ulong[] standardTimeMoney;

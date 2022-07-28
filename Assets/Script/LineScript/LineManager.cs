@@ -133,4 +133,47 @@ public class LineManager : MonoBehaviour
 
         return Line.Line1;
     }
+
+    public int GetOpenedNormalLineAmount()
+    {
+        int count = 0;
+        for(int i = 0; i < lineCollections.Length; i++)
+        {
+            if (!lineCollections[i].purchaseStation.priceData.IsLightRail)
+                if (lineCollections[i].isExpanded())
+                    count++;
+        }
+        return count;
+    }
+    public int GetOpenedLightRailAmount()
+    {
+        int count = 0;
+        for (int i = 0; i < lineCollections.Length; i++)
+        {
+            if (lineCollections[i].purchaseStation.priceData.IsLightRail)
+                if (lineCollections[i].isExpanded())
+                    count++;
+        }
+        return count;
+    }
+    public int GetNormalLineAmount()
+    {
+        int count = 0;
+        for (int i = 0; i < lineCollections.Length; i++)
+        {
+            if (!lineCollections[i].purchaseStation.priceData.IsLightRail)
+                count++;
+        }
+        return count;
+    }
+    public int GetLightRailAmount()
+    {
+        int count = 0;
+        for (int i = 0; i < lineCollections.Length; i++)
+        {
+            if (lineCollections[i].purchaseStation.priceData.IsLightRail)
+                count++;
+        }
+        return count;
+    }
 }

@@ -12,6 +12,7 @@ public class PlayData
 
     public bool isConverted;
     public bool isRevised;
+    public bool isRevised_3_1_4;
 
     public bool notTutorialPlayed;
     /// <summary>

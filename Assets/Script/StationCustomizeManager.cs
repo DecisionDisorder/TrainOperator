@@ -45,6 +45,7 @@ public class StationCustomizeManager : MonoBehaviour
     private void InitStationInfo()
     {
         currentLineDropdown.value = CurrentLineIndex;
+        SetLineNames();
         SetStationNames(CurrentLineIndex);
         SelectName();
         ApplyToUI();
@@ -53,10 +54,7 @@ public class StationCustomizeManager : MonoBehaviour
     public void SetBackgroundToRecentLine(Line line)
     {
         CurrentLineIndex = (int)line;
-        CurrentStationIndex = 0;
-        SetStationNames(CurrentStationIndex);
-
-        ApplyToUI();
+        InitStationInfo();
     }
 
     private bool[] GetExpandedLines()
@@ -90,12 +88,12 @@ public class StationCustomizeManager : MonoBehaviour
         currentLineDropdown.ClearOptions();
         bool[] expandedLines = GetExpandedLines();
 
-        for(int i = 0; i < lineManager.lineCollections.Length; i++)
+        for(int i = 0, j = 0; i < lineManager.lineCollections.Length; i++)
         {
             if (expandedLines[i])
             {
-                lineNames[i] = lineManager.lineCollections[i].purchaseTrain.lineName;
-                currentLineDropdown.options.Add(new Dropdown.OptionData(lineNames[i]));
+                lineNames[j] = lineManager.lineCollections[i].purchaseTrain.lineName;
+                currentLineDropdown.options.Add(new Dropdown.OptionData(lineNames[j++]));
             }
         }
         currentLineDropdown.value = CurrentLineIndex;
