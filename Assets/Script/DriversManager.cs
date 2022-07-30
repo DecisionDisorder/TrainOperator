@@ -117,7 +117,7 @@ public class DriversManager : MonoBehaviour
                 salaryPay_Controller.CalculateSalary();
                 //SaveDrivers();
                 //buttonColor_Controller.SetDriver();
-                if(!isEasyPurchase || messageManager.Normal_Message.text.Equals(""))
+                if(!isEasyPurchase || messageManager.messageText.text.Equals(""))
                     MessageBuy(i);
                 TextInfo();
             }
@@ -136,7 +136,7 @@ public class DriversManager : MonoBehaviour
                 salaryPay_Controller.CalculateSalary();
                 //SaveDrivers();
                 //buttonColor_Controller.SetDriver();
-                if (!isEasyPurchase || messageManager.Normal_Message.text.Equals(""))
+                if (!isEasyPurchase || messageManager.messageText.text.Equals(""))
                     MessageBuy(i);
                 TextInfo();
             }
@@ -157,7 +157,7 @@ public class DriversManager : MonoBehaviour
                     salaryPay_Controller.CalculateSalary();
                     //SaveDrivers();
                     //buttonColor_Controller.SetDriver();
-                    if (!isEasyPurchase || messageManager.Normal_Message.text.Equals(""))
+                    if (!isEasyPurchase || messageManager.messageText.text.Equals(""))
                         MessageBuy(i);
                     TextInfo();
                 }

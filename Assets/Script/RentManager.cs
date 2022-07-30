@@ -36,8 +36,8 @@ public class RentManager : MonoBehaviour
     public UpdateDisplay rentUpdateDisplay;
     public ButtonColor_Controller3 buttonColor_Controller3;
 
-    private int[] openedAmount; // 0: normal line, 1: light rail
-    private int[] lineAmount; // 0: normal line, 1: light rail
+    private int[] openedAmount = new int[2]; // 0: normal line, 1: light rail
+    private int[] lineAmount = new int[2]; // 0: normal line, 1: light rail
 
     private void Start()
     {

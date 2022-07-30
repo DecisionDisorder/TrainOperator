@@ -43,7 +43,8 @@ public class AchievementManager : MonoBehaviour
         {
             int count = 0;
             for (int i = 0; i < lineManager.lineCollections.Length; i++)
-                count += lineManager.lineCollections[i].lineData.trainExpandStatus[1] + lineManager.lineCollections[i].lineData.trainExpandStatus[2] * 2 + lineManager.lineCollections[i].lineData.trainExpandStatus[3] * 3;
+                if(lineManager.lineCollections[i].lineData.trainExpandStatus.Length > 0)
+                    count += lineManager.lineCollections[i].lineData.trainExpandStatus[1] + lineManager.lineCollections[i].lineData.trainExpandStatus[2] * 2 + lineManager.lineCollections[i].lineData.trainExpandStatus[3] * 3;
             return count;
         }
     }

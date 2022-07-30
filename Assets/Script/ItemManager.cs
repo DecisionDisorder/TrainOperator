@@ -315,7 +315,7 @@ public class ItemManager : MonoBehaviour
     {
         if (FeverRefillAmount > 0)
         {
-            messageManager.OpenCommonCheckMenu("피버 충전 쿠폰 사용 확인", "피버 충전 쿠폰을 사용하여\n피버 게이지를 완전히 충전하시겠습니까?", feverBackgroundColor, RefillFever);
+            messageManager.OpenCommonCheckMenu("피버 충전 쿠폰 사용 확인", "피버 충전 쿠폰을 사용하여\n피버 게이지를 완전히 충전하시겠습니까?\n<size=25>(게이지만 충전되며 원하는 타이밍에\n직접 피버 타임을 시작할 수 있습니다.)</size>", feverBackgroundColor, RefillFever);
         }
         else
             messageManager.ShowMessage("피버 충전 쿠폰이 없습니다.");

@@ -35,6 +35,7 @@ public class FeverManager : MonoBehaviour
 
     public Color fillingColor;
     public Color filledColor;
+    public Color messageBackgroundColor;
 
     public Image feverImg;
     public Button feverButton;
@@ -47,6 +48,7 @@ public class FeverManager : MonoBehaviour
 
     public TouchEarning touchEarning;
     public ItemManager itemManager;
+    public MessageManager messageManager;
 
     private void Start()
     {
@@ -131,12 +133,14 @@ public class FeverManager : MonoBehaviour
         {
             selectedFeverMode = FeverMode.AutoTouching;
             //itemManager.SetActiveRareCard(false);
+            messageManager.ShowMessage("자동 수금 피버 타임이 발동하였습니다!", messageBackgroundColor, 3.0f);
             StartAutoTouchingFever();
         }
         else
         {
             selectedFeverMode = FeverMode.MassiveIncome;
             //itemManager.SetActiveColorCard(false);
+            messageManager.ShowMessage("수익률 증가 피버 타임이 발동하였습니다!", messageBackgroundColor, 3.0f);
             StartMassiveIncomeFever();
         }
         FeverStack = 0;

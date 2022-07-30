@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class MessageManager : MonoBehaviour
 {
-    public GameObject _Message;
-    public Text Normal_Message;
+    public Image messageBackgroundImg;
+    public Text messageText;
 
     public GameObject popUpMessage;
     public Text popUpMessageText;
@@ -36,8 +36,8 @@ public class MessageManager : MonoBehaviour
 
     public void ShowMessage(string msg, float time = 1.0f)
     {
-        _Message.SetActive(true);
-        Normal_Message.text = msg;
+        messageBackgroundImg.gameObject.SetActive(true);
+        messageText.text = msg;
 
         if (erase != null)
             StopCoroutine(erase);
@@ -45,10 +45,16 @@ public class MessageManager : MonoBehaviour
         StartCoroutine(erase);
     }
 
+    public void ShowMessage(string msg, Color backgroundColor, float time = 1.0f)
+    {
+        messageBackgroundImg.color = backgroundColor;
+        ShowMessage(msg, time);
+    }
+
     public void CloseMessage()
     {
         StopCoroutine(erase);
-        _Message.SetActive(false);
+        messageBackgroundImg.gameObject.SetActive(false);
     }
 
     public void ShowPopupMessage(string msg)
@@ -133,7 +139,7 @@ public class MessageManager : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
-        _Message.SetActive(false);
-        Normal_Message.text = "";
+        messageBackgroundImg.gameObject.SetActive(false);
+        messageText.text = "";
     }
 }
