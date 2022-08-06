@@ -36,7 +36,10 @@ public class LineStatus : MonoBehaviour
         else
         {
             PlayManager.ArrangeUnit(0, timeEarning, ref lowUnit, ref highUnit, false);
-            statusTexts[0].text = highUnit + "$";
+            if(highUnit.Equals(""))
+                statusTexts[0].text = "0$";
+            else
+                statusTexts[0].text = highUnit + "$";
         }
         #endregion
         #region 터치형 수익
