@@ -45,13 +45,17 @@ public class Inspect_Sanitory_Controller : MonoBehaviour {
     {
         messageManager.ShowMessage("위생 감시원이 위생검사를 나왔습니다!");
 
-        if (condition_Sanitory_Controller.Condition == 2)
+        if (condition_Sanitory_Controller.Condition == 1)
         {
             StartCoroutine(Penalty(3.0f, 1.5f));
         }
-        else if (condition_Sanitory_Controller.Condition == 1)
+        else if (condition_Sanitory_Controller.Condition == 2)
         {
             StartCoroutine(Penalty(3.0f, 1.0f));
+        }
+        else if(condition_Sanitory_Controller.Condition == 3)
+        {
+            StartCoroutine(Bonus(3.0f, 0.5f));
         }
         else if (condition_Sanitory_Controller.Condition == 4)
         {
@@ -73,7 +77,10 @@ public class Inspect_Sanitory_Controller : MonoBehaviour {
         AssetMoneyCalculator.instance.ForceSubtract(subtractedMoneyLow, subtractedMoneyHigh);
         PlayManager.ArrangeUnit(subtractedMoneyLow, subtractedMoneyHigh, ref money1, ref money2);
 
-        messageManager.ShowMessage("위생검사 결과가 좋지않아 벌금으로 <color=red>" + money2 + money1 + "$</color>을 지불했습니다.", 3.0f);
+        if(penalty <= 1.0f)
+            messageManager.ShowMessage("위생검사 결과가 좋지않아 벌금으로 <color=red>" + money2 + money1 + "$</color>을 지불했습니다.", 3.0f);
+        else
+            messageManager.ShowMessage("위생검사 결과가 매우 좋지않아 벌금으로 <color=red>" + money2 + money1 + "$</color>을 지불했습니다.", 3.0f);
     }
     IEnumerator Bonus(float time, float bonus)
     {
@@ -85,6 +92,11 @@ public class Inspect_Sanitory_Controller : MonoBehaviour {
         AssetMoneyCalculator.instance.ArithmeticOperation(addedMoneyLow, addedMoneyHigh, true);
         PlayManager.ArrangeUnit(addedMoneyLow, addedMoneyHigh, ref money1, ref money2);
 
-        messageManager.ShowMessage("위생검사 결과가 양호하여 장려금 <color=green>" + money2 + money1 + "$</color>을 지급받았습니다.", 3.0f);
+        if(bonus < 1f)
+            messageManager.ShowMessage("위생검사 결과가 기준에 부합하여 장려금 <color=green>" + money2 + money1 + "$</color>을 지급받았습니다.", 3.0f);
+        else if(bonus == 1f)
+            messageManager.ShowMessage("위생검사 결과가 양호하여 장려금 <color=green>" + money2 + money1 + "$</color>을 지급받았습니다.", 3.0f);
+        else
+            messageManager.ShowMessage("위생검사 결과가 매우 양호하여 장려금 <color=green>" + money2 + money1 + "$</color>을 지급받았습니다.", 3.0f);
     }
 }

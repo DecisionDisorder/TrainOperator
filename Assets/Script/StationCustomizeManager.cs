@@ -116,9 +116,21 @@ public class StationCustomizeManager : MonoBehaviour
         currentStationDropdown.RefreshShownValue();
     }
 
+    private int GetLineIndexByExpandedIndex(int dropdownIndex)
+    {
+        for(int i = 0; i < lineManager.lineCollections.Length; i++)
+        {
+            if (lineManager.lineCollections[i].purchaseTrain.lineName.Equals(currentLineDropdown.options[dropdownIndex].text))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public void SelectLine()
     {
-        int lineIndexTemp = currentLineDropdown.value;
+        int lineIndexTemp = GetLineIndexByExpandedIndex(currentLineDropdown.value);
         SetStationNames(lineIndexTemp);
         SelectName();
     }
@@ -169,7 +181,7 @@ public class StationCustomizeManager : MonoBehaviour
     {
         CurrentStationIndex = currentStationDropdown.value;
         IsStationReversed = reverseSelected;
-        CurrentLineIndex = currentLineDropdown.value;
+        CurrentLineIndex = GetLineIndexByExpandedIndex(currentLineDropdown.value);
 
         ApplyToUI();
 
