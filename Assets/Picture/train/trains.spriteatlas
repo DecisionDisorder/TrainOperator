@@ -51,6 +51,8 @@ SpriteAtlas:
   m_PackedSprites:
   - {fileID: 21300000, guid: a10c7821d422d1f46aac742b53828049, type: 3}
   - {fileID: 21300000, guid: 66d7b9316b0832c43a387a76684a5a14, type: 3}
+  - {fileID: 21300000, guid: 7b05a071493222c44b812c1f09e7871b, type: 3}
+  - {fileID: 21300000, guid: 347a95e110254f548ada0188d7585aa5, type: 3}
   - {fileID: 21300000, guid: 79a37de15b9d3c745995292d3ca57229, type: 3}
   - {fileID: 21300000, guid: 964a77727e3983a48a5c50e1f33aa83f, type: 3}
   - {fileID: 21300000, guid: 5ba944331498d06429b524d0b0bbb6cb, type: 3}
@@ -65,26 +67,35 @@ SpriteAtlas:
   - {fileID: 21300000, guid: ba6a26674b160574297a128c5a568c80, type: 3}
   - {fileID: 21300000, guid: 22babfe736ec0ae4bb16ee6c556cff3e, type: 3}
   - {fileID: 21300000, guid: 8d392f48c2db6a8439154dbefdac8016, type: 3}
+  - {fileID: 21300000, guid: 4c587588741c43c4e987cd2ab06513ac, type: 3}
   - {fileID: 21300000, guid: b0039dd8e056c824ebb383227098f213, type: 3}
+  - {fileID: 21300000, guid: 7a1c93aaebf1aba4b82ac42cd1a5157b, type: 3}
   - {fileID: 21300000, guid: 20cf7dbacd7a55240841af487bf6a0bb, type: 3}
   - {fileID: 21300000, guid: 776fdfea34699274f926afb153ae3369, type: 3}
   - {fileID: 21300000, guid: 7b56971b159539b47bd811baf7c20930, type: 3}
   - {fileID: 21300000, guid: 101da4eb96dacf844a8a7b3acac8b79f, type: 3}
   - {fileID: 21300000, guid: efc03d5c8904c7643b352ddcd59b2a7d, type: 3}
   - {fileID: 21300000, guid: 99cc8fac56a47ab4a90c482c6055b7f9, type: 3}
+  - {fileID: 21300000, guid: d696910d7e7844d4091a0aecee251d65, type: 3}
   - {fileID: 21300000, guid: 1233ce0de69d5c24196c09f39a60cd0c, type: 3}
   - {fileID: 21300000, guid: 960ae12d592f2874792c9a6ff9dfd67e, type: 3}
   - {fileID: 21300000, guid: 04a41b6d6b6906340b859e66dfa08011, type: 3}
   - {fileID: 21300000, guid: 2614657d44782684a9c2393fd7a8c51b, type: 3}
   - {fileID: 21300000, guid: f1e841edd10e90f43ad0d400082b6fe4, type: 3}
+  - {fileID: 21300000, guid: 349b130ec9373534a982c2c940e01abd, type: 3}
   - {fileID: 21300000, guid: a75f311ebf8539f4b8a7b4083d2e1f02, type: 3}
   - {fileID: 21300000, guid: 376e991eb02041c4b80cb4930b53b0ca, type: 3}
   - {fileID: 21300000, guid: b05bbb9efc5b05a46a9fbd92c1552c85, type: 3}
+  - {fileID: 21300000, guid: 0a9b41bef3520cb47b517f5a5ecd22e9, type: 3}
+  - {fileID: 21300000, guid: 732d621f08ed41641a33bb7b0cde4daa, type: 3}
+  - {fileID: 21300000, guid: 560c409f9e683e64c8cd5727ef6627b8, type: 3}
   - {fileID: 21300000, guid: 5db3ee9ff1891be4d9d10962922a801d, type: 3}
   - {fileID: 21300000, guid: 372f3eff81d9fee4883ff2089d7f5496, type: 3}
   m_PackedSpriteNamesToIndex:
   - "3\uD638\uC120_50~74"
   - "3\uD638\uC120_75~100"
+  - Airline
+  - Seohae
   - "8\uD638\uC120"
   - "\uBD80\uC0B01\uD638\uC120(1~50)"
   - "\uBD80\uC0B01\uD638\uC120(50~100)"
@@ -99,21 +110,28 @@ SpriteAtlas:
   - "\uBD80\uC0B04\uD638\uC120"
   - "1\uD638\uC120_25~49"
   - "1\uD638\uC120_75~100"
+  - EverLine
   - "4\uD638\uC1200~30"
+  - GwangJu
   - "\uB300\uAD6C 3\uD638\uC120"
   - "7\uD638\uC1201"
   - "4\uD638\uC12070~100"
   - "5\uD638\uC120"
   - "1\uD638\uC120_0~24"
   - "\uACBD\uCD98\uC120 \uC5F4\uCC28"
+  - Sillim
   - "1\uD638\uC120_50~74"
   - "6\uD638\uC120"
   - "\uB300\uAD6C 2\uD638\uC120"
   - "\uBD80\uC0B0\uAE40\uD574\uACBD\uC804\uCCA0"
   - "2\uD638\uC120_0~24"
+  - Gimpo
   - "\uACBD\uAC15\uC120 \uC5F4\uCC28"
   - "\uACBD\uC758\uC911\uC559\uC120 \uC5F4\uCC28"
   - "9\uD638\uC120"
+  - ULRT
+  - UJB
+  - Daejeon
   - "3\uD638\uC120_0~24"
   - "7\uD638\uC1202"
   m_RenderDataMap: {}

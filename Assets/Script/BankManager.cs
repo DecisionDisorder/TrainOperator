@@ -55,6 +55,11 @@ public class BankManager : MonoBehaviour {
     private ulong totalMoney;
     private ulong totalAddedMoney;
 
+    public GameObject bankProductMenu;
+    public GameObject lotteryTicketMenu;
+
+    public AchievementManager achievementManager;
+
     void Start()
     {
         StartCoroutine(CalTimer());
@@ -84,6 +89,16 @@ public class BankManager : MonoBehaviour {
 
         StartCoroutine(CalTimer());
     }
+
+    public void SetBankProductMenu(bool active)
+    {
+        bankProductMenu.SetActive(active);
+    }
+    public void SetLotteryTicketMenu(bool active)
+    {
+        lotteryTicketMenu.SetActive(active);
+    }
+
     public void PressKey(int nKey)
     {
         switch (nKey)
@@ -473,7 +488,7 @@ public class BankManager : MonoBehaviour {
     {
         string money1 = "", money2 = "";
         PlayManager.ArrangeUnit(depositMoney, 0, ref money1, ref money2, true);
-        messageManager.ShowMessage("<color=orange>" + money2 + money1 + "$</color>가 정상적으로 입금 되었습니다.", 3f);
+        messageManager.ShowMessage("<color=blue>" + money2 + money1 + "$</color>가 정상적으로 입금 되었습니다.", 3f);
     }
 
     void Cal_Merchandise()
@@ -505,9 +520,12 @@ public class BankManager : MonoBehaviour {
 
     void Cal_Merchandise_withdraw()
     {
+        LargeVariable interest = LargeVariable.zero;
         if (merchandiseWD_text.text == "상품: A")
         {
             AssetMoneyCalculator.instance.ArithmeticOperation(withdrawMoney, 0, true);
+            interest = new LargeVariable(AddedMoney[0], 0);
+            
             SavedMoney[0] = 0;
             AddedMoney[0] = 0;
             ContractTime[0] = 0;
@@ -516,6 +534,8 @@ public class BankManager : MonoBehaviour {
         else if (merchandiseWD_text.text == "상품: B")
         {
             AssetMoneyCalculator.instance.ArithmeticOperation(withdrawMoney, 0, true);
+            interest = new LargeVariable(AddedMoney[1], 0);
+
             SavedMoney[1] = 0;
             AddedMoney[1] = 0;
             ContractTime[1] = 0;
@@ -524,11 +544,14 @@ public class BankManager : MonoBehaviour {
         else if (merchandiseWD_text.text == "상품: C")
         {
             AssetMoneyCalculator.instance.ArithmeticOperation(withdrawMoney, 0, true);
+            interest = new LargeVariable(AddedMoney[2], 0);
+
             SavedMoney[2] = 0;
             AddedMoney[2] = 0;
             ContractTime[2] = 0;
             IsRegistered[2] = false;
         }
+        achievementManager.CumulativeInterest += interest * 1.1f;
     }
     private void CalculateMoney()
     {

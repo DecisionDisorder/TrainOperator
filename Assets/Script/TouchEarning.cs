@@ -10,10 +10,23 @@ public class TouchEarning : MonoBehaviour {
     public LevelManager levelManager;
     public MacroDetector macroDetector;
     public ItemManager itemManager;
+    public FeverManager feverManager;
+    public AchievementManager achievementManager;
     //-----------------------------------------------------------------------------
     public GameObject TouchMoney_Menu;
 	//-----------------------------------------------------------------------------
 	public static ulong passengerRandomFactor;
+    public static ulong PassengerRandomFactor { get { return passengerRandomFactor * ExternalCoefficient; } }
+    public static ulong externalCoefficient = 0;
+    private static ulong ExternalCoefficient {
+        get
+        {
+            if (externalCoefficient < 1)
+                return 1;
+            else
+                return externalCoefficient;
+        }
+    }
 	//-----------------------------------------------------------------------------
 	
 	public static int randomSetTime = 0;
@@ -63,15 +76,18 @@ public class TouchEarning : MonoBehaviour {
 	{
         touchAudio.PlayOneShot(audioclip);
         touchPerSecond++;
+        achievementManager.TouchCount++;
         AssetMoneyCalculator.instance.ArithmeticOperation(TouchMoneyManager.TouchMoneyLow, TouchMoneyManager.TouchMoneyHigh, true);
         levelManager.AddExp();
-        if(button_Option.AddedMoneyEffect)
+        if(!feverManager.feverActived)
+            feverManager.AddFeverStack();
+        if (button_Option.AddedMoneyEffect)
             AddedMoneyEffect();
 
         if (touchPerSecond != 0)
             touchpersecond_text.text = "초당 " + touchPerSecond + "회 터치";
 
-        if (!itemManager.itemActived)
+        if (!itemManager.itemActived && !feverManager.feverActived)
             macroDetector.DetectInterval();
     }
 

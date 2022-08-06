@@ -24,7 +24,8 @@ public class TouchMoneyManager : MonoBehaviour
         set
         {
             passengersRandomHigh = value;
-            AssetInfoUpdater.instance.UpdatePassengerText();
+            if (AssetInfoUpdater.instance != null)
+                AssetInfoUpdater.instance.UpdatePassengerText();
         }
     }
 
@@ -124,53 +125,4 @@ public class TouchMoneyManager : MonoBehaviour
         highUnit *= (ulong)mag;
         MoneyUnitTranslator.Arrange(ref lowUnit, ref highUnit);
     }
-    /*
-    public static void SavePS()
-    {
-        string TM2 = "" + touch_money_2;
-        string PS2 = "" + Passengers_Num_2;
-        string PSL2 = "" + Passengers_limit_2;
-
-        string TouchM = "" + touch_money;
-        string PS = "" + Passengers_Num;
-        string PSL = "" + Passengers_limit;
-
-        PlayerPrefs.SetString("Touch_Money", TouchM);
-        PlayerPrefs.SetString("Passengers", PS);
-        PlayerPrefs.SetString("Passengers_limit", PSL);
-
-        PlayerPrefs.SetString("touch_Money2", TM2);
-        PlayerPrefs.SetString("passengers_num2",PS2);
-        PlayerPrefs.SetString("passengers_limit2",PSL2);
-    }
-    public static void LoadPS()
-    {
-        string PS = PlayerPrefs.GetString("Passengers", "1");
-        string PSL = PlayerPrefs.GetString("Passengers_limit", "100");
-
-        string TM2 = PlayerPrefs.GetString("touch_Money2");
-        string PS2 = PlayerPrefs.GetString("passengers_num2");
-        string PSL2 = PlayerPrefs.GetString("passengers_limit2");
-        if (TM2 != "")
-        {
-            Passengers_Num = ulong.Parse(PS);
-            Passengers_limit = ulong.Parse(PSL);
-
-            touch_money_2 = ulong.Parse(TM2);
-            Passengers_Num_2 = ulong.Parse(PS2);
-            Passengers_limit_2 = ulong.Parse(PSL2);
-        }
-    }
-    public static void ResetPS()
-    {
-        Passengers_Num = reset_Ps;
-        Passengers_limit = 125;
-
-        touch_money_2 = 0;
-        Passengers_Num_2 = 0;
-        Passengers_limit_2 = 0;
-
-        touch_money = reset_touchm;
-        RenewPassengerBase();
-    }*/
 }

@@ -13,6 +13,7 @@ public class ItemData
     public int rareCardPackAmount;
 
     public int cardPoint;
+    public int feverRefillAmount;
 
     public ItemData()
     {

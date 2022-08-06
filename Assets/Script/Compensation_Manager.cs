@@ -97,9 +97,6 @@ public class Compensation_Manager : MonoBehaviour {
 
         for (int i = 0; i < lineManager.lineCollections.Length; i++)
         {
-            if (!lineManager.lineCollections[i].isExpanded())
-                break;
-
             for (int section = 0; section < lineManager.lineCollections[i].lineData.sectionExpanded.Length; section++)
             {
                 if (lineManager.lineCollections[i].lineData.installed[section])

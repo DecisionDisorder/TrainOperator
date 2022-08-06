@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
+  m_Name: 20_ULRT
+  m_EditorClassIdentifier: 
+  isLightRail: 1
+  trainPriceFactors:
+  - 0
+  - 8.3333
+  - 1941.7
+  trainPassenger: 75000000000
+  trainPassengerAdd: 1750000000
+  totalTouch: 0
+  uTotalTouch: 9331941779400
+  basePrice: 30000000000000000
+  basePriceEx: 15000000000000000
+  basePriceAdd: 7500000000000000
+  basePriceExAdd: 3750000000000000
+  stationPrice: 18000000000000000
+  sections:
+  - name: "\uBD81\uD55C\uC0B0\uC6B0\uC774~\uC2E0\uC124\uB3D9 "
+    from: 0
+    to: 12
+  expandPrice: 000020f84dde7004
+  connectPrice: 00002876e1158d05
+  connectTimeMoney: 00c025cb2e020000
+  connectTMLargeUnit: 0
+  trainExpandPrice: 0
+  trainExpandPassenger: 0
+  trainExPsngrLargeUnit: 0
+  lineControlUpgradePrice:
+  - lowUnit: 3589320541120000
+    highUnit: 5
+  - lowUnit: 383980811680000
+    highUnit: 8
+  - lowUnit: 7178641082240000
+    highUnit: 10
+  - lowUnit: 3973301352800000
+    highUnit: 13
+  - lowUnit: 767961623360000
+    highUnit: 16
+  lineControlUpgradePassenger:
+  - lowUnit: 180000000000
+    highUnit: 0
+  - lowUnit: 270000000000
+    highUnit: 0
+  - lowUnit: 360000000000
+    highUnit: 0
+  - lowUnit: 450000000000
+    highUnit: 0
+  - lowUnit: 540000000000
+    highUnit: 0
+  screenDoorPrice: 0000eda49db83e06
+  screenDoorReputation: 64000000
+  isLargeUnit: 0

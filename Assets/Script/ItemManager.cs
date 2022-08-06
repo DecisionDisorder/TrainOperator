@@ -18,6 +18,7 @@ public class ItemManager : MonoBehaviour
     public Text[] rarePackAmountText;
 
     public Text cardPointText;
+    public Text feverRefillText;
 
     public Image cardTimer;
     public Image cardTimerImg;
@@ -27,11 +28,6 @@ public class ItemManager : MonoBehaviour
     public GameObject[] purchaseTypeObjs;
     public GameObject[] openCardPackMenus;
     public GameObject cardHelpMenu;
-
-    public GameObject purchaseCheckMenu;
-    public Text productText;
-    public Text amountText;
-    public Text priceText;
 
     public GameObject[] colorCardPackOpenImgs;
     public GameObject[] rareCardPackOpenImgs;
@@ -48,6 +44,7 @@ public class ItemManager : MonoBehaviour
     public AudioClip[] cardAudioClips;
 
     private delegate void AfterAnimation(int card);
+    public TimeMoneyManager timeMoneyManager;
 
     public int[] ColorCardAmounts
     {
@@ -71,15 +68,20 @@ public class ItemManager : MonoBehaviour
     public int RarePackAmount { get { return itemData.rareCardPackAmount; } set { itemData.rareCardPackAmount = value; SetPackAmountText(); } }
 
     public int CardPoint { get { return itemData.cardPoint; } set { itemData.cardPoint = value; SetCardPointText(); } }
+    
+    public int FeverRefillAmount { get { return itemData.feverRefillAmount; } set { if (value >= 0) itemData.feverRefillAmount = value; UpdateFeverRefillText(); } }
 
-    private ulong priorPassengerRandomFactor;
-    public ulong colorCardTMFactor = 1;
+    private ulong activedTouchAbility;
+    public ulong activedTimeAbility;
 
     public int[] purchaseAmounts;
     public int[] colorPackPrices;
     public int[] rarePackPrices;
     private int purchasePackType;
     private int purchaseAmountType;
+
+    public Color purchaseBackgroundColor;
+    public Color feverBackgroundColor;
 
     public bool itemActived;
 
@@ -89,6 +91,7 @@ public class ItemManager : MonoBehaviour
     public TouchEarning touchEarning;
     public MessageManager messageManager;
     public MiniGameManager miniGameManager;
+    public FeverManager feverManager;
 
     private void Start()
     {
@@ -96,6 +99,7 @@ public class ItemManager : MonoBehaviour
         UpdateRareCardInfo();
         SetCardPointText();
         SetPackAmountText();
+        UpdateFeverRefillText();
     }
     
     #region 메뉴 관리
@@ -182,17 +186,7 @@ public class ItemManager : MonoBehaviour
             cardTimerImg.sprite = colorCardAbilities[card].cardSprite;
             cardTimer.sprite = colorCardAbilities[card].cardSprite;
 
-            priorPassengerRandomFactor = TouchEarning.passengerRandomFactor;
-            TouchEarning.passengerRandomFactor *= (ulong)colorCardAbilities[card].ability[0];
-
-            colorCardTMFactor = (ulong)colorCardAbilities[card].ability[1];
-
-            TouchEarning.randomSetTime += duration; // 이벤트 시간 미룸
-            miniGameManager.timeLeft += duration;
-
-            CompanyReputationManager.instance.RenewPassengerRandom();
-            assetInfoUpdater.UpdateTimeMoneyText();
-
+            SetMassiveIncomeEnable(duration, (ulong)colorCardAbilities[card].ability[0], (ulong)colorCardAbilities[card].ability[1], ref activedTouchAbility, ref activedTimeAbility);
 
             ActiveCards(false);
             StartCoroutine(ColorCardTimer(duration, duration));
@@ -201,13 +195,33 @@ public class ItemManager : MonoBehaviour
             messageManager.ShowMessage(colorCardAbilities[card].name + "를 보유하고 있지 않습니다.");
     }
 
+    public void SetMassiveIncomeEnable(int duration, ulong touchMoneyAbility, ulong timeMoneyAbility, ref ulong activedTouchAbility, ref ulong activedTimeAbility)
+    {
+        TouchEarning.externalCoefficient += touchMoneyAbility;
+        activedTouchAbility = touchMoneyAbility;
+
+        activedTimeAbility = timeMoneyAbility;
+        timeMoneyManager.externalCoefficient += timeMoneyAbility;
+
+        TouchEarning.randomSetTime += duration; // 이벤트 시간 미룸
+        miniGameManager.timeLeft += duration;
+
+        CompanyReputationManager.instance.RenewPassengerRandom();
+        assetInfoUpdater.UpdateTimeMoneyText();
+    }
+
+    public void SetMassiveIncomeDisable(ulong activedTouchAbility, ulong activedTimeAbility)
+    {
+        TouchEarning.externalCoefficient -= activedTouchAbility;
+        timeMoneyManager.externalCoefficient -= activedTimeAbility;
+        assetInfoUpdater.UpdateTimeMoneyText();
+        CompanyReputationManager.instance.RenewPassengerRandom();
+    }
+
     private void DisableColorCardEffect()
     {
         DisableCardEffect();
-        TouchEarning.passengerRandomFactor = priorPassengerRandomFactor;
-        colorCardTMFactor = 1;
-        assetInfoUpdater.UpdateTimeMoneyText();
-        CompanyReputationManager.instance.RenewPassengerRandom();
+        SetMassiveIncomeDisable(activedTouchAbility, activedTimeAbility);
     }
 
     IEnumerator ColorCardTimer(float remainTime, float fullTime, float interval = 0.1f)
@@ -282,10 +296,45 @@ public class ItemManager : MonoBehaviour
 
     private void ActiveCards(bool active)
     {
+        SetActiveColorCard(active);
+        SetActiveRareCard(active);
+    }
+
+    public void SetActiveColorCard(bool active)
+    {
         for (int i = 0; i < colorCardButtons.Length; i++)
             colorCardButtons[i].interactable = active;
+    }
+    public void SetActiveRareCard(bool active)
+    {
         for (int i = 0; i < rareCardButtons.Length; i++)
             rareCardButtons[i].interactable = active;
+    }
+
+    public void UseFeverRefill()
+    {
+        if (FeverRefillAmount > 0)
+        {
+            messageManager.OpenCommonCheckMenu("피버 충전 쿠폰 사용 확인", "피버 충전 쿠폰을 사용하여\n피버 게이지를 완전히 충전하시겠습니까?\n<size=25>(게이지만 충전되며 원하는 타이밍에\n직접 피버 타임을 시작할 수 있습니다.)</size>", feverBackgroundColor, RefillFever);
+        }
+        else
+            messageManager.ShowMessage("피버 충전 쿠폰이 없습니다.");
+    }
+
+    private void RefillFever()
+    {
+        if (feverManager.FeverStack < feverManager.targetFeverStack)
+        {
+            feverManager.FeverStack = feverManager.targetFeverStack;
+            FeverRefillAmount--;
+            messageManager.ShowMessage("피버 게이지를 완전히 충전했습니다!");
+        }
+        else
+            messageManager.ShowMessage("피버 게이지가 이미 완전히 충전되어있습니다.");
+    }
+    private void UpdateFeverRefillText()
+    {
+        feverRefillText.text = "피버 충전 쿠폰\n" + FeverRefillAmount + "개";
     }
     #endregion
     #region 카드팩 구매 기능
@@ -293,51 +342,53 @@ public class ItemManager : MonoBehaviour
     {
         purchasePackType = 0;
         purchaseAmountType = type;
-        productText.text = "제품: 컬러 카드팩";
-        amountText.text = "수량: " + purchaseAmounts[type] + "개";
-        priceText.text = string.Format("가격: {0:#,##0}P", colorPackPrices[type]);
-        purchaseCheckMenu.SetActive(true);
+        string title = "카드팩 구매 확인";
+        string product = "제품: 컬러 카드팩";
+        string amount = "수량: " + purchaseAmounts[type] + "개";
+        string price = string.Format("가격: {0:#,##0}P", colorPackPrices[type]);
+
+        messageManager.SetPurchaseCheckMenu(title, product, amount, price, purchaseBackgroundColor, PurchasePack, Cancel);
     }
     public void OpenRarePackPurchaseCheck(int type)
     {
         purchasePackType = 1;
         purchaseAmountType = type;
-        productText.text = "제품: 레어 카드팩";
-        amountText.text = "수량: " + purchaseAmounts[type] + "개";
-        priceText.text = string.Format("가격: {0:#,##0}P", rarePackPrices[type]);
-        purchaseCheckMenu.SetActive(true);
+        string title = "카드팩 구매 확인";
+        string product = "제품: 레어 카드팩";
+        string amount = "수량: " + purchaseAmounts[type] + "개";
+        string price = string.Format("가격: {0:#,##0}P", rarePackPrices[type]);
+
+        messageManager.SetPurchaseCheckMenu(title, product, amount, price, purchaseBackgroundColor, PurchasePack, Cancel);
     }
 
-    public void PurchasePack(bool confirm)
+    private void Cancel() { }
+
+    public void PurchasePack()
     {
-        if (confirm)
+        if (purchasePackType.Equals(0))
         {
-            if (purchasePackType.Equals(0))
+            if (CardPoint >= colorPackPrices[purchaseAmountType])
             {
-                if (CardPoint >= colorPackPrices[purchaseAmountType])
-                {
-                    CardPoint -= colorPackPrices[purchaseAmountType];
-                    ColorPackAmount += purchaseAmounts[purchaseAmountType];
-                    messageManager.ShowMessage("컬러 카드팩 " + purchaseAmounts[purchaseAmountType] + "개를 구매하였습니다.");
-                    purchaseAudio.Play();
-                }
-                else
-                    messageManager.ShowMessage("카드 포인트가 부족합니다.");
+                CardPoint -= colorPackPrices[purchaseAmountType];
+                ColorPackAmount += purchaseAmounts[purchaseAmountType];
+                messageManager.ShowMessage("컬러 카드팩 " + purchaseAmounts[purchaseAmountType] + "개를 구매하였습니다.");
+                purchaseAudio.Play();
             }
             else
-            {
-                if (CardPoint >= rarePackPrices[purchaseAmountType])
-                {
-                    CardPoint -= rarePackPrices[purchaseAmountType];
-                    RarePackAmount += purchaseAmounts[purchaseAmountType];
-                    messageManager.ShowMessage("레어 카드팩 " + purchaseAmounts[purchaseAmountType] + "개를 구매하였습니다.");
-                    purchaseAudio.Play();
-                }
-                else
-                    messageManager.ShowMessage("카드 포인트가 부족합니다.");
-            }
+                messageManager.ShowMessage("카드 포인트가 부족합니다.");
         }
-        purchaseCheckMenu.SetActive(false);
+        else
+        {
+            if (CardPoint >= rarePackPrices[purchaseAmountType])
+            {
+                CardPoint -= rarePackPrices[purchaseAmountType];
+                RarePackAmount += purchaseAmounts[purchaseAmountType];
+                messageManager.ShowMessage("레어 카드팩 " + purchaseAmounts[purchaseAmountType] + "개를 구매하였습니다.");
+                purchaseAudio.Play();
+            }
+            else
+                messageManager.ShowMessage("카드 포인트가 부족합니다.");
+        }
     }
 
     private void SetPackAmountText()

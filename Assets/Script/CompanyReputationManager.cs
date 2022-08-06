@@ -5,10 +5,10 @@ using UnityEngine.UI;
 public class CompanyReputationManager : MonoBehaviour {
 
     public static CompanyReputationManager instance;
-	public Text Additional_Touch;
-	public Text Total_Reputation;
 
     public CompanyData companyData;
+
+    public ReputationSet[] reputationSets;
 
 	public int ReputationValue
     {
@@ -19,7 +19,7 @@ public class CompanyReputationManager : MonoBehaviour {
         set
         {
             companyData.reputationTotalValue = value; 
-            UpdateText();
+            AssetInfoUpdater.instance.UpdateText();
         }
     }
 
@@ -42,41 +42,34 @@ public class CompanyReputationManager : MonoBehaviour {
 
     void Start ()
     {
-		RenewReputation ();
-        reputationConditionUpdateDisplay.onEnableUpdate += UpdateText;
+        RenewReputation ();
+        reputationConditionUpdateDisplay.onEnableUpdate += AssetInfoUpdater.instance.UpdateText;
     }
 
-    public void UpdateText()
-    {
-        CalculateReputation();
-
-        string passengerLow = "", passengerHigh = "", timeMoneyLow = "", timeMoneyHigh = "";
-        ulong additionalPassengerLow = TouchMoneyManager.PassengersBaseLow - MyAsset.instance.PassengersLow, additionalPassengerHigh = TouchMoneyManager.PassengersBaseHigh - MyAsset.instance.PassengersHigh;
-        ulong additionalTimeMoneyLow = timeMoneyManager.mediumTimeMoney.lowUnit - MyAsset.instance.TimePerEarningLow, additionalTimeMoneyHigh = timeMoneyManager.mediumTimeMoney.highUnit - MyAsset.instance.TimePerEarningHigh;
-
-        PlayManager.ArrangeUnit(additionalPassengerLow, additionalPassengerHigh, ref passengerLow, ref passengerHigh, true);
-        PlayManager.ArrangeUnit(additionalTimeMoneyLow, additionalTimeMoneyHigh, ref timeMoneyLow, ref timeMoneyHigh, true);
-
-        Additional_Touch.text = "수익 증가율: +" + (revenueMagnification - 100) + "%\n";
-        Additional_Touch.text += string.Format("시간형 수익 증가량: +{0}{1}$\n터치형 수익 증가량: +{2}{3}$", timeMoneyHigh, timeMoneyLow, passengerHigh, passengerLow);
-
-        string rT = string.Format("{0:#,##0}", ReputationValue);
-        Total_Reputation.text = rT + "P";
-    }
-
-	private void CalculateReputation()
+	public void CalculateReputation()
 	{
-        revenueMagnification = 100 + (int)(revenueMagnificationInterval * ((float)ReputationValue / reputationInterval));
-        if (revenueMagnification > 300)
-            revenueMagnification = 300;
+        int setIndex = GetReputationSetIndex(ReputationValue);
+        revenueMagnification = (int)(reputationSets[setIndex].revenue * ((float)(ReputationValue - reputationSets[setIndex].from) / reputationSets[setIndex].interval)) 
+            + reputationSets[setIndex].stepRevenue + reputationSets[setIndex].priorCumRevenue + 100;
+        if (revenueMagnification > 350)
+            revenueMagnification = 350;
 
         if(instance != null)
             RenewPassengerBase();
     }
+    private int GetReputationSetIndex(int reputation)
+    {
+        for(int i = 0; i < reputationSets.Length; i++)
+        {
+            if (reputation < reputationSets[i].to)
+                return i;
+        }
+        return -1;
+    }
 
     public void RenewReputation()
     {
-        UpdateText();
+        AssetInfoUpdater.instance.UpdateText();
     }
 
     public void RenewPassengerBase()
@@ -95,7 +88,7 @@ public class CompanyReputationManager : MonoBehaviour {
         {
             ulong passengersRandomLow = 0, passengersRandomHigh = 0;
             //TODO: 이 함수도 수정하기
-            TouchMoneyManager.PercentCalculation(TouchEarning.passengerRandomFactor, TouchMoneyManager.PassengersBaseLow, TouchMoneyManager.PassengersBaseHigh, ref passengersRandomLow, ref passengersRandomHigh);
+            TouchMoneyManager.PercentCalculation(TouchEarning.PassengerRandomFactor, TouchMoneyManager.PassengersBaseLow, TouchMoneyManager.PassengersBaseHigh, ref passengersRandomLow, ref passengersRandomHigh);
             TouchMoneyManager.PassengersRandomLow = passengersRandomLow;
             TouchMoneyManager.PassengersRandomHigh = passengersRandomHigh;
         }
@@ -129,4 +122,15 @@ public class CompanyReputationManager : MonoBehaviour {
 		reputation_Totalvalue = 500;
 		additional_Percentage = 100;
 	}*/
+}
+
+[System.Serializable]
+public class ReputationSet
+{
+    public int from;
+    public int to;
+    public int interval;
+    public int revenue;
+    public int priorCumRevenue;
+    public int stepRevenue;
 }

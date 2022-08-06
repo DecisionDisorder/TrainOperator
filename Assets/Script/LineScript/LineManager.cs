@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Line { Line1, Line2, Line3, Line4, Line5, Line6, Line7, Line8, Line9, Busan1, Busan2, Busan3, Busan4, BusanKH, BusanDH, Daegu1, Daegu2, Daegu3, 
-    Bundang, SinBundang, SuinBundang, Incheon1, Incheon2, GyeonguiJungang, Gyeongchun, Gyeonggang }
+public enum Line { Line1, Line2, Line3, Line4, UJB, Line5, Line6, Line7, Line8, Line9, GimpoGold, Busan1, Busan2, Busan3, Busan4, BusanKH, BusanDH, Daegu1, Daegu2, Daegu3,
+    ULRT, SinBundang, SuinBundang, Everline, Incheon1, Incheon2, GyeonguiJungang, Gyeongchun, Gyeonggang, Sillim, Airline, Seohae, Gwangju1, Daejeon1 }
+
+public enum LightRailLine { UJB, GimpoGold, Busan4, BusanKH, Daegu3, ULRT, Everline, Incheon2, Sillim }
 
 public class LineManager : MonoBehaviour
 {
@@ -123,12 +125,55 @@ public class LineManager : MonoBehaviour
 
     public Line GetRecentlyOpenedLine()
     {
-        for(int i = (int)Line.Gyeonggang; i >= 0; i--)
+        for(int i = lineCollections.Length - 1; i >= 0; i--)
         {
             if (lineCollections[i].isExpanded())
                 return (Line)i;
         }
 
         return Line.Line1;
+    }
+
+    public int GetOpenedNormalLineAmount()
+    {
+        int count = 0;
+        for(int i = 0; i < lineCollections.Length; i++)
+        {
+            if (!lineCollections[i].purchaseStation.priceData.IsLightRail)
+                if (lineCollections[i].isExpanded())
+                    count++;
+        }
+        return count;
+    }
+    public int GetOpenedLightRailAmount()
+    {
+        int count = 0;
+        for (int i = 0; i < lineCollections.Length; i++)
+        {
+            if (lineCollections[i].purchaseStation.priceData.IsLightRail)
+                if (lineCollections[i].isExpanded())
+                    count++;
+        }
+        return count;
+    }
+    public int GetNormalLineAmount()
+    {
+        int count = 0;
+        for (int i = 0; i < lineCollections.Length; i++)
+        {
+            if (!lineCollections[i].purchaseStation.priceData.IsLightRail)
+                count++;
+        }
+        return count;
+    }
+    public int GetLightRailAmount()
+    {
+        int count = 0;
+        for (int i = 0; i < lineCollections.Length; i++)
+        {
+            if (lineCollections[i].purchaseStation.priceData.IsLightRail)
+                count++;
+        }
+        return count;
     }
 }

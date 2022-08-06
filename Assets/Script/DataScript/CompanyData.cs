@@ -18,6 +18,8 @@ public class CompanyData
     public int valuePoint;
     public int numOfSuccess;
 
+    public int inspectSanitoryTime;
+
     public CompanyData()
     {
         reputationPercentage = 100;
@@ -26,5 +28,6 @@ public class CompanyData
         peaceValue = 20;
         peaceCoolTime = 5;
         sanitoryCoolTime = 5;
+        inspectSanitoryTime = 240;
     }
 }

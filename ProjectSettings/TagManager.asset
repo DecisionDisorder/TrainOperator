@@ -38,11 +38,11 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: buyStation
     uniqueID: 1853436321
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0
   - name: LineCondition
     uniqueID: 2006879073

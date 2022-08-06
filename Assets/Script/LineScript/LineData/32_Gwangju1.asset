@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
+  m_Name: 32_Gwangju1
+  m_EditorClassIdentifier: 
+  isLightRail: 0
+  trainPriceFactors:
+  - 0.4833
+  - 1.6931
+  - 4997.8
+  trainPassenger: 100000000000000
+  trainPassengerAdd: 2500000000000
+  totalTouch: 1.8595632
+  uTotalTouch: 0
+  basePrice: 32500
+  basePriceEx: 16750
+  basePriceAdd: 8300
+  basePriceExAdd: 4150
+  stationPrice: 10000
+  sections:
+  - name: "\uD3C9\uB3D9~\uB179\uB3D9"
+    from: 0
+    to: 19
+  expandPrice: 400d030000000000
+  connectPrice: e093040000000000
+  connectTimeMoney: 00000f29e2284e00
+  connectTMLargeUnit: 0
+  trainExpandPrice: 9590
+  trainExpandPassenger: 55000000000000
+  trainExPsngrLargeUnit: 0
+  lineControlUpgradePrice: []
+  lineControlUpgradePassenger: []
+  screenDoorPrice: 3057050000000000
+  screenDoorReputation: 64000000
+  isLargeUnit: 1

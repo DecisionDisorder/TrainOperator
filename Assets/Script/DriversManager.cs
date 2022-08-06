@@ -25,11 +25,12 @@ public class DriversManager : MonoBehaviour
 
     public int[] numOfDrivers { get { return driverData.numOfDrivers; } set { driverData.numOfDrivers = value; } }
     public static ulong[] price_Drivers = new ulong[11] { 5000, 1000000, 1300000000, 150000000000, 3500000000000, 80000000000000, 3400000000000000, 7, 50, 1500, 12000};
+    public LargeVariable priceDriver7;
     public static ulong price_Driver_Sp_2;
     public static ulong[] pay_Drivers = new ulong[11] { 1000, 100000, 5000000, 50000000, 1500000000, 50000000000, 1000000000000, 50000000000000, 100000000000000, 500000000000000, 1000000000000000 };
     public static ulong[] passenger_Drivers = new ulong[11] { 500, 50000, 1000000, 15000000, 150000000, 5000000000, 50000000000, 500000000000, 5000000000000, 50000000000000, 100000000000000 };
-    public static ulong[] price_UP = new ulong[11] { 500, 100000, 130000000, 15000000000, 350000000000, 8000000000000, 350000000000000, 7000000000000000, 5, 120, 1200 };
-    public static ulong[] passenger_UP = new ulong[11] { 100, 5000, 250000, 1750000, 37500000, 1000000000, 12500000000, 50000000000, 500000000000, 5000000000000, 12500000000000 };
+    public ulong[] price_UP = new ulong[11] { 500, 100000, 130000000, 15000000000, 350000000000, 8000000000000, 350000000000000, 7000000000000000, 5, 120, 1200 };
+    public ulong[] passenger_UP = new ulong[11] { 100, 5000, 250000, 1750000, 37500000, 1000000000, 12500000000, 50000000000, 500000000000, 5000000000000, 12500000000000 };
 
     public ulong[] stanardPrice = new ulong[11] { 5000, 1000000, 1300000000, 150000000000, 3500000000000, 80000000000000, 3400000000000000, 7, 50, 1500, 12000 };
     public ulong[] standardPassenger = new ulong[11] { 500, 50000, 1000000, 15000000, 150000000, 5000000000, 50000000000, 500000000000, 5000000000000, 50000000000000, 100000000000000 };
@@ -85,8 +86,16 @@ public class DriversManager : MonoBehaviour
         {
             if(!numOfDrivers[i].Equals(0))
             {
-                price_Drivers[i] = stanardPrice[i] + price_UP[i] * (ulong)numOfDrivers[i];
-                passenger_Drivers[i] = standardPassenger[i] + passenger_UP[i] * (ulong)numOfDrivers[i];
+                if (i == 7)
+                {
+                    priceDriver7 = new LargeVariable(0, stanardPrice[7],  true);
+                    priceDriver7 += new LargeVariable(price_UP[7] * (ulong)numOfDrivers[i], 0);
+                }
+                else
+                {
+                    price_Drivers[i] = stanardPrice[i] + price_UP[i] * (ulong)numOfDrivers[i];
+                    passenger_Drivers[i] = standardPassenger[i] + passenger_UP[i] * (ulong)numOfDrivers[i];
+                }
             }
         }
         if (price_Drivers[6] > 10000000000000000)
@@ -117,7 +126,7 @@ public class DriversManager : MonoBehaviour
                 salaryPay_Controller.CalculateSalary();
                 //SaveDrivers();
                 //buttonColor_Controller.SetDriver();
-                if(!isEasyPurchase || messageManager.Normal_Message.text.Equals(""))
+                if(!isEasyPurchase || messageManager.messageText.text.Equals(""))
                     MessageBuy(i);
                 TextInfo();
             }
@@ -126,7 +135,20 @@ public class DriversManager : MonoBehaviour
                 messageManager.ShowMessage("돈이 부족합니다.");
             }
         }
-        else if(i >= 7)//대단한 기관사부터 적용
+        else if(i == 7) // 대단한 기관사
+        {
+            if (AssetMoneyCalculator.instance.ArithmeticOperation(priceDriver7, false))
+            {
+                TouchMoneyManager.AddPassengerLimit(passenger_Drivers[i], 0);
+                numOfDrivers[i]++;
+                RenewPrice();
+                salaryPay_Controller.CalculateSalary();
+                if (!isEasyPurchase || messageManager.messageText.text.Equals(""))
+                    MessageBuy(i);
+                TextInfo();
+            }
+        }
+        else if(i > 7)// 훌륭한 부터 적용
         {
             if(AssetMoneyCalculator.instance.ArithmeticOperation(0, price_Drivers[i], false))
             {
@@ -136,7 +158,7 @@ public class DriversManager : MonoBehaviour
                 salaryPay_Controller.CalculateSalary();
                 //SaveDrivers();
                 //buttonColor_Controller.SetDriver();
-                if (!isEasyPurchase || messageManager.Normal_Message.text.Equals(""))
+                if (!isEasyPurchase || messageManager.messageText.text.Equals(""))
                     MessageBuy(i);
                 TextInfo();
             }
@@ -157,7 +179,7 @@ public class DriversManager : MonoBehaviour
                     salaryPay_Controller.CalculateSalary();
                     //SaveDrivers();
                     //buttonColor_Controller.SetDriver();
-                    if (!isEasyPurchase || messageManager.Normal_Message.text.Equals(""))
+                    if (!isEasyPurchase || messageManager.messageText.text.Equals(""))
                         MessageBuy(i);
                     TextInfo();
                 }
@@ -189,7 +211,11 @@ public class DriversManager : MonoBehaviour
                 PlayManager.ArrangeUnit(price_Drivers[i], 0, ref money1, ref money2, true);
                 price_text[i].text = "가격: " + money2 + money1 + "$";
             }
-            else if(i >= 7)
+            else if(i == 7)
+            {
+                price_text[i].text = "가격: " + priceDriver7.ToString() + "$";
+            }
+            else if(i > 7)
             {
                 ArrangeUnit(0, price_Drivers[i]);
                 price_text[i].text = "가격: " + money2 + "$";

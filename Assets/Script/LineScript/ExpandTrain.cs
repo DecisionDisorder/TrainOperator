@@ -152,16 +152,19 @@ public class ExpandTrain : MonoBehaviour
 
     public void SetTrainExpandText()
     {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.Clear();
-        for (int j = 0; j < 4; j++)
+        if (!priceData.IsLightRail)
         {
-            stringBuilder.Append(4 + j * 2);
-            stringBuilder.Append("·®(Ä­): ");
-            stringBuilder.Append(lineCollection.lineData.trainExpandStatus[j]);
-            stringBuilder.Append("°³\n");
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Clear();
+            for (int j = 0; j < 4; j++)
+            {
+                stringBuilder.Append(4 + j * 2);
+                stringBuilder.Append("·®(Ä­): ");
+                stringBuilder.Append(lineCollection.lineData.trainExpandStatus[j]);
+                stringBuilder.Append("°³\n");
+            }
+            trainExpandStatusText.text = stringBuilder.ToString();
         }
-        trainExpandStatusText.text = stringBuilder.ToString();
     }
 
     private int GetIndexFromLength(int num)

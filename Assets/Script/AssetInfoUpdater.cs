@@ -12,7 +12,19 @@ public class AssetInfoUpdater : MonoBehaviour {
 	public Text passengerText;
 
     public TimeMoneyManager timeMoneyManager;
-	//-----------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------
+
+    public Text touchRevenueText;
+    public Text touchRevenueAmountText;
+    public Text timeRevenueText;
+    public Text timeRevenueAmountText;
+    public Text reputationText;
+    public Text reputationRevenueText;
+    public Text levelText;
+    public Text levelRevenueText;
+
+    public CompanyReputationManager companyReputationManager;
+    public LevelManager levelManager;
 
     private void Awake()
     {
@@ -102,5 +114,30 @@ public class AssetInfoUpdater : MonoBehaviour {
             PlayManager.ArrangeUnit(timeMoneyManager.finalTimeMoney.lowUnit, timeMoneyManager.finalTimeMoney.highUnit, ref lowUnit, ref highUnit, true);
             showTimePerMoneyText.text = "초당 " + highUnit + lowUnit + "$";
         }
+    }
+
+    public void UpdateText()
+    {
+        companyReputationManager.CalculateReputation();
+
+        string passengerLow = "", passengerHigh = "", timeMoneyLow = "", timeMoneyHigh = "";
+        ulong additionalPassengerLow = TouchMoneyManager.PassengersBaseLow - MyAsset.instance.PassengersLow, additionalPassengerHigh = TouchMoneyManager.PassengersBaseHigh - MyAsset.instance.PassengersHigh;
+        ulong additionalTimeMoneyLow = timeMoneyManager.finalTimeMoney.lowUnit - MyAsset.instance.TimePerEarningLow, additionalTimeMoneyHigh = timeMoneyManager.finalTimeMoney.highUnit - MyAsset.instance.TimePerEarningHigh;
+
+        PlayManager.ArrangeUnit(additionalPassengerLow, additionalPassengerHigh, ref passengerLow, ref passengerHigh, true);
+        PlayManager.ArrangeUnit(additionalTimeMoneyLow, additionalTimeMoneyHigh, ref timeMoneyLow, ref timeMoneyHigh, true);
+
+        touchRevenueText.text = "터치형 수익 <color=red>" + companyReputationManager.revenueMagnification + "%</color> (" + string.Format("{0:0.###}", companyReputationManager.revenueMagnification / 100f) + "배)";
+        touchRevenueAmountText.text = "+" + passengerHigh + passengerLow + "$";
+
+        timeRevenueText.text = "시간형 수익 <color=red>" + (companyReputationManager.revenueMagnification / 100f * levelManager.RevenueMagnification * 100) + "%</color> (" + string.Format("{0:0.###}", companyReputationManager.revenueMagnification / 100f * levelManager.RevenueMagnification) + "배)";
+        timeRevenueAmountText.text = "+" + timeMoneyHigh + timeMoneyLow + "$";
+
+        string rT = string.Format("{0:#,##0}", companyReputationManager.ReputationValue);
+        reputationText.text = "고객 만족도: " + rT + "P";
+        reputationRevenueText.text = "전체 수익 변화율: " + companyReputationManager.revenueMagnification+ "%";
+
+        levelText.text = "레벨: " + levelManager.Level;
+        levelRevenueText.text = "시간형 수익 변화율: " + string.Format("{0:0.###}", levelManager.RevenueMagnification * 100) + "%";
     }
 }

@@ -7,7 +7,19 @@ using UnityEngine.UI;
 public class TimeMoneyManager : MonoBehaviour
 {
     public LargeVariable mediumTimeMoney { get { return myAsset.TimePerEarning * (revenueMagnification / 100f); } }
-    public LargeVariable finalTimeMoney { get { return mediumTimeMoney * levelManager.RevenueMagnification * itemManager.colorCardTMFactor; } }
+    public LargeVariable finalTimeMoney { get { return mediumTimeMoney * levelManager.RevenueMagnification * ExternalCoefficient; } }
+    public ulong externalCoefficient = 0;
+    private ulong ExternalCoefficient
+    {
+        get
+        {
+            if (externalCoefficient < 1)
+                return 1;
+            else
+                return externalCoefficient;
+        }
+    }
+
     private ulong revenueMagnification { get { return (ulong)companyReputationManager.revenueMagnification; } }
     public DateTime recentConnectedTime { get { return PlayManager.instance.playData.recentConnectedTime; } set { PlayManager.instance.playData.recentConnectedTime = value; } }
 
@@ -16,13 +28,11 @@ public class TimeMoneyManager : MonoBehaviour
     /// </summary>
     public readonly int maxRewardTime = 7200;
 
-    public GameObject offlineRevenueReport;
-    public Text revenueReportText;
-
     public MyAsset myAsset;
     public CompanyReputationManager companyReputationManager;
     public LevelManager levelManager;
     public ItemManager itemManager;
+    public MessageManager messageManager;
 
     void Start()
     {
@@ -59,15 +69,11 @@ public class TimeMoneyManager : MonoBehaviour
                 string revenueLow = "", revenueHigh = "";
                 PlayManager.ArrangeUnit(revenue.lowUnit, revenue.highUnit, ref revenueLow, ref revenueHigh, true);
                 AssetMoneyCalculator.instance.ArithmeticOperation(revenue, true);
-                revenueReportText.text = "자리를 비우신 사이에 <color=green>" + revenueHigh + revenueLow + "$</color>만큼의 수익이 발생하였습니다.";
+                string title = "시간형 수익 발생 보고서";
+                string revenueReportMsg = "자리를 비우신 사이에 <color=green>" + revenueHigh + revenueLow + "$</color>만큼의 수익이 발생하였습니다.";
+                messageManager.ShowRevenueReport(title, revenueReportMsg);
                 DataManager.instance.SaveAll();
-                offlineRevenueReport.SetActive(true);
             }
         }
-    }
-
-    public void ConfirmReport()
-    {
-        offlineRevenueReport.SetActive(false);
     }
 }

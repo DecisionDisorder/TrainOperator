@@ -12,6 +12,7 @@ public class PlayData
 
     public bool isConverted;
     public bool isRevised;
+    public bool isRevised_3_1_4;
 
     public bool notTutorialPlayed;
     /// <summary>
@@ -22,6 +23,8 @@ public class PlayData
 
     public int backgroundType;
     public int patchNoteVersionCode;
+
+    public bool didLineAdd314 = false;
 
     public DateTime recentConnectedTime;
 

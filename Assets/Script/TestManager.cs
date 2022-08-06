@@ -62,7 +62,8 @@ public class TestManager : MonoBehaviour {
                 for (int i = 0; i < lineManager.lineCollections.Length; i++)
                 {
                     lineManager.lineCollections[i].lineData.numOfTrain = 100;
-                    lineManager.lineCollections[i].lineData.trainExpandStatus[0] = 100;
+                    if(lineManager.lineCollections[i].lineData.trainExpandStatus.Length > 0)
+                        lineManager.lineCollections[i].lineData.trainExpandStatus[0] = 100;
                     lineManager.lineCollections[i].lineData.limitTrain = 100;
                     lineManager.lineCollections[i].lineData.numOfBase = 10;
                 }

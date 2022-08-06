@@ -45,22 +45,40 @@ public class StationCustomizeManager : MonoBehaviour
     private void InitStationInfo()
     {
         currentLineDropdown.value = CurrentLineIndex;
+        SetLineNames();
         SetStationNames(CurrentLineIndex);
         SelectName();
         ApplyToUI();
     }
 
-    private int GetAvailableLineLength()
+    public void SetBackgroundToRecentLine(Line line)
     {
-        int count = 0;
+        CurrentLineIndex = (int)line;
+        InitStationInfo();
+    }
+
+    private bool[] GetExpandedLines()
+    {
+        bool[] expandedLines = new bool[lineManager.lineCollections.Length];
         for(int i = 0; i < lineManager.lineCollections.Length; i++)
         {
             if (lineManager.lineCollections[i].isExpanded())
-                count++;
+                expandedLines[i] = true;
             else
-                break;
+                expandedLines[i] = false;
         }
-        return count;
+        return expandedLines;
+    }
+
+    private int GetAvailableLineLength()
+    {
+        int len = 0;
+        for (int i = 0; i < lineManager.lineCollections.Length; i++)
+        {
+            if (lineManager.lineCollections[i].isExpanded())
+                len++;
+        }
+        return len;
     }
 
     private void SetLineNames()
@@ -68,10 +86,15 @@ public class StationCustomizeManager : MonoBehaviour
         int lineLength = GetAvailableLineLength();
         lineNames = new string[lineLength];
         currentLineDropdown.ClearOptions();
-        for(int i = 0; i < lineLength; i++)
+        bool[] expandedLines = GetExpandedLines();
+
+        for(int i = 0, j = 0; i < lineManager.lineCollections.Length; i++)
         {
-            lineNames[i] = lineManager.lineCollections[i].purchaseTrain.lineName;
-            currentLineDropdown.options.Add(new Dropdown.OptionData(lineNames[i]));
+            if (expandedLines[i])
+            {
+                lineNames[j] = lineManager.lineCollections[i].purchaseTrain.lineName;
+                currentLineDropdown.options.Add(new Dropdown.OptionData(lineNames[j++]));
+            }
         }
         currentLineDropdown.value = CurrentLineIndex;
         currentLineDropdown.RefreshShownValue();

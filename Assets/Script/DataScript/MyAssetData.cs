@@ -18,6 +18,8 @@ public class MyAssetData
     public ulong timePerEarningLow; // timemoney
     public ulong timePerEarningHigh;
 
+    public int feverStack;
+
     public MyAssetData()
     {
         passengersLow = 1;

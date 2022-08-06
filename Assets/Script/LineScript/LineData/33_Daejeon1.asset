@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
+  m_Name: 33_Daejeon1
+  m_EditorClassIdentifier: 
+  isLightRail: 0
+  trainPriceFactors:
+  - 0.5426
+  - 1.7634
+  - 5397.7
+  trainPassenger: 250000000000000
+  trainPassengerAdd: 5000000000000
+  totalTouch: 4.097063
+  uTotalTouch: 0
+  basePrice: 80000
+  basePriceEx: 40000
+  basePriceAdd: 20000
+  basePriceExAdd: 10000
+  stationPrice: 0
+  sections:
+  - name: "\uBC18\uC11D~\uD310\uC554"
+    from: 0
+    to: 21
+  expandPrice: d0dd060000000000
+  connectPrice: 10eb090000000000
+  connectTimeMoney: 0500000000000000
+  connectTMLargeUnit: 1
+  trainExpandPrice: 23000
+  trainExpandPassenger: 125000000000000
+  trainExPsngrLargeUnit: 0
+  lineControlUpgradePrice: []
+  lineControlUpgradePassenger: []
+  screenDoorPrice: 00350c0000000000
+  screenDoorReputation: 64000000
+  isLargeUnit: 1

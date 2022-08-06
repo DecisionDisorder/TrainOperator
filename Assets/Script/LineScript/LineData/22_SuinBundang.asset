@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e540e7ab12dea48bfee1906505fde8, type: 3}
+  m_Name: 22_SuinBundang
+  m_EditorClassIdentifier: 
+  isLightRail: 0
+  trainPriceFactors:
+  - 0.1928
+  - 1.741
+  - 2498.1
+  trainPassenger: 200000000000
+  trainPassengerAdd: 5000000000
+  totalTouch: 0.003163194
+  uTotalTouch: 0
+  basePrice: 20
+  basePriceEx: 10
+  basePriceAdd: 5
+  basePriceExAdd: 2
+  stationPrice: 3
+  sections:
+  - name: "\uC778\uCC9C~\uC624\uC774\uB3C4"
+    from: 0
+    to: 13
+  - name: "\uC815\uC655~\uACE0\uC0C9"
+    from: 14
+    to: 25
+  - name: "\uC218\uC6D0~\uCCAD\uB7C9\uB9AC"
+    from: 26
+    to: 62
+  expandPrice: 260000000000000023000000000000004e00000000000000
+  connectPrice: 50000000000000004600000000000000a000000000000000
+  connectTimeMoney: 00687cfc460a000000404e70750900000070d41aeb140000
+  connectTMLargeUnit: 0
+  trainExpandPrice: 7
+  trainExpandPassenger: 111800000000
+  trainExPsngrLargeUnit: 0
+  lineControlUpgradePrice: []
+  lineControlUpgradePassenger: []
+  screenDoorPrice: 64000000000000005a00000000000000d200000000000000
+  screenDoorReputation: 16000000130000003b000000
+  isLargeUnit: 1

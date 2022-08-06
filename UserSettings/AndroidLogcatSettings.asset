@@ -1,9 +1,9 @@
 {
-    "m_SelectedDeviceId": "ce071717e5ad7613047e",
+    "m_SelectedDeviceId": "R5CT21A8KEZ",
     "m_SelectedPackage": {
-        "deviceId": "ce071717e5ad7613047e",
+        "deviceId": "R5CT21A8KEZ",
         "name": "com.saejong25.TrainOperator",
-        "processId": 17427,
+        "processId": 10101,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -11,43 +11,37 @@
         {
             "deviceId": "R5CT21A8KEZ",
             "name": "com.saejong25.TrainOperator",
-            "processId": 16840,
+            "processId": 24660,
             "exited": true
         },
         {
             "deviceId": "R5CT21A8KEZ",
             "name": "com.saejong25.TrainOperator",
-            "processId": 32676,
-            "exited": true
-        },
-        {
-            "deviceId": "R5CT21A8KEZ",
-            "name": "com.saejong25.TrainOperator",
-            "processId": 6791,
-            "exited": true
-        },
-        {
-            "deviceId": "R5CT21A8KEZ",
-            "name": "com.saejong25.TrainOperator",
-            "processId": 9578,
-            "exited": true
-        },
-        {
-            "deviceId": "R5CT21A8KEZ",
-            "name": "com.saejong25.TrainOperator",
-            "processId": 19016,
+            "processId": 31991,
             "exited": true
         },
         {
             "deviceId": "R5CT21A8KEZ",
             "name": "com.google.android.gms.ui",
-            "processId": 21855,
-            "exited": false
+            "processId": 32528,
+            "exited": true
         },
         {
             "deviceId": "R5CT21A8KEZ",
             "name": "com.saejong25.TrainOperator",
-            "processId": 24660,
+            "processId": 26274,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CT21A8KEZ",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 9911,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CT21A8KEZ",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 10101,
             "exited": false
         },
         {
@@ -179,7 +173,7 @@
         "MemoryGroup": 2,
         "Behavior": 0
     },
-    "m_Filter": "Reward",
+    "m_Filter": "",
     "m_FilterIsRegularExpression": false,
     "m_SymbolPaths": []
 }

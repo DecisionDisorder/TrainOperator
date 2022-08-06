@@ -13,6 +13,7 @@ public class LineStatus : MonoBehaviour
     public Color lineColor;
 
     public UpdateDisplay statusUpdateDisplay;
+    public LightRailControlManager lightRailControlManager;
 
     private void Start()
     {
@@ -40,8 +41,12 @@ public class LineStatus : MonoBehaviour
         #endregion
         #region 터치형 수익
         ulong touchEarningLow = MoneyUnitTranslator.GetSumOfIncreasing((ulong)lineCollection.lineData.numOfTrain, priceData.TrainPassenger, priceData.TrainPassengerAdd), touchEarningHigh = 0;
-        int expandAmount = lineCollection.GetTrainExpandAmount();
-        touchEarningLow += (ulong)expandAmount * lineCollection.expandTrain.priceData.TrainExapndPassenger;
+        int expandAmount = 0;
+        if (!priceData.IsLightRail)
+        {
+            expandAmount = lineCollection.GetTrainExpandAmount();
+            touchEarningLow += (ulong)expandAmount * lineCollection.expandTrain.priceData.TrainExapndPassenger;
+        }
         MoneyUnitTranslator.Arrange(ref touchEarningLow, ref touchEarningHigh);
         PlayManager.ArrangeUnit(touchEarningLow, touchEarningHigh, ref lowUnit, ref highUnit, false);
         if(highUnit.Equals(""))
@@ -54,7 +59,10 @@ public class LineStatus : MonoBehaviour
         progresses[1] = lineCollection.lineData.numOfTrain > 100 ? 100 : lineCollection.lineData.numOfTrain;
         progresses[2] = 100 * lineCollection.GetExpandedAmount() / lineCollection.lineData.sectionExpanded.Length;
         progresses[3] = 100 * lineCollection.GetConnectionAmount() / lineCollection.lineData.connected.Length;
-        progresses[4] = 100 * expandAmount / 300 > 100 ? 100 : 100 * expandAmount / 300;
+        if (!priceData.IsLightRail)
+            progresses[4] = 100 * expandAmount / 300 > 100 ? 100 : 100 * expandAmount / 300;
+        else
+            progresses[4] = 100 * lightRailControlManager.GetTotalLevel((int)lineCollection.line) / 25;
         progresses[5] = 100 * lineCollection.GetScreendoorAmount() / lineCollection.lineData.installed.Length;
         progresses[0] = (progresses[1] + progresses[2] + progresses[3] + progresses[4] + progresses[5]) / 5;
         statusTexts[2].text = progresses[1] + "%";

@@ -68,6 +68,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: d7de5d98781d4a7439f6937d2b0fde47, type: 3}
   - {fileID: 21300000, guid: e5b4eff86e9939249bc57d848cc6eaba, type: 3}
   - {fileID: 21300000, guid: 61be9319d80ee5543b69fe058cc40bf4, type: 3}
+  - {fileID: 21300000, guid: 403b8ff9dc2c576418b1363734d5003f, type: 3}
   - {fileID: 21300000, guid: 49f3e46a7b3f5a844a01776cd4991d77, type: 3}
   - {fileID: 21300000, guid: 822b0baa743ab8044bcefe85b7a75d19, type: 3}
   - {fileID: 21300000, guid: c69190fad1736bd4b92ea1d90f22a14d, type: 3}
@@ -76,8 +77,12 @@ SpriteAtlas:
   - {fileID: 21300000, guid: e6a025dc279653046b6c4870a35105e8, type: 3}
   - {fileID: 21300000, guid: 5f851dbd85437c644ac40afa5509d081, type: 3}
   - {fileID: 21300000, guid: c0b93acdd70cd4d4680a66b1041c1449, type: 3}
+  - {fileID: 21300000, guid: 3324bfae8de82234f85f582d9aea6809, type: 3}
+  - {fileID: 21300000, guid: b49200be0138c7d48ac0dc8b55ae8483, type: 3}
+  - {fileID: 21300000, guid: 0d1662cec58128546bf2cd5d1de4cdf3, type: 3}
   - {fileID: 21300000, guid: c1839a1f287283f4bbea0c51f76bf94e, type: 3}
   - {fileID: 21300000, guid: 2f5d515f8b0005942bdfa4f899a91c21, type: 3}
+  - {fileID: 21300000, guid: 6700eaefc59ec3a43b83814da2dbfb0b, type: 3}
   m_PackedSpriteNamesToIndex:
   - daeguIcon
   - change
@@ -98,6 +103,7 @@ SpriteAtlas:
   - patchNoteIcon
   - settingsIcon
   - buyTrainIcon
+  - feverRefillIcon
   - lineExpandIcon
   - stationConditionIcon
   - mp2Icon
@@ -106,8 +112,12 @@ SpriteAtlas:
   - lineConnectionIcon
   - customerIcon
   - reportIcon
+  - simpled_RareCardPack
+  - simpled_ColorCardPack
+  - GJDJIcon
   - buyVehicleBaseIcon
   - busanIcon
+  - achievementIcon
   m_RenderDataMap: {}
   m_Tag: IconAtlas
   m_IsVariant: 0

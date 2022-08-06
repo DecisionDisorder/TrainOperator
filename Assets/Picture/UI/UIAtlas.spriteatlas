@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UIAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: Android
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: 47
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 1
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 35cc47866302277468bcd081c9ada33e, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 652d8e80d1288e64cbd11abbd345d52a, type: 3}
+  - {fileID: 21300000, guid: 6d3be70149d7fff47b50b81b47468e05, type: 3}
+  - {fileID: 21300000, guid: 1a42c341d01bce34782463257adfce48, type: 3}
+  - {fileID: 21300000, guid: f1bc09227d63dd047bd50750534216a4, type: 3}
+  - {fileID: 21300000, guid: 84907d42d657e2b45aa6b66db025d06d, type: 3}
+  - {fileID: 21300000, guid: 48de1fb355f68724eb345b788698e7de, type: 3}
+  - {fileID: 21300000, guid: 76d8c7d34ff5bd14aade2ab8bc89f88c, type: 3}
+  - {fileID: 21300000, guid: 8c21ec6427642064f93ed43cf7a7c6d2, type: 3}
+  - {fileID: 21300000, guid: 876114e4fc3f04a40b3adbca62392ed8, type: 3}
+  - {fileID: 21300000, guid: 78c0f7559fe2eea468100223ff3777cf, type: 3}
+  - {fileID: 21300000, guid: c967b82bd3c2670498e9e226091c7f30, type: 3}
+  - {fileID: 21300000, guid: dc09c1bbce47d4e498dc179c8a6d8f73, type: 3}
+  - {fileID: 21300000, guid: c9d0ca0db5152c54382a237a1c384274, type: 3}
+  - {fileID: 21300000, guid: 080f48bf724d08845980228ca2e684ab, type: 3}
+  - {fileID: 21300000, guid: e5a515dfe20c0994f85505fb74b99b50, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - basicBackgroundBlack
+  - Button_noFrame
+  - talk
+  - UpgradeStatus
+  - Button
+  - AchievementGage
+  - basicBackgroundBlackThin
+  - sliderBar
+  - saleImage
+  - basicBackground
+  - white
+  - arrow
+  - TV
+  - white_round
+  - sliderBar_background
+  m_RenderDataMap: {}
+  m_Tag: UIAtlas
+  m_IsVariant: 0
