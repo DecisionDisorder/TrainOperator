@@ -54,8 +54,11 @@ public class PurchaseTrainManager : MonoBehaviour, IContinuousPurchase
                 lineCollection.lineData.numOfTrain++;
                 TouchMoneyManager.ArithmeticOperation(priceData.GetTrainPassenger(lineCollection.lineData.numOfTrain), 0, true);
                 CompanyReputationManager.instance.RenewPassengerBase();
-                lineCollection.lineData.trainExpandStatus[0]++;
-                expandTrain.SetTrainExpandText();
+                if (!priceData.IsLightRail)
+                {
+                    lineCollection.lineData.trainExpandStatus[0]++;
+                    expandTrain.SetTrainExpandText();
+                }
                 CheckTrain();
                 UpdateTrainStatusText();
                 DataManager.instance.SaveAll();

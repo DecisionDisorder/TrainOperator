@@ -280,8 +280,10 @@ public class BankSpecialManager : MonoBehaviour
                     if (ContractTime[0] <= 0)
                     {
                         merchandiseWD_text.text = "상품: 스페셜A";
-                        withdrawMoneyLow = (ulong)(AddedMoneyLow[0] * 1.1);
-                        withdrawMoneyHigh = SavedMoneyHigh[0] + (ulong)(AddedMoneyHigh[0] * 1.1);
+                        LargeVariable interest = new LargeVariable(AddedMoneyLow[0], AddedMoneyHigh[0]);
+                        interest *= 1.1f;
+                        withdrawMoneyLow = interest.lowUnit;
+                        withdrawMoneyHigh = SavedMoneyHigh[0] + interest.highUnit;
                         ArrangeUnit(withdrawMoneyLow, withdrawMoneyHigh);
                         if (withdrawMoneyHigh > 0)
                         {
@@ -292,7 +294,7 @@ public class BankSpecialManager : MonoBehaviour
                             withdraw_text.text = "출금 할 금액:" + money1 + "$";
                         }
 
-                        ArrangeUnit((ulong)(AddedMoneyLow[0] * 1.1), (ulong)(AddedMoneyHigh[0] * 1.1));
+                        ArrangeUnit(interest.lowUnit, interest.highUnit);
                         result_text.text = "이윤: " + money2 + money1 + "$";
                     }
                     else
@@ -345,8 +347,10 @@ public class BankSpecialManager : MonoBehaviour
                     if (ContractTime[1] <= 0)
                     {
                         merchandiseWD_text.text = "상품: 스페셜S";
-                        withdrawMoneyLow = (ulong)(AddedMoneyLow[1] * 1.1);
-                        withdrawMoneyHigh = SavedMoneyHigh[1] + (ulong)(AddedMoneyHigh[1] * 1.1);
+                        LargeVariable interest = new LargeVariable(AddedMoneyLow[1], AddedMoneyHigh[1]);
+                        interest *= 1.1f;
+                        withdrawMoneyLow = interest.lowUnit;
+                        withdrawMoneyHigh = SavedMoneyHigh[1] + interest.highUnit;
                         ArrangeUnit(withdrawMoneyLow, withdrawMoneyHigh);
                         if (withdrawMoneyHigh > 0)
                         {
@@ -357,7 +361,7 @@ public class BankSpecialManager : MonoBehaviour
                             withdraw_text.text = "출금 할 금액:" + money1 + "$";
                         }
 
-                        ArrangeUnit((ulong)(AddedMoneyLow[1] * 1.1), (ulong)(AddedMoneyHigh[1] * 1.1));
+                        ArrangeUnit(interest.lowUnit, interest.highUnit);
                         result_text.text = "이윤: " + money2 + money1 + "$";
                     }
                     else
@@ -409,8 +413,10 @@ public class BankSpecialManager : MonoBehaviour
                     if (ContractTime[2] <= 0)
                     {
                         merchandiseWD_text.text = "상품: 스페셜S+";
-                        withdrawMoneyLow = (ulong)(AddedMoneyLow[2] * 1.1);
-                        withdrawMoneyHigh = SavedMoneyHigh[2] + (ulong)(AddedMoneyHigh[2] * 1.1);
+                        LargeVariable interest = new LargeVariable(AddedMoneyLow[2], AddedMoneyHigh[2]);
+                        interest *= 1.1f;
+                        withdrawMoneyLow = interest.lowUnit;
+                        withdrawMoneyHigh = SavedMoneyHigh[2] + interest.highUnit;
                         ArrangeUnit(withdrawMoneyLow, withdrawMoneyHigh);
                         if (withdrawMoneyHigh > 0)
                         {
@@ -421,7 +427,7 @@ public class BankSpecialManager : MonoBehaviour
                             withdraw_text.text = "출금 할 금액:" + money1 + "$";
                         }
 
-                        ArrangeUnit((ulong)(AddedMoneyLow[2] * 1.1), (ulong)(AddedMoneyHigh[2] * 1.1));
+                        ArrangeUnit(interest.lowUnit, interest.highUnit);
                         result_text.text = "이윤: " + money2 + money1 + "$";
                     }
                     else
@@ -595,7 +601,7 @@ public class BankSpecialManager : MonoBehaviour
     {
         string money1 = "", money2 = "";
         PlayManager.ArrangeUnit(0, depositMoney, ref money1, ref money2, true);
-        messageManager.ShowMessage("<color=orange>" + money2 + "$</color>가 정상적으로 입금 되었습니다.", 3f);
+        messageManager.ShowMessage("<color=blue>" + money2 + "$</color>가 정상적으로 입금 되었습니다.", 3f);
     }
     void Cal_Merchandise()
     {

@@ -49,7 +49,8 @@ public class DataConverter : MonoBehaviour
 
     public void Convert()
     {
-        if (!IsConverted)
+        bool isNeedConvert = PlayerPrefs.GetInt("NumOfTrain_1", 0) > 0 ? true : false;
+        if (!IsConverted && !isNeedConvert)
         {
             ConvertTrainData();
             ConvertStationData();
@@ -72,6 +73,12 @@ public class DataConverter : MonoBehaviour
             Debug.Log("Data Converted");
 #endif
         }
+        else if (!isNeedConvert)
+        {
+            IsConverted = true;
+            DataManager.instance.SaveAll();
+        }
+
     }
 
     private void ConvertTrainData()
@@ -92,6 +99,7 @@ public class DataConverter : MonoBehaviour
             }
             else
             {
+                lineManager.lineCollections[i].lineData.trainExpandStatus = new int[4];
                 for (int j = 0; j < 4; j++)
                     lineManager.lineCollections[i].lineData.trainExpandStatus[j] = PlayerPrefs.GetInt("Length_Line" + (i + 1) + "[" + j + "]");
             }
@@ -104,6 +112,7 @@ public class DataConverter : MonoBehaviour
             lineManager.lineCollections[i].lineData.numOfBase = PlayerPrefs.GetInt("numofBase_B" + (l + 1));
             lineManager.lineCollections[i].lineData.numOfBaseEx = PlayerPrefs.GetInt("numofBaseEx_B" + (l + 1));
 
+            lineManager.lineCollections[i].lineData.trainExpandStatus = new int[4];
             for (int j = 0; j < 4; j++)
                 lineManager.lineCollections[i].lineData.trainExpandStatus[j] = PlayerPrefs.GetInt("Length_B" + (l + 1) + "[" + j + "]");
         }
@@ -115,6 +124,7 @@ public class DataConverter : MonoBehaviour
             lineManager.lineCollections[i].lineData.numOfBase = EncryptedPlayerPrefs.GetInt("numofBase_Dg[" + l + "]");
             lineManager.lineCollections[i].lineData.numOfBaseEx = EncryptedPlayerPrefs.GetInt("numofBaseEx_Dg[" + l + "]");
 
+            lineManager.lineCollections[i].lineData.trainExpandStatus = new int[4];
             for (int j = 0; j < 4; j++)
                 lineManager.lineCollections[i].lineData.trainExpandStatus[j] = EncryptedPlayerPrefs.GetInt("Length_Dg" + (l + 1) + "[" + j + "]");
         }
@@ -125,6 +135,7 @@ public class DataConverter : MonoBehaviour
             lineManager.lineCollections[i].lineData.limitTrain = EncryptedPlayerPrefs.GetInt("limit_train_MP2[" + l + "]");
             lineManager.lineCollections[i].lineData.numOfBase = EncryptedPlayerPrefs.GetInt("numofBase_MP2[" + l + "]");
             lineManager.lineCollections[i].lineData.numOfBaseEx = EncryptedPlayerPrefs.GetInt("numofBaseEx_MP2[" + l + "]");
+            lineManager.lineCollections[i].lineData.trainExpandStatus = new int[4];
             for (int j = 0; j < 4; j++)
                 lineManager.lineCollections[i].lineData.trainExpandStatus[j] = EncryptedPlayerPrefs.GetInt("Length_" + mp2Codes[l] + "[" + j + "]");
         }

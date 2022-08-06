@@ -30,10 +30,10 @@ public class MacroDetector : MonoBehaviour
     /// </summary>
     private void DetectTooMuchTouch(int touchPerSecond)
     {
-        if(touchPerSecond > 60)
+        if(touchPerSecond >= 100)
         {
             tmtSeconds++;
-            if(tmtSeconds >= 45)
+            if(tmtSeconds >= 60)
             {
                 warnObj.SetActive(true);
             }
@@ -49,7 +49,7 @@ public class MacroDetector : MonoBehaviour
     /// </summary>
     private void DetectMuchTouch(int touchPerSecond)
     {
-        if (touchPerSecond > 30)
+        if (touchPerSecond > 40)
         {
             mtSeconds++;
             if (mtSeconds >= 180)

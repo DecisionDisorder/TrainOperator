@@ -24,6 +24,8 @@ public class PlayData
     public int backgroundType;
     public int patchNoteVersionCode;
 
+    public bool didLineAdd314 = false;
+
     public DateTime recentConnectedTime;
 
     public PlayData()

@@ -742,6 +742,7 @@ public class LotteryRecord
 
     public void SetPastWinData(LargeVariable pastReward, int pastRank)
     {
+        pastReward.detailed = true;
         this.pastReward = pastReward;
         this.pastRank = pastRank;
     }

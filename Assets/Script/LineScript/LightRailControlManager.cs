@@ -42,6 +42,11 @@ public class LightRailControlManager : MonoBehaviour
         upgradeMenu.SetActive(true);
     }
 
+    public void CloseUpgradeMenu()
+    {
+        upgradeMenu.SetActive(false);
+    }
+
     private void UpdateUpgradeState()
     {
         for(int i = 0; i < upgradeSliders.Length; i++)
@@ -70,6 +75,7 @@ public class LightRailControlManager : MonoBehaviour
             {
                 LargeVariable passenger = GetPassenger(product);
                 TouchMoneyManager.ArithmeticOperation(passenger.lowUnit, passenger.highUnit, true);
+                CompanyReputationManager.instance.RenewPassengerBase();
                 AddLineControlLevel(product);
                 UpdateUpgradeState();
             }
@@ -91,7 +97,11 @@ public class LightRailControlManager : MonoBehaviour
     public LargeVariable GetPrice(int product, int level)
     {
         if (level < 5)
-            return lightRailPriceData[(int)targetLine].LineControlUpgradePrice[product] * division[level];
+        {
+            LargeVariable variable = lightRailPriceData[(int)targetLine].LineControlUpgradePrice[product] * division[level];
+            variable.detailed = true;
+            return variable;
+        }
         else
             return LargeVariable.zero;
     }
@@ -105,7 +115,11 @@ public class LightRailControlManager : MonoBehaviour
     public LargeVariable GetPassenger(int product, int level)
     {
         if (level < 5)
-            return lightRailPriceData[(int)targetLine].LineControlUpgradePassenger[product] * division[level];
+        {
+            LargeVariable variable = lightRailPriceData[(int)targetLine].LineControlUpgradePassenger[product] * division[level];
+            variable.detailed = true;
+            return variable;
+        }
         else
             return LargeVariable.zero;
     }

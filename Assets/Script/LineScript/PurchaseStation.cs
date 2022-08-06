@@ -61,9 +61,9 @@ public class PurchaseStation : MonoBehaviour
         stationName_text.text = priceData.Sections[targetSection].name;
         string m1 = "", m2 = "";
         if(priceData.IsLargeUnit)
-            PlayManager.ArrangeUnit(0, priceData.StationPrice, ref m1, ref m2);
+            PlayManager.ArrangeUnit(0, priceData.StationPrice, ref m1, ref m2, true);
         else
-            PlayManager.ArrangeUnit(priceData.StationPrice, 0, ref m1, ref m2);
+            PlayManager.ArrangeUnit(priceData.StationPrice, 0, ref m1, ref m2, true);
         stationPrice_text.text = "가격: 각 " +  m2 + m1 + "$ 씩";
         checkPurchase.SetActive(true);
     }
@@ -131,9 +131,9 @@ public class PurchaseStation : MonoBehaviour
         idvStationNameText.text = stationNameData.stations[index].name + "역";
         string m1 = "", m2 = "";
         if (priceData.IsLargeUnit)
-            PlayManager.ArrangeUnit(0, priceData.StationPrice, ref m1, ref m2);
+            PlayManager.ArrangeUnit(0, priceData.StationPrice, ref m1, ref m2, true);
         else
-            PlayManager.ArrangeUnit(priceData.StationPrice, 0, ref m1, ref m2);
+            PlayManager.ArrangeUnit(priceData.StationPrice, 0, ref m1, ref m2, true);
         idvStationPriceText.text = "가격: " + m2 + m1 + "$";
         idvCheckPurchase.SetActive(true);
     }
@@ -169,6 +169,7 @@ public class PurchaseStation : MonoBehaviour
                     if (idvEasyPurchaseButtons.Length != 0)
                         idvEasyPurchaseButtons[targetIndex].color = buttonColorManager.lineColor;
                     MyAsset.instance.NumOfStations++;
+                    achievementManager.TotalStationAmount++;
                     IDVPurchasedMessage(stationNameData.stations[targetIndex].name);
                     DataManager.instance.SaveAll();
                 }

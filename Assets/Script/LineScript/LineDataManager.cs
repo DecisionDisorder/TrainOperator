@@ -7,7 +7,7 @@ public class LineDataManager: MonoBehaviour
 {
     public LineManager lineManager;
     public MessageManager messageManager;
-
+    public PlayManager playManager;
 
     private void InitLine1()
     {
@@ -64,7 +64,7 @@ public class LineDataManager: MonoBehaviour
                     lineManager.lineCollections[24].lineData = lineDatas[2];
                     lineManager.lineCollections[25].lineData = lineDatas[3];
                 }
-                else if(lineDatas.Length.Equals(26))
+                else if(!playManager.playData.didLineAdd314)
                 {
                     int[] newLines = { 4, 10, 20, 23 };
                     int k = 0, n = 0;
@@ -87,6 +87,7 @@ public class LineDataManager: MonoBehaviour
                             k++;
                         }
                     }
+                    playManager.playData.didLineAdd314 = true;
                 }
                 else
                 {

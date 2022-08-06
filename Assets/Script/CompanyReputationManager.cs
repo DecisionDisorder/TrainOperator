@@ -5,8 +5,6 @@ using UnityEngine.UI;
 public class CompanyReputationManager : MonoBehaviour {
 
     public static CompanyReputationManager instance;
-	public Text Additional_Touch;
-	public Text Total_Reputation;
 
     public CompanyData companyData;
 
@@ -21,7 +19,7 @@ public class CompanyReputationManager : MonoBehaviour {
         set
         {
             companyData.reputationTotalValue = value; 
-            UpdateText();
+            AssetInfoUpdater.instance.UpdateText();
         }
     }
 
@@ -45,28 +43,10 @@ public class CompanyReputationManager : MonoBehaviour {
     void Start ()
     {
         RenewReputation ();
-        reputationConditionUpdateDisplay.onEnableUpdate += UpdateText;
+        reputationConditionUpdateDisplay.onEnableUpdate += AssetInfoUpdater.instance.UpdateText;
     }
 
-    public void UpdateText()
-    {
-        CalculateReputation();
-
-        string passengerLow = "", passengerHigh = "", timeMoneyLow = "", timeMoneyHigh = "";
-        ulong additionalPassengerLow = TouchMoneyManager.PassengersBaseLow - MyAsset.instance.PassengersLow, additionalPassengerHigh = TouchMoneyManager.PassengersBaseHigh - MyAsset.instance.PassengersHigh;
-        ulong additionalTimeMoneyLow = timeMoneyManager.mediumTimeMoney.lowUnit - MyAsset.instance.TimePerEarningLow, additionalTimeMoneyHigh = timeMoneyManager.mediumTimeMoney.highUnit - MyAsset.instance.TimePerEarningHigh;
-
-        PlayManager.ArrangeUnit(additionalPassengerLow, additionalPassengerHigh, ref passengerLow, ref passengerHigh, true);
-        PlayManager.ArrangeUnit(additionalTimeMoneyLow, additionalTimeMoneyHigh, ref timeMoneyLow, ref timeMoneyHigh, true);
-
-        Additional_Touch.text = "수익 증가율: +" + (revenueMagnification - 100) + "%\n";
-        Additional_Touch.text += string.Format("시간형 수익 증가량: +{0}{1}$\n터치형 수익 증가량: +{2}{3}$", timeMoneyHigh, timeMoneyLow, passengerHigh, passengerLow);
-
-        string rT = string.Format("{0:#,##0}", ReputationValue);
-        Total_Reputation.text = rT + "P";
-    }
-
-	private void CalculateReputation()
+	public void CalculateReputation()
 	{
         int setIndex = GetReputationSetIndex(ReputationValue);
         revenueMagnification = (int)(reputationSets[setIndex].revenue * ((float)(ReputationValue - reputationSets[setIndex].from) / reputationSets[setIndex].interval)) 
@@ -89,7 +69,7 @@ public class CompanyReputationManager : MonoBehaviour {
 
     public void RenewReputation()
     {
-        UpdateText();
+        AssetInfoUpdater.instance.UpdateText();
     }
 
     public void RenewPassengerBase()

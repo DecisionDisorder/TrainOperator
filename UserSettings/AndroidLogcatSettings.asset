@@ -3,35 +3,11 @@
     "m_SelectedPackage": {
         "deviceId": "R5CT21A8KEZ",
         "name": "com.saejong25.TrainOperator",
-        "processId": 31991,
+        "processId": 10101,
         "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
-        {
-            "deviceId": "R5CT21A8KEZ",
-            "name": "com.saejong25.TrainOperator",
-            "processId": 6791,
-            "exited": true
-        },
-        {
-            "deviceId": "R5CT21A8KEZ",
-            "name": "com.saejong25.TrainOperator",
-            "processId": 9578,
-            "exited": true
-        },
-        {
-            "deviceId": "R5CT21A8KEZ",
-            "name": "com.saejong25.TrainOperator",
-            "processId": 19016,
-            "exited": true
-        },
-        {
-            "deviceId": "R5CT21A8KEZ",
-            "name": "com.google.android.gms.ui",
-            "processId": 21855,
-            "exited": true
-        },
         {
             "deviceId": "R5CT21A8KEZ",
             "name": "com.saejong25.TrainOperator",
@@ -42,12 +18,30 @@
             "deviceId": "R5CT21A8KEZ",
             "name": "com.saejong25.TrainOperator",
             "processId": 31991,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "R5CT21A8KEZ",
             "name": "com.google.android.gms.ui",
             "processId": 32528,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CT21A8KEZ",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 26274,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CT21A8KEZ",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 9911,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CT21A8KEZ",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 10101,
             "exited": false
         },
         {
@@ -179,7 +173,7 @@
         "MemoryGroup": 2,
         "Behavior": 0
     },
-    "m_Filter": "Reward",
+    "m_Filter": "",
     "m_FilterIsRegularExpression": false,
     "m_SymbolPaths": []
 }

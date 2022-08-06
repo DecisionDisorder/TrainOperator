@@ -48,12 +48,12 @@ public class ButtonColorManager : MonoBehaviour
 
     public void SetVehicleBaseColor()
     {
-        if (IsEnoughMoney(priceData.GetVehicleBasePrice(lineCollection.lineData.numOfBase)) && IsExpandedAtLeast())
+        if (IsEnoughMoney(priceData.GetVehicleBasePrice(lineCollection.lineData.numOfBase)) && IsExpandedAtLeast() && lineCollection.lineData.numOfBase < lineCollection.purchaseTrain.BaseLimit)
             vehicleBaseImg.color = lineColor;
         else
             vehicleBaseImg.color = Color.gray;
 
-        if (IsEnoughMoney(priceData.GetVehicleBaseExPrice(lineCollection.lineData.numOfBaseEx)) && IsExpandedAtLeast())
+        if (IsEnoughMoney(priceData.GetVehicleBaseExPrice(lineCollection.lineData.numOfBaseEx)) && IsExpandedAtLeast() && lineCollection.lineData.numOfBaseEx < lineCollection.lineData.numOfBase * 3)
             vehicleBaseExImg.color = lineColor;
         else
             vehicleBaseExImg.color = Color.gray;

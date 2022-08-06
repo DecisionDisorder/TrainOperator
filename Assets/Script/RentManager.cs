@@ -42,9 +42,9 @@ public class RentManager : MonoBehaviour
     private void Start()
     {
         SetTexts();
+        rentUpdateDisplay.onEnable += SetLineAmount;
         rentUpdateDisplay.onEnable += SetTexts;
         rentUpdateDisplay.onEnableUpdate += buttonColor_Controller3.SetRent;
-        rentUpdateDisplay.onEnable += SetLineAmount;
     }
 
     public void PurchaseFacility(int item)
@@ -229,7 +229,7 @@ public class RentManager : MonoBehaviour
             }
         }
 
-        return amountLeft;
+        return amountLeft + 1;
     }
 
 

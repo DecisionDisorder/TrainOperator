@@ -23,6 +23,7 @@ public class BalanceReviser : MonoBehaviour
     public BankSpecialManager bankSpecialManager;
     public CompanyReputationManager companyReputationManager;
     public LightRailControlManager lightRailControlManager;
+    public GameObject reviseMessage;
 
     public GameObject RevisedMenu;
     public Text revisedLogText;
@@ -69,11 +70,15 @@ public class BalanceReviser : MonoBehaviour
             ReviseAfter3_1_4();
             IsRevised_3_1_4 = true;
             DataManager.instance.SaveAll();
-            //TODO: 안내 메시지
 
 #if UNITY_EDITOR
             Debug.Log("3.1.4 Data Revised");
 #endif
+        }
+        else if(lineManager.lineCollections[0].lineData.numOfTrain == 0)
+        {
+            IsRevised_3_1_4 = true;
+            DataManager.instance.SaveAll();
         }
     }
 
@@ -132,11 +137,14 @@ public class BalanceReviser : MonoBehaviour
             TouchMoneyManager.ArithmeticOperation(result, 0, true);
             changedLow += result;
 
-            // 열차확장 승객 수 재계산
-            int expandAmount = lineManager.lineCollections[i].lineData.trainExpandStatus[1] + lineManager.lineCollections[i].lineData.trainExpandStatus[2] * 2 + lineManager.lineCollections[i].lineData.trainExpandStatus[3] * 3;
-            result = (ulong)expandAmount * lineManager.lineCollections[i].expandTrain.priceData.TrainExapndPassenger;
-            TouchMoneyManager.ArithmeticOperation(result, 0, true);
-            changedLow += result;
+            if (!lineManager.lineCollections[i].purchaseTrain.priceData.IsLightRail)
+            {
+                // 열차확장 승객 수 재계산
+                int expandAmount = lineManager.lineCollections[i].lineData.trainExpandStatus[1] + lineManager.lineCollections[i].lineData.trainExpandStatus[2] * 2 + lineManager.lineCollections[i].lineData.trainExpandStatus[3] * 3;
+                result = (ulong)expandAmount * lineManager.lineCollections[i].expandTrain.priceData.TrainExapndPassenger;
+                TouchMoneyManager.ArithmeticOperation(result, 0, true);
+                changedLow += result;
+            }
 
             MoneyUnitTranslator.Arrange(ref changedLow, ref changedHigh);
         }
@@ -167,7 +175,7 @@ public class BalanceReviser : MonoBehaviour
 
         for (int i = 0; i < driversManager.numOfDrivers.Length; i++)
         {
-            ulong lowUnit = GetSumOfIncreasing((ulong)driversManager.numOfDrivers[i], driversManager.standardPassenger[i], DriversManager.passenger_UP[i]);
+            ulong lowUnit = GetSumOfIncreasing((ulong)driversManager.numOfDrivers[i], driversManager.standardPassenger[i], driversManager.passenger_UP[i]);
             ulong highUnit = 0;
             MoneyUnitTranslator.Arrange(ref lowUnit, ref highUnit);
             MyAsset.instance.PassengersLimitLow += lowUnit;
@@ -236,30 +244,34 @@ public class BalanceReviser : MonoBehaviour
         int[] targetIndex = { 14, 15, 19, 25 };
         for(int i = 0; i < targetIndex.Length; i++)
         {
-            if (lineManager.lineCollections[i].lineData.numOfTrain > 100)
-                lineManager.lineCollections[i].lineData.numOfTrain = 25;
+            int ti = targetIndex[i];
+            if (lineManager.lineCollections[ti].lineData.numOfTrain > 100)
+                lineManager.lineCollections[ti].lineData.numOfTrain = 25;
             else
-                lineManager.lineCollections[i].lineData.numOfTrain = lineManager.lineCollections[i].lineData.numOfTrain / 4;
+                lineManager.lineCollections[ti].lineData.numOfTrain = lineManager.lineCollections[ti].lineData.numOfTrain / 4;
 
-            if (lineManager.lineCollections[i].lineData.numOfBase > 1)
-                lineManager.lineCollections[i].lineData.numOfBase = 1;
+            if (lineManager.lineCollections[ti].lineData.numOfBase > 1)
+                lineManager.lineCollections[ti].lineData.numOfBase = 1;
 
-            if (lineManager.lineCollections[i].lineData.numOfBaseEx > 3)
-                lineManager.lineCollections[i].lineData.numOfBase = 3;
+            if (lineManager.lineCollections[ti].lineData.numOfBaseEx > 3 || lineManager.lineCollections[ti].lineData.numOfBase > 2)
+                lineManager.lineCollections[ti].lineData.numOfBaseEx = 3;
 
-            int expandAmount = lineManager.lineCollections[i].lineData.trainExpandStatus[1] + lineManager.lineCollections[i].lineData.trainExpandStatus[2] * 2 + lineManager.lineCollections[i].lineData.trainExpandStatus[3] * 3;
+            lineManager.lineCollections[ti].lineData.limitTrain = lineManager.lineCollections[ti].lineData.numOfBase * 10 + lineManager.lineCollections[ti].lineData.numOfBaseEx * 5;
+
+            int expandAmount = lineManager.lineCollections[ti].lineData.trainExpandStatus[1] + lineManager.lineCollections[ti].lineData.trainExpandStatus[2] * 2 + lineManager.lineCollections[ti].lineData.trainExpandStatus[3] * 3;
             expandAmount /= 12;
-            while(expandAmount > 0)
+            lineManager.lineCollections[ti].lineData.lineControlLevels = new int[5];
+            while (expandAmount > 0)
             {
-                for (int k = 0; k < lineManager.lineCollections[i].lineData.lineControlLevels.Length; k++)
+                for (int k = 0; k < lineManager.lineCollections[ti].lineData.lineControlLevels.Length; k++)
                 {
-                    lineManager.lineCollections[i].lineData.lineControlLevels[k]++;
+                    lineManager.lineCollections[ti].lineData.lineControlLevels[k]++;
                     expandAmount--;
                     if (expandAmount <= 0)
                         break;
                 }
             }
-            lineManager.lineCollections[i].lineData.trainExpandStatus = new int[0];
+            lineManager.lineCollections[ti].lineData.trainExpandStatus = new int[0];
         }    
     }
 
@@ -277,6 +289,7 @@ public class BalanceReviser : MonoBehaviour
                 }
             }
         }
+        companyReputationManager.RenewPassengerBase();
     }
 
     private void ResetRent()
@@ -284,9 +297,12 @@ public class BalanceReviser : MonoBehaviour
         MyAsset.instance.TimePerEarning = LargeVariable.zero;
         for(int i = 0; i < rentManager.NumOfFacilities.Length; i++)
         {
-            for(int j = 0; j < rentManager.NumOfFacilities[i]; j++)
+            rentManager.CumulatedFacilityTimeMoney[i] = 0;
+            for (int j = 0; j < rentManager.NumOfFacilities[i]; j++)
             {
-                MyAsset.instance.TimeEarningOperator(rentManager.GetTimeMoney(i, j), 0, true);
+                ulong timeMoney = rentManager.GetTimeMoney(i, j);
+                rentManager.CumulatedFacilityTimeMoney[i] += timeMoney;
+                MyAsset.instance.TimeEarningOperator(timeMoney, 0, true);
             }
         }
     }
@@ -297,8 +313,14 @@ public class BalanceReviser : MonoBehaviour
 
         RevisePassenger();
         ApplyLineUpgrade();
-        //시간형 수익 재계산 (임대시설 수치 조정 반영)
         ResetRent();
         ReviseLineConnectReward();
+
+        reviseMessage.SetActive(true);
+    }
+
+    public void CloseReviseMessage()
+    {
+        reviseMessage.SetActive(false);
     }
 }

@@ -21,6 +21,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public float firstRevenueAdd;
     public float[] expRatio;
     public int[] requiredTouch;
     public float[] lowLevelBonus;
@@ -29,6 +30,7 @@ public class LevelManager : MonoBehaviour
     public int expProvision = 10;
     public int RequiredExp { get { return (int)(requiredTouch[(Level - 1) / 10] * expRatio[(Level - 1) % 10] * requireTouchRatio) * expProvision; } }
     public float RevenueMagnification { get { return GetRevenueMagnification(); } }
+    public float maximumRevenue;
     private int CurrentLine { get { return (int)lineManager.GetRecentlyOpenedLine(); } }
 
     public Slider levelExpSlider;
@@ -116,9 +118,16 @@ public class LevelManager : MonoBehaviour
         if (Level.Equals(1))
             return 1f;
         else if (Level.Equals(2))
-            return 1.0031f + expRatio[(Level - 1) % 10] * revenueMagnificationPerLine;
+            return firstRevenueAdd + expRatio[(Level - 1) % 10] * revenueMagnificationPerLine;
         else
-            return 1 + revenueMagnificationPerLine * ((Level - 1) / 10) + GetCumulativeMagnification((Level % 10) - 1);
+        {
+            float result = 1 + revenueMagnificationPerLine * ((Level - 1) / 10) + GetCumulativeMagnification((Level - 1) % 10);
+            if (result > maximumRevenue)
+                return maximumRevenue;
+            else
+                return result;
+        }
+            
     }
     private float GetCumulativeMagnification(int index)
     {

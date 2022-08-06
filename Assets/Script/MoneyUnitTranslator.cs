@@ -235,12 +235,21 @@ public struct LargeVariable
 
     public ulong lowUnit;
     public ulong highUnit;
+    public bool detailed;
 
 
     public LargeVariable(ulong lowUnit, ulong highUnit)
     {
         this.lowUnit = lowUnit;
         this.highUnit = highUnit;
+        detailed = false;
+    }
+
+    public LargeVariable(ulong lowUnit, ulong highUnit, bool detailed)
+    {
+        this.lowUnit = lowUnit;
+        this.highUnit = highUnit;
+        this.detailed = detailed;
     }
 
     public static LargeVariable operator +(LargeVariable v1, LargeVariable v2)
@@ -323,7 +332,7 @@ public struct LargeVariable
     public override string ToString()
     {
         string low = "", high = "";
-        PlayManager.ArrangeUnit(lowUnit, highUnit, ref low, ref high);
+        PlayManager.ArrangeUnit(lowUnit, highUnit, ref low, ref high, detailed);
         return high + low;
     }
 }

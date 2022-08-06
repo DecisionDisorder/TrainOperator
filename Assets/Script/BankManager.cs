@@ -488,7 +488,7 @@ public class BankManager : MonoBehaviour {
     {
         string money1 = "", money2 = "";
         PlayManager.ArrangeUnit(depositMoney, 0, ref money1, ref money2, true);
-        messageManager.ShowMessage("<color=orange>" + money2 + money1 + "$</color>가 정상적으로 입금 되었습니다.", 3f);
+        messageManager.ShowMessage("<color=blue>" + money2 + money1 + "$</color>가 정상적으로 입금 되었습니다.", 3f);
     }
 
     void Cal_Merchandise()
