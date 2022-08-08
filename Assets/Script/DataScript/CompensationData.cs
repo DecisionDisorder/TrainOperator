@@ -11,4 +11,5 @@ public class CompensationData
     public bool version3_0_1_checked;
     public bool allExpandErrorChecked;
     public bool reviseReputation;
+    public bool lightRailCompensationChecked;
 }

@@ -152,8 +152,16 @@ public class ExpandPurchase : MonoBehaviour
             
             if(firstExpand)
             {
-                stationCustomizeManager.SetBackgroundToRecentLine(lineCollection.line);
-                messageManager.ShowMessage("새로운 노선의 배경으로 변경되었습니다!\n배경 노선/역을 변경하려면\n\"설정-노선/역 설정\"을 이용해주세요!", 2f);
+                try
+                {
+                    stationCustomizeManager.SetBackgroundToRecentLine(lineCollection.line);
+                    messageManager.ShowMessage("새로운 노선의 배경으로 변경되었습니다!\n배경 노선/역을 변경하려면\n\"설정-노선/역 설정\"을 이용해주세요!", 2f);
+                }
+                catch (System.Exception e)
+                {
+                    Debug.Log(e.Message);
+                    messageManager.ShowMessage("일시적인 오류로 인해 노선 배경이 변경되지 않았습니다.\n배경 노선/역을 변경하려면\n\"설정-노선/역 설정\"을 이용해주세요!", 2f);
+                }
             }
 
             if(lineCollection.line.Equals(Line.Line2))

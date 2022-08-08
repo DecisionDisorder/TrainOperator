@@ -57,41 +57,25 @@ public class LineDataManager: MonoBehaviour
             {
                 lineDatas = (LineData[])formatter.Deserialize(file);
 
-                if(lineDatas.Length.Equals(4))
+                if (lineManager.lineCollections[0].lineData.numOfTrain == 0)
+                    playManager.playData.didLineAdd314 = true;
+
+                if (lineDatas.Length.Equals(4))
                 {
                     lineManager.lineCollections[14].lineData = lineDatas[0];
                     lineManager.lineCollections[23].lineData = lineDatas[1];
                     lineManager.lineCollections[24].lineData = lineDatas[2];
                     lineManager.lineCollections[25].lineData = lineDatas[3];
-                }
-                else if(!playManager.playData.didLineAdd314)
-                {
-                    int[] newLines = { 4, 10, 20, 23 };
-                    int k = 0, n = 0;
-                    for(int i = 0; i < 29; i++)
-                    {
-                        if (i == newLines[n])
-                        {
-                            if (n < newLines.Length - 1)
-                                n++;
-                        }
-                        else if(k == 18)
-                        {
-                            lineDatas[20] = ConvertBD2SuinBD(lineDatas[18], lineDatas[20]);
-                            k++;
-                            i--;
-                        }
-                        else
-                        {
-                            lineManager.lineCollections[i].SetLoadedData(lineDatas[k]);
-                            k++;
-                        }
-                    }
-                    playManager.playData.didLineAdd314 = true;
+
+                    if (!playManager.playData.didLineAdd314)
+                        InsertNewLines(lineDatas);
                 }
                 else
                 {
-                    SetLineData(lineDatas);
+                    if (!playManager.playData.didLineAdd314)
+                        InsertNewLines(lineDatas);
+                    else
+                        SetLineData(lineDatas);
                 }
 
                 file.Close();
@@ -103,15 +87,41 @@ public class LineDataManager: MonoBehaviour
             }
 
         }
-        catch
+        catch (System.Exception e)
         {
             /*for(int i = 0; i < lineDatas.Length; i++)
             {
                 lineManager.lineCollections[i].InitializeData();
             }*/
-            //Debug.Log("Data file does not exist.");
+            Debug.Log(e.Message);
         }
         InitLine1();
+    }
+
+    private void InsertNewLines(LineData[] lineDatas)
+    {
+        int[] newLines = { 4, 10, 20, 23 };
+        int k = 0, n = 0;
+        for (int i = 0; i < 29; i++)
+        {
+            if (i == newLines[n])
+            {
+                if (n < newLines.Length - 1)
+                    n++;
+            }
+            else if (k == 18)
+            {
+                lineDatas[20] = ConvertBD2SuinBD(lineDatas[18], lineDatas[20]);
+                k++;
+                i--;
+            }
+            else
+            {
+                lineManager.lineCollections[i].SetLoadedData(lineDatas[k]);
+                k++;
+            }
+        }
+        playManager.playData.didLineAdd314 = true;
     }
 
     private LineData ConvertBD2SuinBD(LineData bdLineData, LineData suinBdLineData)

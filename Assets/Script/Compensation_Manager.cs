@@ -21,6 +21,8 @@ public class Compensation_Manager : MonoBehaviour {
 
     private bool reviseReputation { get { return compensationData.reviseReputation;  } set { compensationData.reviseReputation = value; } }
 
+    private bool LightRailCompenstaionCheck { get { return compensationData.lightRailCompensationChecked; } set { compensationData.lightRailCompensationChecked = value; } }
+
     //private bool isCompensationMessageOpened = false;
     private string tempMessage;
 
@@ -39,42 +41,54 @@ public class Compensation_Manager : MonoBehaviour {
             reviseReputation = true;
             ReviseReputation();
         }
+        if(!LightRailCompenstaionCheck)
+        {
+            LightRailCompenstaionCheck = true;
+            if(lineManager.lineCollections[0].lineData.numOfTrain > 0)
+            {
+                OfferLightRailCompensation();
+            }
+        }
     }
     private void RecoverExpandTrain()
     {
         for(int i = 0; i < lineManager.lineCollections.Length; i++)
         {
             int sum = 0;
-            for(int j = 0; j < 4; j++)
-            {
-                if(lineManager.lineCollections[i].lineData.trainExpandStatus[j] < 0)
-                {
-                    lineManager.lineCollections[i].lineData.trainExpandStatus[j] = 0;
-                }
-                sum += lineManager.lineCollections[i].lineData.trainExpandStatus[j];
-            }
 
-            if (sum < lineManager.lineCollections[i].lineData.numOfTrain)
+            if (!lineManager.lineCollections[i].purchaseStation.priceData.IsLightRail)
             {
-                lineManager.lineCollections[i].lineData.trainExpandStatus[0] += lineManager.lineCollections[i].lineData.numOfTrain - sum;
-            }
-            else if(sum > lineManager.lineCollections[i].lineData.numOfTrain)
-            {
-                int cut = sum - lineManager.lineCollections[i].lineData.numOfTrain;
                 for (int j = 0; j < 4; j++)
                 {
-                    if (cut <= 0)
-                        break;
-
-                    if (cut <= lineManager.lineCollections[i].lineData.trainExpandStatus[j])
+                    if (lineManager.lineCollections[i].lineData.trainExpandStatus[j] < 0)
                     {
-                        lineManager.lineCollections[i].lineData.trainExpandStatus[j] -= cut;
-                        cut = 0;
-                    }
-                    else
-                    {
-                        cut -= lineManager.lineCollections[i].lineData.trainExpandStatus[j];
                         lineManager.lineCollections[i].lineData.trainExpandStatus[j] = 0;
+                    }
+                    sum += lineManager.lineCollections[i].lineData.trainExpandStatus[j];
+                }
+
+                if (sum < lineManager.lineCollections[i].lineData.numOfTrain)
+                {
+                    lineManager.lineCollections[i].lineData.trainExpandStatus[0] += lineManager.lineCollections[i].lineData.numOfTrain - sum;
+                }
+                else if (sum > lineManager.lineCollections[i].lineData.numOfTrain)
+                {
+                    int cut = sum - lineManager.lineCollections[i].lineData.numOfTrain;
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (cut <= 0)
+                            break;
+
+                        if (cut <= lineManager.lineCollections[i].lineData.trainExpandStatus[j])
+                        {
+                            lineManager.lineCollections[i].lineData.trainExpandStatus[j] -= cut;
+                            cut = 0;
+                        }
+                        else
+                        {
+                            cut -= lineManager.lineCollections[i].lineData.trainExpandStatus[j];
+                            lineManager.lineCollections[i].lineData.trainExpandStatus[j] = 0;
+                        }
                     }
                 }
             }
@@ -106,5 +120,18 @@ public class Compensation_Manager : MonoBehaviour {
             }
         }
         return reputation;
+    }
+
+    private void OfferLightRailCompensation()
+    {
+        itemManager.FeverRefillAmount += 10;
+        itemManager.CardPoint += 750;
+        compensationMessage.SetActive(true);
+    }
+
+    public void CloseCompensationMessage()
+    {
+        DataManager.instance.SaveAll();
+        compensationMessage.SetActive(false);
     }
 }

@@ -50,7 +50,7 @@ public class DataConverter : MonoBehaviour
     public void Convert()
     {
         bool isNeedConvert = PlayerPrefs.GetInt("NumOfTrain_1", 0) > 0 ? true : false;
-        if (!IsConverted && !isNeedConvert)
+        if (!IsConverted && isNeedConvert)
         {
             ConvertTrainData();
             ConvertStationData();
@@ -73,7 +73,7 @@ public class DataConverter : MonoBehaviour
             Debug.Log("Data Converted");
 #endif
         }
-        else if (!isNeedConvert)
+        else if (!isNeedConvert && !IsConverted)
         {
             IsConverted = true;
             DataManager.instance.SaveAll();

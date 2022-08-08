@@ -59,13 +59,18 @@ public class LineStatus : MonoBehaviour
         #endregion
         #region ÁøÇà·ü
         int[] progresses = new int[6];
-        progresses[1] = lineCollection.lineData.numOfTrain > 100 ? 100 : lineCollection.lineData.numOfTrain;
+        if (!priceData.IsLightRail)
+        {
+            progresses[1] = lineCollection.lineData.numOfTrain > 100 ? 100 : lineCollection.lineData.numOfTrain;
+            progresses[4] = 100 * expandAmount / 300 > 100 ? 100 : 100 * expandAmount / 300;
+        }
+        else
+        {
+            progresses[1] = lineCollection.lineData.numOfTrain > 25 ? 25 : lineCollection.lineData.numOfTrain * 4;
+            progresses[4] = 100 * lightRailControlManager.GetTotalLevel((int)lineCollection.line) / 25;
+        }
         progresses[2] = 100 * lineCollection.GetExpandedAmount() / lineCollection.lineData.sectionExpanded.Length;
         progresses[3] = 100 * lineCollection.GetConnectionAmount() / lineCollection.lineData.connected.Length;
-        if (!priceData.IsLightRail)
-            progresses[4] = 100 * expandAmount / 300 > 100 ? 100 : 100 * expandAmount / 300;
-        else
-            progresses[4] = 100 * lightRailControlManager.GetTotalLevel((int)lineCollection.line) / 25;
         progresses[5] = 100 * lineCollection.GetScreendoorAmount() / lineCollection.lineData.installed.Length;
         progresses[0] = (progresses[1] + progresses[2] + progresses[3] + progresses[4] + progresses[5]) / 5;
         statusTexts[2].text = progresses[1] + "%";

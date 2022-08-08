@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Advertisements;
 
-public class UnityAdsHelper : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener
+public class UnityAdsHelper : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener, IUnityAdsInitializationListener
 {
     public MessageManager messageManager;
     //public OpeningCardPack openingCardPack;
@@ -20,7 +20,7 @@ public class UnityAdsHelper : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSho
 
     private void Start()
     {
-		Advertisement.Initialize(gameID, testMode);
+		Advertisement.Initialize(gameID, testMode, this);
         LoadAd();
     }
 
@@ -121,4 +121,17 @@ public class UnityAdsHelper : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSho
         }
     }
     #endregion
+
+    #region IUnityAdsInitializationListener
+    void IUnityAdsInitializationListener.OnInitializationComplete()
+    {
+
+    }
+
+    void IUnityAdsInitializationListener.OnInitializationFailed(UnityAdsInitializationError error, string message)
+    {
+
+    }
+    #endregion
+
 }

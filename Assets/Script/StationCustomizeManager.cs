@@ -96,7 +96,7 @@ public class StationCustomizeManager : MonoBehaviour
                 currentLineDropdown.options.Add(new Dropdown.OptionData(lineNames[j++]));
             }
         }
-        currentLineDropdown.value = CurrentLineIndex;
+        currentLineDropdown.value = GetExpandedIndexByLineIndex(CurrentLineIndex);
         currentLineDropdown.RefreshShownValue();
 
     }
@@ -121,6 +121,18 @@ public class StationCustomizeManager : MonoBehaviour
         for(int i = 0; i < lineManager.lineCollections.Length; i++)
         {
             if (lineManager.lineCollections[i].purchaseTrain.lineName.Equals(currentLineDropdown.options[dropdownIndex].text))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private int GetExpandedIndexByLineIndex(int lineIndex)
+    {
+        for (int i = 0; i < currentLineDropdown.options.Count; i++)
+        {
+            if (lineManager.lineCollections[lineIndex].purchaseTrain.lineName.Equals(currentLineDropdown.options[i].text))
             {
                 return i;
             }
