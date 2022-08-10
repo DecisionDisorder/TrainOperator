@@ -57,7 +57,7 @@ public class LineDataManager: MonoBehaviour
             {
                 lineDatas = (LineData[])formatter.Deserialize(file);
 
-                if (lineManager.lineCollections[0].lineData.numOfTrain == 0)
+                if (lineDatas[0].numOfTrain == 0)
                     playManager.playData.didLineAdd314 = true;
 
                 if (lineDatas.Length.Equals(4))

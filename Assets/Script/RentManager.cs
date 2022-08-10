@@ -25,6 +25,7 @@ public class RentManager : MonoBehaviour
             rentData.cumulatedFacilityTimeMoney = value;
         }
     }
+    public int[] maxFacilityAmount;
 
 
     public Text[] facilityPriceTexts;

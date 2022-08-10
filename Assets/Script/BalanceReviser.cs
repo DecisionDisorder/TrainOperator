@@ -245,33 +245,36 @@ public class BalanceReviser : MonoBehaviour
         for(int i = 0; i < targetIndex.Length; i++)
         {
             int ti = targetIndex[i];
-            if (lineManager.lineCollections[ti].lineData.numOfTrain > 100)
-                lineManager.lineCollections[ti].lineData.numOfTrain = 25;
-            else
-                lineManager.lineCollections[ti].lineData.numOfTrain = lineManager.lineCollections[ti].lineData.numOfTrain / 4;
-
-            if (lineManager.lineCollections[ti].lineData.numOfBase > 1)
-                lineManager.lineCollections[ti].lineData.numOfBase = 1;
-
-            if (lineManager.lineCollections[ti].lineData.numOfBaseEx > 3 || lineManager.lineCollections[ti].lineData.numOfBase > 2)
-                lineManager.lineCollections[ti].lineData.numOfBaseEx = 3;
-
-            lineManager.lineCollections[ti].lineData.limitTrain = lineManager.lineCollections[ti].lineData.numOfBase * 10 + lineManager.lineCollections[ti].lineData.numOfBaseEx * 5;
-
-            int expandAmount = lineManager.lineCollections[ti].lineData.trainExpandStatus[1] + lineManager.lineCollections[ti].lineData.trainExpandStatus[2] * 2 + lineManager.lineCollections[ti].lineData.trainExpandStatus[3] * 3;
-            expandAmount /= 12;
-            lineManager.lineCollections[ti].lineData.lineControlLevels = new int[5];
-            while (expandAmount > 0)
+            if (lineManager.lineCollections[ti].lineData.trainExpandStatus.Length > 0)
             {
-                for (int k = 0; k < lineManager.lineCollections[ti].lineData.lineControlLevels.Length; k++)
+                if (lineManager.lineCollections[ti].lineData.numOfTrain > 100)
+                    lineManager.lineCollections[ti].lineData.numOfTrain = 25;
+                else
+                    lineManager.lineCollections[ti].lineData.numOfTrain = lineManager.lineCollections[ti].lineData.numOfTrain / 4;
+
+                if (lineManager.lineCollections[ti].lineData.numOfBase > 1)
+                    lineManager.lineCollections[ti].lineData.numOfBase = 1;
+
+                if (lineManager.lineCollections[ti].lineData.numOfBaseEx > 3 || lineManager.lineCollections[ti].lineData.numOfBase > 2)
+                    lineManager.lineCollections[ti].lineData.numOfBaseEx = 3;
+
+                lineManager.lineCollections[ti].lineData.limitTrain = lineManager.lineCollections[ti].lineData.numOfBase * 10 + lineManager.lineCollections[ti].lineData.numOfBaseEx * 5;
+
+                int expandAmount = lineManager.lineCollections[ti].lineData.trainExpandStatus[1] + lineManager.lineCollections[ti].lineData.trainExpandStatus[2] * 2 + lineManager.lineCollections[ti].lineData.trainExpandStatus[3] * 3;
+                expandAmount /= 12;
+                lineManager.lineCollections[ti].lineData.lineControlLevels = new int[5];
+                while (expandAmount > 0)
                 {
-                    lineManager.lineCollections[ti].lineData.lineControlLevels[k]++;
-                    expandAmount--;
-                    if (expandAmount <= 0)
-                        break;
+                    for (int k = 0; k < lineManager.lineCollections[ti].lineData.lineControlLevels.Length; k++)
+                    {
+                        lineManager.lineCollections[ti].lineData.lineControlLevels[k]++;
+                        expandAmount--;
+                        if (expandAmount <= 0)
+                            break;
+                    }
                 }
+                lineManager.lineCollections[ti].lineData.trainExpandStatus = new int[0];
             }
-            lineManager.lineCollections[ti].lineData.trainExpandStatus = new int[0];
         }    
     }
 
@@ -297,6 +300,9 @@ public class BalanceReviser : MonoBehaviour
         MyAsset.instance.TimePerEarning = LargeVariable.zero;
         for(int i = 0; i < rentManager.NumOfFacilities.Length; i++)
         {
+            if (rentManager.NumOfFacilities[i] > rentManager.maxFacilityAmount[i])
+                rentManager.NumOfFacilities[i] = rentManager.maxFacilityAmount[i];
+
             rentManager.CumulatedFacilityTimeMoney[i] = 0;
             for (int j = 0; j < rentManager.NumOfFacilities[i]; j++)
             {
