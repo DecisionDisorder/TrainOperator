@@ -97,6 +97,11 @@ public class DriversManager : MonoBehaviour
                     passenger_Drivers[i] = standardPassenger[i] + passenger_UP[i] * (ulong)numOfDrivers[i];
                 }
             }
+            else
+            {
+                if(i == 7)
+                    priceDriver7 = new LargeVariable(0, stanardPrice[7], true);
+            }
         }
         if (price_Drivers[6] > 10000000000000000)
         {
