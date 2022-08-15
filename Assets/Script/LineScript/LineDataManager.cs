@@ -31,7 +31,50 @@ public class LineDataManager: MonoBehaviour
     public void SetLineData(LineData[] lineDatas)
     {
         for (int i = 0; i < lineDatas.Length; i++)
+        {
+            int stationSize = lineManager.lineCollections[i].lineData.hasStation.Length;
             lineManager.lineCollections[i].SetLoadedData(lineDatas[i]);
+
+            FixAll(i, stationSize);
+        }
+    }
+
+    private void FixAll(int line, int stationSize)
+    {
+        int sectionSize = lineManager.lineCollections[line].purchaseStation.priceData.Sections.Length;
+        FixData(ref lineManager.lineCollections[line].lineData.connected, sectionSize);
+        FixData(ref lineManager.lineCollections[line].lineData.installed, sectionSize);
+        FixData(ref lineManager.lineCollections[line].lineData.sectionExpanded, sectionSize);
+        FixData(ref lineManager.lineCollections[line].lineData.hasAllStations, sectionSize);
+
+        FixData(ref lineManager.lineCollections[line].lineData.hasStation, stationSize);
+
+        if (!lineManager.lineCollections[line].purchaseStation.priceData.IsLightRail)
+            FixData(ref lineManager.lineCollections[line].lineData.trainExpandStatus, 4);
+        else
+            FixData(ref lineManager.lineCollections[line].lineData.lineControlLevels, 5);
+    }
+
+    private void FixData(ref bool[] data, int sectionSize)
+    {
+        if (data != null)
+        {
+            if (sectionSize != data.Length)
+                data = new bool[sectionSize];
+        }
+        else
+            data = new bool[sectionSize];
+    }
+
+    private void FixData(ref int[] data, int size)
+    {
+        if (data != null)
+        {
+            if (size != data.Length)
+                data = new int[size];
+        }
+        else
+            data = new int[size];
     }
 
     public void SaveData()

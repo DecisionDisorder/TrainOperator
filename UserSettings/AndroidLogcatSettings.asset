@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "R5CT21A8KEZ",
         "name": "com.saejong25.TrainOperator",
-        "processId": 26337,
+        "processId": 9958,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -42,6 +42,12 @@
             "deviceId": "R5CT21A8KEZ",
             "name": "com.saejong25.TrainOperator",
             "processId": 26337,
+            "exited": false
+        },
+        {
+            "deviceId": "R5CT21A8KEZ",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 9958,
             "exited": false
         },
         {
