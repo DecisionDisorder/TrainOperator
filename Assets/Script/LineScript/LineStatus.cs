@@ -83,7 +83,7 @@ public class LineStatus : MonoBehaviour
 
         for(int i = 0; i < statusTexts.Length; i++)
         {
-            if (lineCollection.isExpanded())
+            if (lineCollection.IsExpanded())
                 progressSliderFillImg.color = statusTexts[i].color = lineColor;
             else
                 progressSliderFillImg.color = statusTexts[i].color = Color.gray;

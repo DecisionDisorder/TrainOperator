@@ -42,6 +42,7 @@ public class LevelManager : MonoBehaviour
     public float gageSpeed;
 
     public LineManager lineManager;
+    public MessageManager messageManager;
 
     private void Start()
     {
@@ -92,7 +93,10 @@ public class LevelManager : MonoBehaviour
         levelUpAni.Play();
 
         if (Level.Equals(MaxLevel))
+        {
             Exp = 0;
+            messageManager.ShowMessage("최대 레벨에 도달하셨습니다. 축하드립니다!\n<size=28>(최대 레벨 도달한 이후에는 경험치가 누적되지 않습니다.)</size>", 5.0f);
+        }
         else
         {
             expSliderQueue.Enqueue(ExpGageEffect(0, to, RequiredExp));

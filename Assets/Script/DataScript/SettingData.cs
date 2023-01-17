@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class SettingData
 {
-    public float soundVolume;
+    public float soundVolume = 0.5f;
     public bool playTimeActive;
     public bool updateAlarm;
     public bool peaceEventGameActive;
@@ -21,7 +21,7 @@ public class SettingData
 
     public SettingData()
     {
-        soundVolume = 1f;
+        soundVolume = 0.5f;
         playTimeActive = true;
         updateAlarm = true;
         peaceEventGameActive = true;

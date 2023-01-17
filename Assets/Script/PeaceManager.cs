@@ -275,11 +275,11 @@ public class PeaceManager : MonoBehaviour {
     private int SetTime()
     {
         int Timeset;
-        if (!LineManager.instance.lineCollections[4].isExpanded())
+        if (!LineManager.instance.lineCollections[4].IsExpanded())
         {
             Timeset = Random.Range(50, 71);
         }
-        else if (!LineManager.instance.lineCollections[9].isExpanded())
+        else if (!LineManager.instance.lineCollections[9].IsExpanded())
         {
             Timeset = Random.Range(45, 61);
         }
@@ -291,9 +291,9 @@ public class PeaceManager : MonoBehaviour {
     }
     private int GetDropAmount()
     {
-        if (!LineManager.instance.lineCollections[4].isExpanded())
+        if (!LineManager.instance.lineCollections[4].IsExpanded())
             return Random.Range(0, 5);
-        else if (!LineManager.instance.lineCollections[9].isExpanded())
+        else if (!LineManager.instance.lineCollections[9].IsExpanded())
             return Random.Range(2, 7);
         else
             return Random.Range(4, 9);

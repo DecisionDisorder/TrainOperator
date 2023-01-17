@@ -121,13 +121,29 @@ public class LineCollection : MonoBehaviour
     /// <summary>
     /// 해당 노선의 확장권을 하나라도 보유했는지 확인하는 함수
     /// </summary>
-    public bool isExpanded()
+    public bool IsExpanded()
     {
         for (int i = 0; i < lineData.sectionExpanded.Length; i++)
             if (lineData.sectionExpanded[i])
                 return true;
         return false;
     }
+
+    /// <summary>
+    /// 해당 노선에서 하나라도 스크린도어가 설치되었는지 확인하는 함수
+    /// </summary>
+    /// <returns></returns>
+    public bool IsScreendoorInstalled()
+    {
+        for (int i = 0; i < lineData.installed.Length; i++)
+        {
+            if (lineData.installed[i])
+                return true;
+        }
+
+        return false;
+    }
+
 
     public int GetExpandedAmount()
     {

@@ -44,7 +44,7 @@ public class BackgroundImageManager : MonoBehaviour
 
     private void SetScreendoorUnlock()
     {
-        if(lineManager.lineCollections[3].lineData.installed[0] || lineManager.lineCollections[3].lineData.installed[1] || lineManager.lineCollections[3].lineData.installed[2])
+        if(lineManager.lineCollections[0].IsScreendoorInstalled())
         {
             screenDoorButton.enabled = true;
             screenDoorLock.SetActive(false);

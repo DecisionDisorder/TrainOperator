@@ -62,7 +62,7 @@ public class StationCustomizeManager : MonoBehaviour
         bool[] expandedLines = new bool[lineManager.lineCollections.Length];
         for(int i = 0; i < lineManager.lineCollections.Length; i++)
         {
-            if (lineManager.lineCollections[i].isExpanded())
+            if (lineManager.lineCollections[i].IsExpanded())
                 expandedLines[i] = true;
             else
                 expandedLines[i] = false;
@@ -75,7 +75,7 @@ public class StationCustomizeManager : MonoBehaviour
         int len = 0;
         for (int i = 0; i < lineManager.lineCollections.Length; i++)
         {
-            if (lineManager.lineCollections[i].isExpanded())
+            if (lineManager.lineCollections[i].IsExpanded())
                 len++;
         }
         return len;

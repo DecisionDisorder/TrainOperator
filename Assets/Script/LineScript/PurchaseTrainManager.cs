@@ -163,7 +163,7 @@ public class PurchaseTrainManager : MonoBehaviour, IContinuousPurchase
     /// <param name="isLargeNumber">경단위의 숫자인지 아닌지</param>
     public void CheckTrain()
     {
-        trainImgLockObj.SetActive(!lineCollection.isExpanded());
+        trainImgLockObj.SetActive(!lineCollection.IsExpanded());
 
         string money1 = "", money2 = "";
         LargeVariable price = LargeVariable.zero;

@@ -26,7 +26,7 @@ public class TimeMoneyManager : MonoBehaviour
     /// <summary>
     /// 최대 수익 인정 시간: 120분
     /// </summary>
-    public readonly int maxRewardTime = 7200;
+    public readonly int maxRewardTime = 14400;
 
     public MyAsset myAsset;
     public CompanyReputationManager companyReputationManager;
@@ -70,7 +70,13 @@ public class TimeMoneyManager : MonoBehaviour
                 PlayManager.ArrangeUnit(revenue.lowUnit, revenue.highUnit, ref revenueLow, ref revenueHigh, true);
                 AssetMoneyCalculator.instance.ArithmeticOperation(revenue, true);
                 string title = "시간형 수익 발생 보고서";
-                string revenueReportMsg = "자리를 비우신 사이에 <color=green>" + revenueHigh + revenueLow + "$</color>만큼의 수익이 발생하였습니다.";
+                string revenueReportMsg;
+                if (diffSeconds == maxRewardTime)
+                    revenueReportMsg = "4시간 이상 자리를 비우신 사이에 <color=green>" + revenueHigh + revenueLow + "$</color>만큼의 수익이 발생하였습니다.\n<size=25>최대 적용 시간: 240분(4시간)</size>";
+                else if(diffSeconds >= 60)
+                    revenueReportMsg = "약 " + (diffSeconds / 60) + "분 동안 자리를 비우신 사이에 <color=green>" + revenueHigh + revenueLow + "$</color>만큼의 수익이 발생하였습니다.\n<size=25>최대 적용 시간: 240분(4시간)</size>";
+                else
+                    revenueReportMsg = "약 " + diffSeconds + "초 동안 자리를 비우신 사이에 <color=green>" + revenueHigh + revenueLow + "$</color>만큼의 수익이 발생하였습니다.\n<size=25>최대 적용 시간: 240분(4시간)</size>";
                 messageManager.ShowRevenueReport(title, revenueReportMsg);
                 DataManager.instance.SaveAll();
             }

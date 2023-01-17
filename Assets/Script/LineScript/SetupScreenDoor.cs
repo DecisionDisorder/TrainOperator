@@ -101,7 +101,7 @@ public class SetupScreenDoor : MonoBehaviour
                 DataManager.instance.SaveAll();
                 purchaseSound.Play();
 
-                if (lineCollection.line.Equals(Line.Line4) && IsFirstSectionPurchase())
+                if (IsFirstSectionPurchase())
                     backgroundImageManager.ChangeBackground(1);
             }
             else

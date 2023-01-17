@@ -36,8 +36,8 @@ public class ButtonController : MonoBehaviour {
         yield return new WaitForEndOfFrame();
         if (Input.GetKey(KeyCode.Escape))
         {
-            button_Exit.Random_Text();
-            Exit_text.text = button_Exit.exit_string;
+            button_Exit.RandomText();
+            Exit_text.text = button_Exit.exitMessage;
             Exit.SetActive(true);
             Option_Menu.SetActive(false);
             StartCoroutine(BackKeyDelay(0.3f));

@@ -127,7 +127,7 @@ public class LineManager : MonoBehaviour
     {
         for(int i = lineCollections.Length - 1; i >= 0; i--)
         {
-            if (lineCollections[i].isExpanded())
+            if (lineCollections[i].IsExpanded())
                 return (Line)i;
         }
 
@@ -140,7 +140,7 @@ public class LineManager : MonoBehaviour
         for(int i = 0; i < lineCollections.Length; i++)
         {
             if (!lineCollections[i].purchaseStation.priceData.IsLightRail)
-                if (lineCollections[i].isExpanded())
+                if (lineCollections[i].IsExpanded())
                     count++;
         }
         return count;
@@ -151,7 +151,7 @@ public class LineManager : MonoBehaviour
         for (int i = 0; i < lineCollections.Length; i++)
         {
             if (lineCollections[i].purchaseStation.priceData.IsLightRail)
-                if (lineCollections[i].isExpanded())
+                if (lineCollections[i].IsExpanded())
                     count++;
         }
         return count;

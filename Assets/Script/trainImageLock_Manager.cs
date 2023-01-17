@@ -21,7 +21,7 @@ public class trainImageLock_Manager : MonoBehaviour {
         if(buyTrain_Menu.activeInHierarchy)
         {
             for (int i = 0; i < 8; i++)
-                if (lineCollections[i + 1].isExpanded())
+                if (lineCollections[i + 1].IsExpanded())
                     lockImage_train[i].SetActive(false);
         }
 

@@ -72,11 +72,11 @@ public class condition_Sanitory_Controller : MonoBehaviour {
     int SetTime()
     {
         int Timeset;
-        if (!LineManager.instance.lineCollections[4].isExpanded())
+        if (!LineManager.instance.lineCollections[4].IsExpanded())
         {
             Timeset = Random.Range(60, 86);
         }
-        else if (!LineManager.instance.lineCollections[9].isExpanded())
+        else if (!LineManager.instance.lineCollections[9].IsExpanded())
         {
             Timeset = Random.Range(55, 71);
         }
@@ -89,11 +89,11 @@ public class condition_Sanitory_Controller : MonoBehaviour {
     int MinusSanitory()
     {
         int Score;
-        if (!LineManager.instance.lineCollections[4].isExpanded())
+        if (!LineManager.instance.lineCollections[4].IsExpanded())
         {
             Score = Random.Range(0, 4);
         }
-        else if (!LineManager.instance.lineCollections[9].isExpanded())
+        else if (!LineManager.instance.lineCollections[9].IsExpanded())
         {
             Score = Random.Range(2, 5);
         }
