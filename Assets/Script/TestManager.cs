@@ -15,7 +15,6 @@ public class TestManager : MonoBehaviour {
     public BankSpecialManager bankSpecialManager;
     public PeaceManager peaceManager;
     public condition_Sanitory_Controller condition_Sanitory_Controller;
-    public AcceptRent_Controller acceptRent_Controller;
     public MiniGameManager miniGameManager;
 
     public TouchEarning touchEarning;
@@ -77,7 +76,6 @@ public class TestManager : MonoBehaviour {
                 bankSpecialManager.ContractTime[2] = 0;
                 break;
             case 3:
-                acceptRent_Controller.QuickRentCoolTimefast = 0;
                 break;
             case 4:
                 TouchMoneyManager.AddPassengerLimit(100000000000000000, 0);

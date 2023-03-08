@@ -20,7 +20,7 @@ public class TimeMoneyManager : MonoBehaviour
         }
     }
 
-    private ulong revenueMagnification { get { return (ulong)companyReputationManager.revenueMagnification; } }
+    private ulong revenueMagnification { get { return (ulong)companyReputationManager.RevenueMagnification; } }
     public DateTime recentConnectedTime { get { return PlayManager.instance.playData.recentConnectedTime; } set { PlayManager.instance.playData.recentConnectedTime = value; } }
 
     /// <summary>

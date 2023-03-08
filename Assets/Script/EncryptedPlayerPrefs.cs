@@ -3,6 +3,9 @@ using System.Collections;
 using System.Security.Cryptography;
 using System.Text;
  
+/// <summary>
+/// (Deprecated) 암호화된 PlayerPrefs 저장 시스템 관리 클래스
+/// </summary>
 public class EncryptedPlayerPrefs  {
  
     // Encrypted PlayerPrefs

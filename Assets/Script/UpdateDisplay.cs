@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 위생 조회 메뉴 활성화 이벤트 리스너 오브젝트
+/// </summary>
 public class UpdateDisplay : MonoBehaviour
 {
     public delegate void OnEnableUpdate();

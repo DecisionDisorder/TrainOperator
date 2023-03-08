@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
+/// <summary>
+/// 노선 관련 데이터 관리 클래스
+/// </summary>
 public class LineDataManager: MonoBehaviour
 {
     public LineManager lineManager;
     public MessageManager messageManager;
     public PlayManager playManager;
 
+    /// <summary>
+    /// 1호선 노선 초기화 작업 (기본 제공 역)
+    /// </summary>
     private void InitLine1()
     {
         if (!lineManager.lineCollections[0].lineData.hasStation[24])
@@ -19,6 +25,10 @@ public class LineDataManager: MonoBehaviour
             lineManager.lineCollections[0].lineData.sectionExpanded[1] = lineManager.lineCollections[0].lineData.sectionExpanded[2] = lineManager.lineCollections[0].lineData.sectionExpanded[4] = true;
     }
 
+    /// <summary>
+    /// 모든 노선에 대한 라인 데이터 모음 배열
+    /// </summary>
+    /// <returns></returns>
     public LineData[] AssembleLineData()
     {
         LineData[] lineDatas = new LineData[lineManager.lineCollections.Length];
@@ -28,6 +38,10 @@ public class LineDataManager: MonoBehaviour
         return lineDatas;
     }
 
+    /// <summary>
+    /// 라인 데이터 세팅
+    /// </summary>
+    /// <param name="lineDatas">입력할 데이터</param>
     public void SetLineData(LineData[] lineDatas)
     {
         for (int i = 0; i < lineDatas.Length; i++)
@@ -39,6 +53,11 @@ public class LineDataManager: MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 배열의 길이가 잘못된 데이터 교정 작업
+    /// </summary>
+    /// <param name="line">노선 번호</param>
+    /// <param name="stationSize">구간 크기</param>
     private void FixAll(int line, int stationSize)
     {
         int sectionSize = lineManager.lineCollections[line].purchaseStation.priceData.Sections.Length;
@@ -55,6 +74,11 @@ public class LineDataManager: MonoBehaviour
             FixData(ref lineManager.lineCollections[line].lineData.lineControlLevels, 5);
     }
 
+    /// <summary>
+    /// 특정 데이터의 배열 길이 교정 작업
+    /// </summary>
+    /// <param name="data">교정 대상 배열</param>
+    /// <param name="sectionSize">배열 길이</param>
     private void FixData(ref bool[] data, int sectionSize)
     {
         if (data != null)
@@ -66,6 +90,11 @@ public class LineDataManager: MonoBehaviour
             data = new bool[sectionSize];
     }
 
+    /// <summary>
+    /// 특정 데이터의 배열 길이 교정 작업
+    /// </summary>
+    /// <param name="data">교정 대상 배열</param>
+    /// <param name="sectionSize">배열 길이</param>
     private void FixData(ref int[] data, int size)
     {
         if (data != null)
@@ -77,10 +106,12 @@ public class LineDataManager: MonoBehaviour
             data = new int[size];
     }
 
+    /// <summary>
+    /// 노선 데이터 로컬 저장
+    /// </summary>
     public void SaveData()
     {
         LineData[] lineDatas = AssembleLineData();
-
 
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/dataInfo.dat");
@@ -88,6 +119,9 @@ public class LineDataManager: MonoBehaviour
         file.Close();
     }
 
+    /// <summary>
+    /// 로컬 노선 데이터 로딩
+    /// </summary>
     public void LoadData()
     {
         BinaryFormatter formatter = new BinaryFormatter();
@@ -96,13 +130,17 @@ public class LineDataManager: MonoBehaviour
         try
         {
             file = File.Open(Application.persistentDataPath + "/dataInfo.dat", FileMode.Open);
+            // 노선 데이터를 정상적으로 불러왔으면
             if (file != null && file.Length > 0)
             {
+                // 역직렬화
                 lineDatas = (LineData[])formatter.Deserialize(file);
 
+                // 기존 플레이 데이터가 없는 경우 노선 추가에 대한 작업 스킵 처리
                 if (lineDatas[0].numOfTrain == 0)
                     playManager.playData.didLineAdd314 = true;
 
+                // 노선 추가 작업
                 if (lineDatas.Length.Equals(4))
                 {
                     lineManager.lineCollections[14].lineData = lineDatas[0];
@@ -138,9 +176,13 @@ public class LineDataManager: MonoBehaviour
             }*/
             Debug.Log(e.Message);
         }
+        // 1호선 기본 제공 역에 대한 초기화 작업
         InitLine1();
     }
 
+    /// <summary>
+    /// 신규 노선 데이터 순서 정리
+    /// </summary>
     private void InsertNewLines(LineData[] lineDatas)
     {
         int[] newLines = { 4, 10, 20, 23 };
@@ -167,6 +209,12 @@ public class LineDataManager: MonoBehaviour
         playManager.playData.didLineAdd314 = true;
     }
 
+    /// <summary>
+    /// 분당선과 수인분당선을 수인분당선 하나로 합병
+    /// </summary>
+    /// <param name="bdLineData">분당선 데이터</param>
+    /// <param name="suinBdLineData">수인분당선 데이터</param>
+    /// <returns></returns>
     private LineData ConvertBD2SuinBD(LineData bdLineData, LineData suinBdLineData)
     {
         LineData convertedData = new LineData();

@@ -2,10 +2,24 @@ using System.Collections;
 using UnityEngine;
 using GooglePlayGames;
 
+/// <summary>
+/// 구글 플레이 게임 서비스(Google Play Game Service) 관리 클래스
+/// </summary>
 public class GPGSManager : MonoBehaviour
 {
+    /// <summary>
+    /// 첫 로그인 시도인지 여부
+    /// </summary>
     public static bool isFirstLoginAccess = true;
+    /// <summary>
+    /// GPGS 매니저 싱글톤 인스턴스
+    /// </summary>
     public static GPGSManager instance;
+
+    /// <summary>
+    /// 로그인 여부
+    /// </summary>
+    public bool bLogin;
 
     private void Awake()
     {
@@ -14,33 +28,35 @@ public class GPGSManager : MonoBehaviour
 
     void Start()
     {
+        // 처음 로그인 시도일 때, 로그인 작업 시작
         if (isFirstLoginAccess)
         {
-            InitializeGPGS();
-            LoginGPGS();
-            //Debug.Log("Login Tried");
-            isFirstLoginAccess = false;
+            Login();
         }
     }
 
+    /// <summary>
+    /// GPGS를 초기화하고 로그인 작업 시작
+    /// </summary>
     public void Login()
     {
         InitializeGPGS();
         LoginGPGS();
-        //Debug.Log("Login Tried");
         isFirstLoginAccess = false;
     }
-    /// 
-    /// 현재 로그인 중인지 체크
-    /// 
 
+    /// <summary>
+    /// GPGS 로그아웃 후 게임 종료
+    /// </summary>
     public void QuitGame()
     {
         LogoutGPGS();
-        //LogoutMessage.SetActive(true);
 
         StartCoroutine(WaitLogoutGoogle());
     }
+    /// <summary>
+    /// 로그아웃이 되었을 때 게임 종료
+    /// </summary>
     IEnumerator WaitLogoutGoogle()
     {
         yield return new WaitForEndOfFrame();
@@ -51,16 +67,10 @@ public class GPGSManager : MonoBehaviour
         StartCoroutine(WaitLogoutGoogle());
     }
 
-    public bool bLogin
-    {
-        get;
-        set;
-    }
 
-    /// 
-    /// GPGS를 초기화 합니다
-    /// 
-
+   /// <summary>
+   /// GPGS 초기화
+   /// </summary>
     public void InitializeGPGS()
     {
         bLogin = false;
@@ -68,30 +78,30 @@ public class GPGSManager : MonoBehaviour
         CloudManager.Init();
         PlayGamesPlatform.Activate();
     }
-    /// GPGS를 로그인 합니다.
-
+    
+    /// <summary>
+    /// GPGS 로그인 시도
+    /// </summary>
     public void LoginGPGS()
     {
-        // 로그인이 안되어 있으면
-
+        // 로그인이 안되어 있으면 로그인 시도
         if (!Social.localUser.authenticated)
             Social.localUser.Authenticate(LoginCallBackGPGS);
 
     }
 
-    /// GPGS Login Callback
-    /// 
-    ///  결과 
-
-
+    /// <summary>
+    /// 로그인 시도에 대한 결과 콜백
+    /// </summary>
+    /// <param name="result">로그인 시도 결과</param>
     public void LoginCallBackGPGS(bool result)
     {
         bLogin = result;
     }
 
-    /// 
-    /// GPGS를 로그아웃 합니다.
-
+    /// <summary>
+    /// GPGS 로그아웃
+    /// </summary>
     public void LogoutGPGS()
     {
         // 로그인이 되어 있으면

@@ -2,11 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// PlayerPrefs 기반 레거시 데이터 저장 방식을 직렬화 데이터로 변환하기 위한 클래스
+/// </summary>
 public class DataConverter : MonoBehaviour
 {
     public LineManager lineManager;
     public LineDataManager lineDataManager;
+    /// <summary>
+    /// 저자 방식 변환 되었는지 여부
+    /// </summary>
     public bool IsConverted { get { return playManager.playData.isConverted; } set { playManager.playData.isConverted = value; } }
+    /// <summary>
+    /// 1호선 역 데이터 이름
+    /// </summary>
 
     private string[] line1StationDataNames = { "Bool_soyosan", "Bool_dongduchun", "Bool_bosan", "Bool_dongduchunjungang", "Bool_jihaeng", "Bool_dukjung", "Bool_dukgye", "Bool_yangju", "Bool_nokyang", "Bool_ganeng"
             , "Bool_uijeongbu", "Bool_hoeryong", "Bool_mangwallsa", "Bool_dobongsan", "Bool_dobong", "Bool_banghak", "Bool_changdong(1)", "Bool_nokchun", "Bool_wallgye", "Bool_gwangundae", "Bool_seokgye", "Bool_sinyeemoon"
@@ -16,25 +25,37 @@ public class DataConverter : MonoBehaviour
             , "Bool_doksan", "Bool_geumcheon", "Bool_seoksu", "Bool_gwuanak", "Bool_anyang", "Bool_myeonghak", "Bool_geumjung", "Bool_gunpo", "Bool_dangjung", "Bool_ewang", "Bool_sungkyunkwan", "Bool_whaseo", "FREE"
             , "Bool_beongjum", "Bool_seodongtan", "Bool_seryu", "Bool_sema", "Bool_osandae", "Bool_osan", "Bool_jinwee", "Bool_songtan", "Bool_sujunglee", "Bool_jije", "Bool_peongtaek", "Bool_sungwhan", "Bool_jiksan", "Bool_dujung"
             , "Bool_chunan", "Bool_bongmyeong", "Bool_ssangyong", "Bool_asan", "Bool_baebang", "Bool_onyang", "Bool_sinchang" };
+    /// <summary>
+    /// 2호선 역 데이터 이름
+    /// </summary>
 
     private string[] line2StationDataNames = { "Bool_sinsul_2", "Bool_yongdo", "Bool_sindab", "Bool_yongdab", "Bool_sungsu", "Bool_gundae", "Bool_guyee", "Bool_gangbyeon", "Bool_jamsilnaru", "Bool_jamsil", "Bool_sinchun", "Bool_jonghap",
         "Bool_samsung", "Bool_sunleng", "Bool_yuksam", "Bool_gangnam", "Bool_gyodae", "Bool_seocho", "Bool_bangbae", "Bool_sadang", "Bool_naksungdae", "Bool_seouldae", "Bool_bongchun", "Bool_sinleam", "Bool_sindaebang", "Bool_gurodigital",
         "Bool_daelim", "Bool_sindorim_2", "Bool_moonrae", "Bool_youngdengpo_guchung", "Bool_dangsan", "Bool_hapjung", "Bool_hongdae", "Bool_sinchon", "Bool_idae", "Bool_ahyun", "Bool_chungjungro", "Bool_sichung_2", "Bool_eljiroipgu",
         "Bool_eljiro3", "Bool_eljiro4", "Bool_dongdaemoon_yeoksa", "Bool_sindang", "Bool_sangwangsipri", "Bool_wangsipri", "Bool_hanyangdae", "Bool_dduksum", "Bool_ggachisan", "Bool_sinjung4", "Bool_yangchun", "Bool_dorimchun"};
+    /// <summary>
+    /// 3호선 역 데이터 이름
+    /// </summary>
 
     private string[] line3StationDataNames = { "Bool_daewha", "Bool_juyup", "Bool_jungbalsan", "Bool_madu", "Bool_baksuk", "Bool_daegok", "Bool_whajung", "Bool_wondang", "Bool_wonheng", "Bool_samsong", "Bool_jichuk", "Bool_gupabal",
         "Bool_yunsinnae", "Bool_bulgwang", "Bool_nokbeon", "Bool_hongje", "Bool_muakjae", "Bool_doklipmoon", "Bool_gyeongbokgung", "Bool_angook", "Bool_jongro3", "Bool_eljiro3_3", "Bool_chungmuro", "Bool_dongdae", "Bool_yaksu", 
         "Bool_geumho", "Bool_oksu", "Bool_apgujung", "Bool_sinsa", "Bool_jamwon", "Bool_gosokterminal", "Bool_gyodae_4", "Bool_nambuterminal", "Bool_yangjae", "Bool_maebong", "Bool_dogok", "Bool_daechi", "Bool_hakyeoul", "Bool_daechung",
         "Bool_ilwon", "Bool_suseo", "Bool_garak", "Bool_gyeongchal", "Bool_ogeum" };
+    /// <summary>
+    /// 4호선 역 데이터 이름
+    /// </summary>
 
     private string[] line4StationDataNames = { "Bool_danggogae", "Bool_sanggye", "Bool_nowon", "Bool_changdong", "Bool_ssangmoon", "Bool_suyu", "Bool_mia", "Bool_mia4", "Bool_gilem", "Bool_sungsinyeodae", "Bool_hansungdae", "Bool_hyewha", 
         "Bool_dongdaemoon_4", "Bool_dongdaemoon_yeoksa_4", "Bool_chungmuro_4", "Bool_myeongdong", "Bool_whehyun", "Bool_seoul_4", "Bool_sukdae", "Bool_samgakji", "Bool_sinyongsan", "Bool_ichon", "Bool_dongjak", "Bool_chongsindae", 
         "Bool_sadang_4", "Bool_namtaeleong", "Bool_sunbawi", "Bool_gyeongma", "Bool_daegongwon", "Bool_gwachun", "Bool_jungbugwachun", "Bool_indukwon", "Bool_pyeongchon", "Bool_bumgye", "Bool_geumjung_4", "Bool_sanbon", "Bool_surisan",
         "Bool_daeyami", "Bool_banwall", "Bool_sangroksu", "Bool_handae", "Bool_jungang", "Bool_gojan", "Bool_choji", "Bool_ansan", "Bool_singealonchun", "Bool_jungwang", "Bool_oido" };
+    /// <summary>
+    /// 수도권 2구간 노선 코드 배열
+    /// </summary>
 
     string[] mp2Codes = { "BD", "SinBD", "SuIn", "IC1", "IC2" };
 
-    #region Scripts
+    #region Related Scripts
     public MyAsset myAsset;
     public CompanyReputationManager company_Reputation_Controller;
     public RentManager rent;
@@ -47,6 +68,9 @@ public class DataConverter : MonoBehaviour
     public SettingManager setting;
     #endregion
 
+    /// <summary>
+    /// 기존 레거시 데이터가 있으면서 변환을 하지 않은 경우에 변환 시작
+    /// </summary>
     public void Convert()
     {
         bool isNeedConvert = PlayerPrefs.GetInt("NumOfTrain_1", 0) > 0 ? true : false;
@@ -81,6 +105,9 @@ public class DataConverter : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 기차 및 차량기지 개수에 대한 데이터 변환
+    /// </summary>
     private void ConvertTrainData()
     {
         for(int i = 0; i < 9; i++)
@@ -141,6 +168,9 @@ public class DataConverter : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 역에 대한 데이터 변환
+    /// </summary>
     private void ConvertStationData()
     {
         #region MP1
@@ -219,6 +249,9 @@ public class DataConverter : MonoBehaviour
         #endregion
     }
 
+    /// <summary>
+    /// 노선 확장권에 대한 데이터 변환
+    /// </summary>
     private void ConvertExpandData()
     {
         #region MP1-Line1~4
@@ -276,6 +309,9 @@ public class DataConverter : MonoBehaviour
         #endregion
     }
 
+    /// <summary>
+    /// 노선 연결 데이터 변환
+    /// </summary>
     private void ConvertConnectLineData()
     {
         #region MP1
@@ -328,6 +364,9 @@ public class DataConverter : MonoBehaviour
         #endregion
     }
 
+    /// <summary>
+    /// 스크린도어 데이터 변환
+    /// </summary>
     private void ConvertScreendoorData()
     {
         #region MP1
@@ -360,6 +399,9 @@ public class DataConverter : MonoBehaviour
         #endregion
     }
 
+    /// <summary>
+    /// 사용자의 자산 데이터 변환
+    /// </summary>
     private void ConvertMyAssetData()
     {
         myAsset.myAssetData.moneyLow = ulong.Parse(EncryptedPlayerPrefs.GetString("Now_Money_enc", "0"));
@@ -372,6 +414,9 @@ public class DataConverter : MonoBehaviour
         myAsset.myAssetData.moneyHigh = ulong.Parse(EncryptedPlayerPrefs.GetString("Now_Money2_enc", "0"));
     }
 
+    /// <summary>
+    /// 고개 만족도 관련 데이터 변환
+    /// </summary>
     private void ConvertCompanyData()
     {
         company_Reputation_Controller.companyData.reputationTotalValue = PlayerPrefs.GetInt("Rep_Totalvalue", 0);
@@ -386,6 +431,9 @@ public class DataConverter : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 시설 임대 데이터 변환
+    /// </summary>
     private void ConvertRentData()
     {
         rent.rentData.numOfFacilities[0] = PlayerPrefs.GetInt("NumOfVm");
@@ -421,6 +469,9 @@ public class DataConverter : MonoBehaviour
         rent.rentData.quickRentCoolTime = PlayerPrefs.GetInt("Req_Cooltime");
     }
 
+    /// <summary>
+    /// 카드 아이템 데이터 변환
+    /// </summary>
     private void ConvertItemData()
     {
         itemManager.itemData.cardAmounts[0] = PlayerPrefs.GetInt("NumofRedCard");
@@ -430,6 +481,9 @@ public class DataConverter : MonoBehaviour
         itemManager.itemData.silverCardAmount = PlayerPrefs.GetInt("NumofSilver");
     }
 
+    /// <summary>
+    /// 플레이 데이터 변환
+    /// </summary>
     private void ConvertPlayData()
     {
         playManager.playData.playTimeHour =  PlayerPrefs.GetInt("Playtime_hour");
@@ -440,12 +494,18 @@ public class DataConverter : MonoBehaviour
         playManager.playData.patchNoteVersionCode = PlayerPrefs.GetInt("isSaw");
     }
 
+    /// <summary>
+    /// 이벤트 관련 데이터 변환
+    /// </summary>
     private void ConvertEventData()
     {
         event_Manager.eventData.isRecommended =  GetPlayerPrefIntToBool("isRecommended");
         event_Manager.eventData.isSurveyed = bool.Parse(EncryptedPlayerPrefs.GetString("isSurveyed", "false"));
     }
 
+    /// <summary>
+    /// 은행 데이터 변환
+    /// </summary>
     private void ConvertBankData()
     {
         for(int i = 0; i < bankManager.bankData.savedMoneyNormal.Length; i++)
@@ -467,6 +527,9 @@ public class DataConverter : MonoBehaviour
         bankManager.bankData.timer = PlayerPrefs.GetInt("S_Timeleft");
     }
 
+    /// <summary>
+    /// 보상 수령 및 복원 여부 관련 데이터 변환
+    /// </summary>
     private void ConvertCompensationData()
     {
         compensation_Manager.compensationData.bsCompensationChecked = bool.Parse(EncryptedPlayerPrefs.GetString("bsCompensationChecked", "FALSE"));
@@ -475,6 +538,9 @@ public class DataConverter : MonoBehaviour
         compensation_Manager.compensationData.version3_0_1_checked = bool.Parse(EncryptedPlayerPrefs.GetString("version3_0_1_checked", "FALSE"));
     }
 
+    /// <summary>
+    /// 기관사 데이터 변환
+    /// </summary>
     private void ConvertDriverData()
     {
         drivers_Manager.driverData.salaryTimer = PlayerPrefs.GetInt("Salary_nextTime");
@@ -482,6 +548,9 @@ public class DataConverter : MonoBehaviour
             drivers_Manager.driverData.numOfDrivers[i] = PlayerPrefs.GetInt("numofDrivers[" + i + "]");
     }
 
+    /// <summary>
+    /// 설정 데이터 변환
+    /// </summary>
     private void ConvertSettingData()
     {
         setting.settingData.soundVolume = PlayerPrefs.GetFloat("soundVolume", 1f);
@@ -492,6 +561,12 @@ public class DataConverter : MonoBehaviour
         setting.settingData.addedMoneyEffect = bool.Parse(PlayerPrefs.GetString("BoolAddedMoneyEffect", "TRUE"));
     }
 
+    /// <summary>
+    /// PlayerPrefs에서 int로 저장한 것을 bool로 변환
+    /// </summary>
+    /// <param name="name">저장된 항목 이름</param>
+    /// <param name="defaultValue">기본값</param>
+    /// <returns>변환 결과</returns>
     private bool GetPlayerPrefIntToBool(string name, int defaultValue = -99)
     {
         if(defaultValue.Equals(-99))
@@ -499,6 +574,11 @@ public class DataConverter : MonoBehaviour
         else
             return PlayerPrefs.GetInt(name, defaultValue).Equals(1) ? true : false;
     }
+    /// <summary>
+    /// 암호화된 PlayerPrefs에서 int로 저장된 것을 bool로 변환
+    /// </summary>
+    /// <param name="name">저장된 항목 이름</param>
+    /// <returns>변환 결과</returns>
     private bool GetEncPlayerPrefIntToBool(string name)
     {
         return EncryptedPlayerPrefs.GetInt(name).Equals(1) ? true : false;

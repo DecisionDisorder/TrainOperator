@@ -5,12 +5,22 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// 이벤트 트리거 커스텀 클래스
+/// </summary>
 public class EventTriggerEx : EventTrigger
 {
-    public static bool isScroll = false;
-    private Vector2 initialPosition;
     /// <summary>
-    /// Do action for all parents
+    /// 스크롤 중인지 여부
+    /// </summary>
+    public static bool isScroll = false;
+    /// <summary>
+    /// 드래그 시작 할 때 처음 위치
+    /// </summary>
+    private Vector2 initialPosition;
+
+    /// <summary>
+    /// 액션을 Hierarchy 상의 모든 부모 클래스에 전달
     /// </summary>
     private void DoForParents<T>(Action<T> action) where T : IEventSystemHandler
     {
@@ -27,7 +37,7 @@ public class EventTriggerEx : EventTrigger
     }
 
     /// <summary>
-    /// Always route initialize potential drag event to parents
+    /// 잠재적 드래그 이벤트를 부모에게 항상 라우팅
     /// </summary>
     public override void OnInitializePotentialDrag(PointerEventData eventData)
     {
@@ -36,7 +46,7 @@ public class EventTriggerEx : EventTrigger
     }
 
     /// <summary>
-    /// Drag Event
+    /// 드래그 이벤트 처리
     /// </summary>
     public override void OnDrag(PointerEventData eventData)
     {
@@ -46,7 +56,7 @@ public class EventTriggerEx : EventTrigger
     }
 
     /// <summary>
-    /// Begin Drag event
+    /// 드래그 시작 할 때의 이벤트 처리
     /// </summary>
     public override void OnBeginDrag(PointerEventData eventData)
     {
@@ -55,7 +65,7 @@ public class EventTriggerEx : EventTrigger
     }
 
     /// <summary>
-    /// End drag event
+    /// 드래그 끝날 때의 이벤트 처리
     /// </summary>
     public override void OnEndDrag(PointerEventData eventData)
     {

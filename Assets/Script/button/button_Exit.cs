@@ -2,16 +2,14 @@
 using System.Collections;
 using UnityEngine.UI;
 
+/// <summary>
+/// 게임 종료 메뉴 매니저 클래스
+/// </summary>
 public class button_Exit : MonoBehaviour {
 	/// <summary>
 	/// 종료 안내창 오브젝트
 	/// </summary>
 	public GameObject _Exit;
-
-	/// <summary>
-	/// 종료 메시지
-	/// </summary>
-	public static string exitMessage;
 
 
 	/// <summary>
@@ -36,8 +34,9 @@ public class button_Exit : MonoBehaviour {
 	/// <summary>
 	/// 랜덤한 텍스트 선정
 	/// </summary>
-	public static void RandomText()
+	public static string RandomText()
 	{
+		string exitMessage = "";
 		int Random_exit = Random.Range (1,101);
 		if (Random_exit < 21) {
 			exitMessage = "게임을 종료하실 겁니까? 정말로요?";
@@ -50,5 +49,7 @@ public class button_Exit : MonoBehaviour {
 		} else if (Random_exit <= 101) {
 			exitMessage = "게임을 빨리 깰겁니까, 끄실겁니까";
 		}
+
+		return exitMessage;
 	}
 }

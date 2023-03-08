@@ -34,13 +34,4 @@ public class UpdateManager : MonoBehaviour {
                 break;
         }
 	}
-	/*
-	public static void Savedata()
-	{
-		PlayerPrefs.SetInt ("isSaw",issaw);
-	}
-	public static void Loaddata()
-	{
-		issaw = PlayerPrefs.GetInt ("isSaw",issaw);
-	}*/
 }

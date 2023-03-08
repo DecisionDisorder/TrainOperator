@@ -2,19 +2,36 @@
 using System.Collections;
 using UnityEngine.UI;
 
+/// <summary>
+/// 플레이 시간 계산 관리 클래스
+/// </summary>
 public class Playtime : MonoBehaviour {
 
+    /// <summary>
+    /// 플레이 시간 정보 텍스트
+    /// </summary>
 	public Text Playtime_text;
 
+    /// <summary>
+    /// 초 단위의 플레이 타임
+    /// </summary>
 	public int PlayTime_second { get { return PlayManager.instance.playData.playTimeSec; } set { PlayManager.instance.playData.playTimeSec = value; } }
+    /// <summary>
+    /// 분 단위의 플레이 타임
+    /// </summary>
 	public int PlayTime_minute { get { return PlayManager.instance.playData.playTimeMin; } set { PlayManager.instance.playData.playTimeMin = value; } }
+    /// <summary>
+    /// 시간 단위의 플레이 타임
+    /// </summary>
 	public int PlayTime_hour { get { return PlayManager.instance.playData.playTimeHour; } set { PlayManager.instance.playData.playTimeHour = value; } }
 
 	void Start () {
-		//LoadTime ();
         StartCoroutine(Timer());
     }
 	
+    /// <summary>
+    /// 매 초마다 플레이 타임을 증가시키며 계산
+    /// </summary>
     IEnumerator Timer()
     {
         yield return new WaitForSeconds(1);
@@ -38,23 +55,4 @@ public class Playtime : MonoBehaviour {
 
 		StartCoroutine(Timer());
     }
-	/*
-	public static void SaveTime()
-	{
-		PlayerPrefs.SetInt ("Playtime_second",PlayTime_second);
-		PlayerPrefs.SetInt ("Playtime_minute",PlayTime_minute);
-		PlayerPrefs.SetInt ("Playtime_hour",PlayTime_hour);
-	}
-	public static void LoadTime()
-	{
-		PlayTime_second = PlayerPrefs.GetInt ("Playtime_second");
-		PlayTime_minute = PlayerPrefs.GetInt ("Playtime_minute");
-		PlayTime_hour = PlayerPrefs.GetInt ("Playtime_hour");
-	}
-	public static void ResetTime()
-	{
-		PlayTime_hour = 0;
-		PlayTime_minute = 0;
-		PlayTime_second = 0;
-	}*/
 }

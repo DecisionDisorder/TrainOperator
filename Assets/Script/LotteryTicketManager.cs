@@ -18,6 +18,8 @@ public class LotteryTicketManager : MonoBehaviour
     public List<LotteryRecord> JackpotWinRecords { set { lotteryData.jackpotWinRecords= value; } get { return lotteryData.jackpotWinRecords; } }
     public List<LotteryRecord> NormalWinRecords { set { lotteryData.normalWinRecords = value; } get { return lotteryData.normalWinRecords; } }
     public List<LotteryRecord> SimpleWinRecords { set { lotteryData.simpleWinRecords = value; } get { return lotteryData.simpleWinRecords; } }
+    public DrawProduct SelectedProduct { set { lotteryData.selectedProduct = value; } get { return lotteryData.selectedProduct; } }
+    public LargeVariable PurchaseAmount { set { lotteryData.purchaseAmount = value; } get { return lotteryData.purchaseAmount; } }
 
     public LargeVariable UnreceivedReward { set { lotteryData.unreceivedReward = value; UpdateUnreceivedReward(); } get { return lotteryData.unreceivedReward; } }
     public int DrawTimeLeft { set { lotteryData.drawTimeLeft = value; } get { return lotteryData.drawTimeLeft; } }
@@ -86,6 +88,8 @@ public class LotteryTicketManager : MonoBehaviour
     public MessageManager messageManager;
     public AudioSource purchaseAudioSource;
 
+    public bool testMode = false;
+
     private void Start()
     {
         if (LotteryTickets[0].selectedNumbers == null)
@@ -140,7 +144,7 @@ public class LotteryTicketManager : MonoBehaviour
 
     private void StartShowingBalls()
     {
-        if(LotteryTicket.selectedProduct == DrawProduct.Jackpot)
+        if(SelectedProduct == DrawProduct.Jackpot)
         {
             StartCoroutine(ShowingBalls(number6Balls));
         }
@@ -178,7 +182,7 @@ public class LotteryTicketManager : MonoBehaviour
 
         DrawAllProducts();
         StartShowingBalls();
-        List<LotteryRecord> lotteryRecords = GetLotteryRecordByIndex((int)LotteryTicket.selectedProduct);
+        List<LotteryRecord> lotteryRecords = GetLotteryRecordByIndex((int)SelectedProduct);
         int[] pickedNumbers = lotteryRecords[lotteryRecords.Count - 1].pickedNumbers;
         SetPickedNumbersText(pickedNumbers);
 
@@ -187,15 +191,15 @@ public class LotteryTicketManager : MonoBehaviour
             if (LotteryTickets[i].selectedNumbers.Length > 0)
             {
                 int correctAmount = CompareDraws(pickedNumbers, LotteryTickets[i].selectedNumbers);
-                int maxAmount = drawSets[(int)LotteryTicket.selectedProduct].numberOfPick;
+                int maxAmount = drawSets[(int)SelectedProduct].numberOfPick;
                 for (int k = 0; k < 3; k++)
                 {
                     if (correctAmount == maxAmount - k)
                     {
-                        rewardMoney = LotteryTicket.purchaseAmount * drawSets[(int)LotteryTicket.selectedProduct].rewardMultiple[k];
+                        rewardMoney = PurchaseAmount * drawSets[(int)SelectedProduct].rewardMultiple[k];
                         UnreceivedReward += rewardMoney;
                         LotteryRecord winRecord = new LotteryRecord(lotteryRecords.Count, LotteryTickets[i].selectedNumbers);
-                        GetWinRecordByIndex((int)LotteryTicket.selectedProduct).Add(winRecord);
+                        GetWinRecordByIndex((int)SelectedProduct).Add(winRecord);
                         winRecord.SetPastWinData(rewardMoney, k + 1);
                         break;
                     }
@@ -348,7 +352,7 @@ public class LotteryTicketManager : MonoBehaviour
                 }
             }
             tempLotteryTickets[selectedTicket].selectedNumbers = selectedNumbers;
-            LotteryTicket.purchaseAmount = GetPricePerTicket();
+            PurchaseAmount = GetPricePerTicket();
             filledTickets[selectedTicket] = true;
             SetTotalPriceText();
         }
@@ -389,7 +393,7 @@ public class LotteryTicketManager : MonoBehaviour
             }
         }
     }
-    private LargeVariable GetPricePerTicket()
+    public LargeVariable GetPricePerTicket()
     {
         return MyAsset.instance.GetTotalRevenue() * ticketPriceMultiply;
     }
@@ -405,7 +409,7 @@ public class LotteryTicketManager : MonoBehaviour
         {
             purchaseTicketMenu.SetActive(false);
             timerStop = false;
-            LotteryTicket.selectedProduct = selectedDrawProduct;
+            SelectedProduct = selectedDrawProduct;
             LotteryTickets = tempLotteryTickets;
             SetTicketPriceText(purchasedTicketPriceText, "기준 구매 금액: ", GetPricePerTicket());
             purchaseAudioSource.Play();
@@ -475,8 +479,10 @@ public class LotteryTicketManager : MonoBehaviour
         List<int[]> pickedNumbers = new List<int[]>();
         for (int i = 0; i < 3; i++)
         {
-            //pickedNumbers.Add(GetTestDrawNumber(drawSets[i]));
-            pickedNumbers.Add(GetDrawNumbers(drawSets[i]));
+            if(testMode)
+                pickedNumbers.Add(GetTestDrawNumber(drawSets[i]));
+            else
+                pickedNumbers.Add(GetDrawNumbers(drawSets[i]));
             List<LotteryRecord> lotteryRecords = GetLotteryRecordByIndex(i);
             lotteryRecords.Add(new LotteryRecord(lotteryRecords.Count + 1, pickedNumbers[i]));
         }
@@ -593,6 +599,7 @@ public class LotteryTicketManager : MonoBehaviour
         openedRecordIndex = productIndex;
         SetLotteryRecordText(productIndex);
         SetWinRecordText(productIndex);
+        UpdateUnreceivedReward();
     }
 
     public void CloseLotteryRecords()
@@ -722,8 +729,6 @@ public class DrawSet
 public class LotteryTicket
 {
     public int[] selectedNumbers;
-    public static DrawProduct selectedProduct;
-    public static LargeVariable purchaseAmount;
 }
 
 [System.Serializable]

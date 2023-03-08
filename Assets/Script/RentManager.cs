@@ -1,18 +1,33 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 임대 시스템 관리 클래스
+/// </summary>
 public class RentManager : MonoBehaviour
 {
+    /// <summary>
+    /// 임대 시설 프리셋 데이터
+    /// </summary>
     public FacilityData[] facilityDatas;
 
+    /// <summary>
+    /// 임대 시설 관련 저장 데이터 오브젝트
+    /// </summary>
     public RentData rentData;
 
+    /// <summary>
+    /// 시설 별로 보유 중인 임대 시설 개수
+    /// </summary>
     public int[] NumOfFacilities
     {
         get { return rentData.numOfFacilities; }
         set { rentData.numOfFacilities = value; }
     }
 
+    /// <summary>
+    /// 시설 별로 획득한 누적 시간형 수익
+    /// </summary>
     public ulong[] CumulatedFacilityTimeMoney
     {
         get
@@ -25,11 +40,22 @@ public class RentManager : MonoBehaviour
             rentData.cumulatedFacilityTimeMoney = value;
         }
     }
+    /// <summary>
+    /// 시설 별 최대 보유량
+    /// </summary>
     public int[] maxFacilityAmount;
 
-
+    /// <summary>
+    /// 시설 별 가격 정보 텍스트 배열
+    /// </summary>
     public Text[] facilityPriceTexts;
+    /// <summary>
+    /// 시설 별 시간형 수익 보상 정보 텍스트 배열
+    /// </summary>
     public Text[] facilityTimeMoneyTexts;
+    /// <summary>
+    /// 보유 중인 시설 정보 텍스트 배열
+    /// </summary>
     public Text[] conditionTexts;
 
     public LineManager lineManager;
@@ -37,8 +63,14 @@ public class RentManager : MonoBehaviour
     public UpdateDisplay rentUpdateDisplay;
     public ButtonColor_Controller3 buttonColor_Controller3;
 
-    private int[] openedAmount = new int[2]; // 0: normal line, 1: light rail
-    private int[] lineAmount = new int[2]; // 0: normal line, 1: light rail
+    /// <summary>
+    /// 일반 노선, 경전철 노선이 열린 개수 (0번: 일반, 1번: 경전철)
+    /// </summary>
+    private int[] openedAmount = new int[2];
+    /// <summary>
+    /// 일반 노선, 경전철 노선 총 개수 (0번: 일반, 1번: 경전철)
+    /// </summary>
+    private int[] lineAmount = new int[2];
 
     private void Start()
     {
@@ -48,14 +80,22 @@ public class RentManager : MonoBehaviour
         rentUpdateDisplay.onEnableUpdate += buttonColor_Controller3.SetRent;
     }
 
+    /// <summary>
+    /// 임대 시설 구매 처리
+    /// </summary>
+    /// <param name="item">시설 인덱스</param>
     public void PurchaseFacility(int item)
     {
+        // 시설별 개수 최대치 확인
         if (NumOfFacilities[item] < GetMaxLimit(item))
         {
+            // 총 개수 제한 수량 확인
             if (NumOfFacilities[item] < GetTotalLimit(item))
             {
+                // 비용 지불 처리
                 if (AssetMoneyCalculator.instance.ArithmeticOperation(facilityDatas[item].priceLow, facilityDatas[item].priceHigh, false))
                 {
+                    // 시간형 수익 보상 지급 등 수치 적용
                     if (facilityDatas[item].isTMLargeUnit)
                         MyAsset.instance.TimeEarningOperator(0, GetTimeMoney(item), true);
                     else
@@ -74,6 +114,9 @@ public class RentManager : MonoBehaviour
             FacilityMax();
     }
 
+    /// <summary>
+    /// 각 임대 시설 별 텍스트 정보 업데이트
+    /// </summary>
     private void SetTexts()
     {
         string unitLow = "", unitHigh = "";
@@ -105,6 +148,10 @@ public class RentManager : MonoBehaviour
         buttonColor_Controller3.SetRent();
     }
 
+    /// <summary>
+    /// 임대 시설의 구매 비용 업데이트
+    /// </summary>
+    /// <param name="index">임대 시설 인덱스</param>
     private void SetPrice(int index)
     {
         PriceData priceData = lineManager.lineCollections[GetLine(index)].purchaseTrain.priceData;
@@ -125,6 +172,9 @@ public class RentManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 노선 개수 정보 업데이트
+    /// </summary>
     private void SetLineAmount()
     {
         openedAmount[0] = lineManager.GetOpenedNormalLineAmount();
@@ -142,6 +192,9 @@ public class RentManager : MonoBehaviour
         int line = GetLine(index);
         return facilityDatas[index].standardTimeMoney[line] + facilityDatas[index].incrementTimeMoney[line] * ((ulong)GetAmountPerLine(index) - 1);
     }
+    /// <summary>
+    /// 해당 시설의 시간형 수익 보상을 구함
+    /// </summary>
     public ulong GetTimeMoney(int index, int num)
     {
         int line = GetLine(index, num);
@@ -155,6 +208,9 @@ public class RentManager : MonoBehaviour
     {
         return GetLine(index, NumOfFacilities[index]);
     }
+    /// <summary>
+    /// 해당 인덱스의 시설이 어느 노선에 해당되는지 리턴함
+    /// </summary>
     private int GetLine(int index, int amount)
     {
         int numOfFacility = amount, line;
@@ -178,6 +234,11 @@ public class RentManager : MonoBehaviour
         return line;
     }
 
+    /// <summary>
+    /// 제한 수량 확인
+    /// </summary>
+    /// <param name="index">시설 인덱스</param>
+    /// <returns>구매 가능 여부</returns>
     public bool CheckLimit(int index)
     {
         if (NumOfFacilities[index] < GetTotalLimit(index) && NumOfFacilities[index] < GetMaxLimit(index))
@@ -209,6 +270,9 @@ public class RentManager : MonoBehaviour
     {
         return GetAmountPerLine(index, NumOfFacilities[index]);
     }
+    /// <summary>
+    /// 노선마다의 구매 횟수를 구함
+    /// </summary>
     private int GetAmountPerLine(int index, int num)
     {
         int amountLeft = num, line;
@@ -234,26 +298,59 @@ public class RentManager : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// 임대 시설 공간 부족 안내 메시지
+    /// </summary>
     private void LackOfSpace()
     {
         messageManager.ShowMessage("해당 시설을 위한 공간이 가득찼습니다.\n새로운 노선의 확장권을 구입해주세요.");
     }
 
+    /// <summary>
+    /// 임대 시설 구매 최대치 안내
+    /// </summary>
     private void FacilityMax()
     {
         messageManager.ShowMessage("해당 시설의 설치를 모두 완료하였습니다.");
     }
 }
 
+/// <summary>
+/// 임대시설 스펙 프리셋 데이터 클래스
+/// </summary>
 [System.Serializable]
 public class FacilityData
 {
+    /// <summary>
+    /// 시설 이름
+    /// </summary>
     public string name;
+    /// <summary>
+    /// 일반 노선 1개당 제한 수량
+    /// </summary>
     public int limit;
+    /// <summary>
+    /// 경전철 노선 1개당 제한 수량
+    /// </summary>
     public int lightRailLimit;
+    /// <summary>
+    /// 1경 미만 단위의 가격
+    /// </summary>
     public ulong priceLow;
+    /// <summary>
+    /// 1경 이상 단위의 가격
+    /// </summary>
     public ulong priceHigh;
+    /// <summary>
+    /// 노선 마다의 시간형 수익 보상 기준
+    /// </summary>
     public ulong[] standardTimeMoney;
+    /// <summary>
+    /// 노선 마다의 시간형 수익 보상 증가량
+    /// </summary>
     public ulong[] incrementTimeMoney;
+    /// <summary>
+    /// 시간형 수익 보상이 1경 이상의 단위인지 여부
+    /// </summary>
     public bool isTMLargeUnit;
 }

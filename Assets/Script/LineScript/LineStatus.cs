@@ -7,9 +7,22 @@ public class LineStatus : MonoBehaviour
 {
     public LineCollection lineCollection;
     public PriceData priceData;
+
+    /// <summary>
+    /// 상태 정보 텍스트 
+    /// </summary>
     public Text[] statusTexts;
+    /// <summary>
+    /// 총합 진행도 슬라이더
+    /// </summary>
     public Slider progressSlider;
+    /// <summary>
+    /// 슬라이더의 Fill 이미지
+    /// </summary>
     public Image progressSliderFillImg;
+    /// <summary>
+    /// 노선 색상
+    /// </summary>
     public Color lineColor;
 
     public UpdateDisplay statusUpdateDisplay;
@@ -20,6 +33,9 @@ public class LineStatus : MonoBehaviour
         statusUpdateDisplay.onEnableUpdate += SetStatus;
     }
 
+    /// <summary>
+    /// 상태 정보 설정
+    /// </summary>
     private void SetStatus()
     {
         string lowUnit = "", highUnit = "";

@@ -2,13 +2,28 @@
 using System.Collections;
 using UnityEngine.UI;
 
+/// <summary>
+/// 기관사 구매 시스템 관리 클래스
+/// </summary>
 public class DriversManager : MonoBehaviour
 {
+    /// <summary>
+    /// 기관사 데이터 오브젝트
+    /// </summary>
     public DriverData driverData;
 
+    /// <summary>
+    /// 고용 현황 메뉴 오브젝트
+    /// </summary>
     public GameObject condition_Driver_Menu;
 
+    /// <summary>
+    /// 총 급여 텍스트
+    /// </summary>
     public Text Salary_text;
+    /// <summary>
+    /// 기관사 등급별 인원 수 텍스트
+    /// </summary>
     public Text[] numofDrivers_text = new Text[8];
 
     public MessageManager messageManager;
@@ -17,51 +32,119 @@ public class DriversManager : MonoBehaviour
     public AssetInfoUpdater AddMoney;
     public SalaryPay_Controller salaryPay_Controller;
 
+    /// <summary>
+    /// 기관사 구매 메뉴 오브젝트
+    /// </summary>
     public GameObject Driver_Menu;
 
+    /// <summary>
+    /// 등급 별 가격 텍스트
+    /// </summary>
     public Text[] price_text = new Text[8];
+    /// <summary>
+    /// 등급 별 월급 텍스트
+    /// </summary>
     public Text[] pay_text = new Text[8];
+    /// <summary>
+    /// 등급 별 추가 승객 수 제한량 텍스트
+    /// </summary>
     public Text[] passenger_text = new Text[8];
 
+    /// <summary>
+    /// 등급 별 기관사 인원수 
+    /// </summary>
     public int[] numOfDrivers { get { return driverData.numOfDrivers; } set { driverData.numOfDrivers = value; } }
+    /// <summary>
+    /// 등급 별 기관사 가격
+    /// </summary>
     public static ulong[] price_Drivers = new ulong[11] { 5000, 1000000, 1300000000, 150000000000, 3500000000000, 80000000000000, 3400000000000000, 7, 50, 1500, 12000};
+    /// <summary>
+    /// 7번 등급 기관사 가격 (LargeVariable)
+    /// </summary>
     public LargeVariable priceDriver7;
+    /// <summary>
+    /// S+급 기관사의 High Unit(1경 이상) 가격
+    /// </summary>
     public static ulong price_Driver_Sp_2;
+    /// <summary>
+    /// 등급별 기관사 월급
+    /// </summary>
     public static ulong[] pay_Drivers = new ulong[11] { 1000, 100000, 5000000, 50000000, 1500000000, 50000000000, 1000000000000, 50000000000000, 100000000000000, 500000000000000, 1000000000000000 };
+    /// <summary>
+    /// 등급별 최대 승객 수 확장 수치
+    /// </summary>
     public static ulong[] passenger_Drivers = new ulong[11] { 500, 50000, 1000000, 15000000, 150000000, 5000000000, 50000000000, 500000000000, 5000000000000, 50000000000000, 100000000000000 };
+    /// <summary>
+    /// 등급별 구매 당 가격 인상 폭
+    /// </summary>
     public ulong[] price_UP = new ulong[11] { 500, 100000, 130000000, 15000000000, 350000000000, 8000000000000, 350000000000000, 7000000000000000, 5, 120, 1200 };
+    /// <summary>
+    /// 등급별 구매 당 추가 승객 수 제한량 인상 폭
+    /// </summary>
     public ulong[] passenger_UP = new ulong[11] { 100, 5000, 250000, 1750000, 37500000, 1000000000, 12500000000, 50000000000, 500000000000, 5000000000000, 12500000000000 };
 
+    /// <summary>
+    /// 등급별 기관사 기준 가격
+    /// </summary>
     public ulong[] stanardPrice = new ulong[11] { 5000, 1000000, 1300000000, 150000000000, 3500000000000, 80000000000000, 3400000000000000, 7, 50, 1500, 12000 };
+    /// <summary>
+    /// 등급별 기관사 기준 추가 승객 수 확장 수치
+    /// </summary>
     public ulong[] standardPassenger = new ulong[11] { 500, 50000, 1000000, 15000000, 150000000, 5000000000, 50000000000, 500000000000, 5000000000000, 50000000000000, 100000000000000 };
+    /// <summary>
+    /// 등급별 기관사 수식어 명칭
+    /// </summary>
     public string[] driverNames = {  "신입", "D급", "C급", "B급", "A급", "S급", "S+급", "대단한", "훌륭한", "경험 많은"};
 
-    string money1;
-    string money2;
+    /// <summary>
+    /// 문자열로 정리된 Low Unit (1경 미만)
+    /// </summary>
+    private string money1;
+    /// <summary>
+    /// 문자열로 정리된 High (1경 이상)
+    /// </summary>
+    private string money2;
+    /// <summary>
+    /// 간편 연속 구매 중 인지 여부
+    /// </summary>
     private bool isEasyPurchase = false;
 
+    /// <summary>
+    /// 간편 연속 구매 처리 관리 오브젝트
+    /// </summary>
     public ContinuousPurchase continuousPurchase;
 
-    void Start() //1회에 한하여 기존의 기관사들과 동기화 시키기
+    void Start()
     {
         StartCoroutine(Timer());
-        //LoadDrivers();
         RenewPrice();
-        TextInfo();
+        UpdateTextInfo();
     }
+
+    /// <summary>
+    /// 기관사 구매 정보 주기적 업데이트를 위한 코루틴
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Timer()
     {
         yield return new WaitForSeconds(2.0f);
 
-        TextInfo();
+        UpdateTextInfo();
 
         StartCoroutine(Timer());
     }
 
+    /// <summary>
+    /// 등급별 고용 버튼
+    /// </summary>
+    /// <param name="nKey">기관사 등급</param>
     public void PressKey_Hire(int nKey)
     {
-        IncreaseData(nKey);
+        HireDriver(nKey);
     }
+    /// <summary>
+    /// 기관사 구매 메뉴 관련 버튼 리스너
+    /// </summary>
     public void PressKey(int nKey)
     {
         switch (nKey)
@@ -79,7 +162,9 @@ public class DriversManager : MonoBehaviour
         }
     }
 
-    
+    /// <summary>
+    /// 기관사 가격 정보 갱신
+    /// </summary>
     public void RenewPrice()
     {
         for (int i = 0; i < numOfDrivers.Length; ++i)
@@ -109,31 +194,36 @@ public class DriversManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 기관사 간편 연속 구매 시작
+    /// </summary>
+    /// <param name="i"></param>
     public void StartPurchase(int i)
     {
         isEasyPurchase = true;
-        continuousPurchase.StartPurchase(IncreaseData, i);
+        continuousPurchase.StartPurchase(HireDriver, i);
     }
+    /// <summary>
+    /// 기관사 간편 연속 구매 중단
+    /// </summary>
     public void StopPurchase()
     {
         isEasyPurchase = false;
         continuousPurchase.StopPurchase();
     }
-    void IncreaseData(int i)
+    /// <summary>
+    /// 선택한 등급의 기관사 고용 처리
+    /// </summary>
+    /// <param name="i"></param>
+    private void HireDriver(int i)
     {
+        // 5번 인덱스까지의 고용(구매) 처리
         if (i < 6)
         {
+            // 가격 지불 처리
             if (AssetMoneyCalculator.instance.ArithmeticOperation(price_Drivers[i], 0, false))
             {
-                TouchMoneyManager.AddPassengerLimit(passenger_Drivers[i], 0);
-                numOfDrivers[i]++;
-                RenewPrice();
-                salaryPay_Controller.CalculateSalary();
-                //SaveDrivers();
-                //buttonColor_Controller.SetDriver();
-                if(!isEasyPurchase || messageManager.messageText.text.Equals(""))
-                    MessageBuy(i);
-                TextInfo();
+                ApplyHire(i);
             }
             else
             {
@@ -144,28 +234,14 @@ public class DriversManager : MonoBehaviour
         {
             if (AssetMoneyCalculator.instance.ArithmeticOperation(priceDriver7, false))
             {
-                TouchMoneyManager.AddPassengerLimit(passenger_Drivers[i], 0);
-                numOfDrivers[i]++;
-                RenewPrice();
-                salaryPay_Controller.CalculateSalary();
-                if (!isEasyPurchase || messageManager.messageText.text.Equals(""))
-                    MessageBuy(i);
-                TextInfo();
+                ApplyHire(i);
             }
         }
         else if(i > 7)// 훌륭한 부터 적용
         {
             if(AssetMoneyCalculator.instance.ArithmeticOperation(0, price_Drivers[i], false))
             {
-                TouchMoneyManager.AddPassengerLimit(passenger_Drivers[i], 0);
-                numOfDrivers[i]++;
-                RenewPrice();
-                salaryPay_Controller.CalculateSalary();
-                //SaveDrivers();
-                //buttonColor_Controller.SetDriver();
-                if (!isEasyPurchase || messageManager.messageText.text.Equals(""))
-                    MessageBuy(i);
-                TextInfo();
+                ApplyHire(i);
             }
             else
             {
@@ -178,15 +254,7 @@ public class DriversManager : MonoBehaviour
             {
                 if (AssetMoneyCalculator.instance.ArithmeticOperation(price_Drivers[i], 0, false))
                 {
-                    TouchMoneyManager.AddPassengerLimit(passenger_Drivers[i], 0);
-                    numOfDrivers[i]++;
-                    RenewPrice();
-                    salaryPay_Controller.CalculateSalary();
-                    //SaveDrivers();
-                    //buttonColor_Controller.SetDriver();
-                    if (!isEasyPurchase || messageManager.messageText.text.Equals(""))
-                        MessageBuy(i);
-                    TextInfo();
+                    ApplyHire(i);
                 }
                 else
                 {
@@ -201,16 +269,39 @@ public class DriversManager : MonoBehaviour
         AddMoney.UpdatePassengerText();
     }
 
+    /// <summary>
+    /// 기관사 고용(구매) 성공 후 데이터 적용
+    /// </summary>
+    /// <param name="i">기관사 등급</param>
+    private void ApplyHire(int i)
+    {
+        // 승객 수 제한 확장 및 인원 수 추가 작업
+        TouchMoneyManager.AddPassengerLimit(passenger_Drivers[i], 0);
+        numOfDrivers[i]++;
+        RenewPrice();
+        // 월급 갱신 및 UI 업데이트
+        salaryPay_Controller.CalculateSalary();
+        if (!isEasyPurchase || messageManager.messageText.text.Equals(""))
+            MessageBuy(i);
+        UpdateTextInfo();
+    }
+
+    /// <summary>
+    /// 구매 완료 메시지 출력
+    /// </summary>
+    /// <param name="i">기관사 등급</param>
     private void MessageBuy(int i)
     {
         messageManager.ShowMessage(driverNames[i] + " 기관사를 고용하였습니다.");
     }
 
-    private void TextInfo()
+    /// <summary>
+    /// 기관사 고용(구매) 정보 업데이트
+    /// </summary>
+    private void UpdateTextInfo()
     {
         for (int i = 0; i < numOfDrivers.Length; ++i)
         {
-            //string price = string.Format("{0:#,###}",price_Drivers[i]);
             if (i < 6)
             {
                 PlayManager.ArrangeUnit(price_Drivers[i], 0, ref money1, ref money2, true);
@@ -231,12 +322,9 @@ public class DriversManager : MonoBehaviour
                 price_text[i].text = "가격: " + money2 + money1 + "$";
             }
 
-            //string pay = string.Format("{0:#,###}",pay_Drivers[i]);
-
             PlayManager.ArrangeUnit(pay_Drivers[i], 0, ref money1, ref money2, true);
             pay_text[i].text = "월급: " + money1 + "$";
 
-            //string passenger = string.Format("{0:#,###}",passenger_Drivers[i]);
             PlayManager.ArrangeUnit(passenger_Drivers[i], 0, ref money1, ref money2, true);
             passenger_text[i].text = "최대 승객 수: +" + money2 + money1 + "명";
 
@@ -253,28 +341,12 @@ public class DriversManager : MonoBehaviour
             Salary_text.text = "0$";
         }
     }
-    /*
-    public static void SaveDrivers()//이전 작업 완료시, DataManager 스크립트에 적용시키기
-    {
-        for (int i = 0; i < numOfDrivers.Length; ++i)
-        {
-            PlayerPrefs.SetInt("numofDrivers[" + i + "]", numOfDrivers[i]);
-        }
-    }
-    public static void LoadDrivers()
-    {
-        for (int i = 0; i < numOfDrivers.Length; ++i)
-        {
-            numOfDrivers[i] = PlayerPrefs.GetInt("numofDrivers[" + i + "]", 0);
-        }
-    }
-    public static void ResetDrivers()
-    {
-        for (int i = 0; i < numOfDrivers.Length; ++i)
-        {
-            numOfDrivers[i] = 0;
-        }
-    }*/
+
+    /// <summary>
+    /// 큰 숫자를 '만/억/조/경' 등의 단위의 문자열로 정리
+    /// </summary>
+    /// <param name="insertvar">low unit (1경 미만)</param>
+    /// <param name="insertvar2">high unit (1경 이상)</param>
     void ArrangeUnit(ulong insertvar, ulong insertvar2)
     {
         if (insertvar == 0)
@@ -343,19 +415,6 @@ public class DriversManager : MonoBehaviour
         {
             money2 = string.Format("{0:####해####경}", insertvar2);
         }
-    }
-    void SetDriverPriceUnit()
-    {
-        ulong insertVar = price_Drivers[6];
-        ulong temp = price_Drivers[6];
-        temp = (ulong)(temp * 0.0001);
-        temp = (ulong)(temp * 0.0001);
-        temp = (ulong)(temp * 0.0001);
-        temp = (ulong)(temp * 0.0001);
-        price_Driver_Sp_2 = temp;
-        insertVar %= 10000000000000000;
-        price_Drivers[6] = insertVar;
-
     }
 
 }
