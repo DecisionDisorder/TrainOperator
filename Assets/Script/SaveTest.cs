@@ -4,9 +4,11 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
+/// <summary>
+/// 저장시스템 테스트 코드
+/// </summary>
 public class SaveTest : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
         LoadData();

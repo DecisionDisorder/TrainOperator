@@ -2,6 +2,9 @@
 using System.Collections;
 using UnityEngine.UI;
 
+/// <summary>
+/// (Deprecated) 스크롤중인 UI의 스크롤을 멈춰주는 클래스
+/// </summary>
 public class ScrollController : MonoBehaviour {
 
 	public Text Onoff_text;
