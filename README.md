@@ -1,2 +1,4 @@
-# TrainOperator
-Android Platform Mobile Game Project, which runs a subway company
+# 지하철 운영 게임 (TrainOperator)
+지하철 회사를 운영하는 안드로이드 플랫폼의 모바일 게임 프로젝트
+
+
