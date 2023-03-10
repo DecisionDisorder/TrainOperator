@@ -59,7 +59,7 @@
 또는, Unity 엔진의 버전을 2020.3.34f1에 맞추고 Build에서 Android 플랫폼으로 Switch하면 직접 디버깅용 APK 빌드가 가능합니다.
 
 ### 스크린샷
-<img src="https://github.com/DecisionDisorder/TrainOperator/tree/master/Screenshots/ScreenShot1.png" width=50% height=50%/>
+<img src="/Screenshots/ScreenShot1.png" width=50% height=50%/>
 
 
 ## 기술 관련 소개
