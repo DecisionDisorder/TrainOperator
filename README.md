@@ -1,4 +1,5 @@
 
+
 # 지하철 운영 게임 (TrainOperator)
 구글 플레이에 업로드 되어있는 지하철 회사를 운영하는 안드로이드 플랫폼의 모바일 게임 프로젝트입니다.
 
@@ -81,11 +82,12 @@
 
 ### 개발 이슈
 1. '경' 이상 단위의 변수 체계의 필요성
+관련 이야기 보기: https://velog.io/@dedi/%EB%8D%94-%ED%81%B0-%EC%88%AB%EC%9E%90%EB%A5%BC-%EB%8B%B4%EC%95%84%EB%82%B4%EB%B3%B4%EC%9E%90
+([관련 소스코드: LargeVariable](https://github.com/DecisionDisorder/TrainOperator/blob/master/Assets/Script/MoneyUnitTranslator.cs))
+3. 일부 코드 리팩토링
+관련 이야기 보기: https://velog.io/@dedi/%EA%B3%BC%EA%B1%B0%EC%9D%98-%EB%82%98%EB%A5%BC-%EB%B0%98%EC%84%B1%ED%95%98%EA%B2%8C-%ED%95%98%EB%8A%94-%EC%BD%94%EB%93%9C%EB%93%A4
 
-2. 일부 코드 리팩토링
-
-
-3. 반복작업 자동화  
+4. 반복작업 자동화  
 게임 특성상 UI 오브젝트의 위치를 일정한 간격으로 배치할 일이 많이 있었습니다.  
 이를 자동화 하기 위해 유니티에서 제공하는 EditorGUILayout을 이용하여 interval, orientation, direction의 값을 설정할 수 있는 에디터용 UI를 만들었고, 일괄 배치할 오브젝트를 선택한 후에 'Reposition' 버튼을 누르면 일괄 재배치가 되도록 구현하였습니다.  
  규칙으로는 선택한 오브젝트 중 Hierarchy 상으로 가장 위에 있는 오브젝트 위치 기준으로 자동 배치 합니다.
