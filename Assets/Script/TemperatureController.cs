@@ -3,31 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 온도 관리 제어 클래스
+/// </summary>
 [System.Serializable]
 public class TemperatureController
 {
     /// <summary>
-    /// Dial for each train
+    /// 각 열차 칸 마다의 다이얼
     /// </summary>
     public Dial dial;
     /// <summary>
-    /// Mini Game Manager
+    /// 온도 관리 미니게임 관리 클래스
     /// </summary>
     public TempMiniGameManager tempMiniGameManager;
     /// <summary>
-    /// Train Image
+    /// 열차 이미지
     /// </summary>
     public Image trainImage;
 
     /// <summary>
-    /// Dial rotation speed
+    /// 다이얼 회전 속도
     /// </summary>
     private float dialSpeed;
 
+    /// <summary>
+    /// 최소, 최대 온도 사이의 현재 온도
+    /// </summary>
     [SerializeField]
     private float temperature = 30;
     /// <summary>
-    /// Current temperature between minTemp and maxTemp
+    /// 최소, 최대 온도 사이의 현재 온도
     /// </summary>
     public float Temperature
     {
@@ -44,11 +50,11 @@ public class TemperatureController
     }
 
     /// <summary>
-    /// Target temperature
+    /// 목표 온도
     /// </summary>
     public float bestTemperature = 24;
     /// <summary>
-    /// Ensure target temperature is reached
+    /// 목표 온도에 도달했는지 여부
     /// </summary>
     public bool isCompleted = false;
 
@@ -56,10 +62,10 @@ public class TemperatureController
     private CheckCompleted checkCompleted;
 
     /// <summary>
-    /// Initialize Mini Game
+    /// 온도 조절 미니게임 초기화 작업
     /// </summary>
-    /// <param name="bestTemp">best temperature</param>
-    /// <param name="checkCompletedFunc">Check Completed Function</param>
+    /// <param name="bestTemp">목표 온도</param>
+    /// <param name="checkCompletedFunc">조절이 완료되었는지 확인하는 함수</param>
     public void Init(float bestTemp, float temp, float dialSpeed, CheckCompleted checkCompletedFunc)
     {
         dial.Rotate(Random.Range(0, 360));
@@ -74,9 +80,9 @@ public class TemperatureController
     }
 
     /// <summary>
-    /// Modify temperature according to angle
+    /// 다이얼 회전에 따라 온도 값 변화 적용
     /// </summary>
-    /// <param name="angle">Dial's rotated angle</param>
+    /// <param name="angle">회전한 다이얼의 각도</param>
     public void SetTemperature(float angle)
     {
         if (bestTemperature - 0.25f > Temperature || Temperature > bestTemperature + 0.25f)
@@ -85,6 +91,7 @@ public class TemperatureController
 
             SetTempColor();
         }
+        // 특정 온도 범위 내에 들어오면 클리어 처리
         else
         {
             dial.interactable = false;
@@ -96,7 +103,7 @@ public class TemperatureController
     }
 
     /// <summary>
-    /// Set train color according to temperature
+    /// 온도에 따라서 열차 색상 변경
     /// </summary>
     public void SetTempColor()
     {

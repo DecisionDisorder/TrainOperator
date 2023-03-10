@@ -4,11 +4,19 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-//using GoogleMobileAdsMediationTestSuite.Api;
 
+/// <summary>
+/// 테스트 관리 클래스
+/// </summary>
 public class TestManager : MonoBehaviour {
 
+    /// <summary>
+    /// 비밀번호 확인 메뉴 오브젝트
+    /// </summary>
     public GameObject pw_Menu;
+    /// <summary>
+    /// 데이터 변환기
+    /// </summary>
     public DataConverter dataConverter;
     public LineManager lineManager;
     public BankManager bankManager;
@@ -18,14 +26,27 @@ public class TestManager : MonoBehaviour {
     public MiniGameManager miniGameManager;
 
     public TouchEarning touchEarning;
+    /// <summary>
+    /// 매크로 테스트 메뉴 오브젝트
+    /// </summary>
     public GameObject macroTestMenu;
+    /// <summary>
+    /// 터치형 수익 조정 입력 필드
+    /// </summary>
     public InputField touchAmountInput;
 
+    /// <summary>
+    /// 테스트 모드 활성화 여부
+    /// </summary>
     public bool TestMode;
+    /// <summary>
+    /// 테스트 메뉴 진입 버튼 오브젝트
+    /// </summary>
     public GameObject testButton;
 
     private void Start()
     {
+        // 테스트 모드 여부에 따라 테스트 메뉴 진입 버튼 활성화
         if (TestMode) 
         {
             testButton.SetActive(true);
@@ -35,6 +56,10 @@ public class TestManager : MonoBehaviour {
             testButton.SetActive(false);
     }
 
+    /// <summary>
+    /// 테스트를 위해 키보드 입력으로 특정 미니게임 바로 실행
+    /// </summary>
+    /// <returns></returns>
     IEnumerator TestInput()
     {
         yield return new WaitForEndOfFrame();
@@ -50,6 +75,9 @@ public class TestManager : MonoBehaviour {
         StartCoroutine(TestInput());
     }
 
+    /// <summary>
+    /// 특정 테스트 버튼 클릭 리스너
+    /// </summary>
     public void Presskey(int nKey)
     {
         switch (nKey)
