@@ -78,8 +78,8 @@
 2. 일부 코드 리팩토링
 
 
-3. 반복작업 자동화
-게임 특성상 UI 오브젝트의 위치를 일정한 간격으로 배치할 일이 많이 있었습니다.
-이를 자동화 하기 위해 유니티에서 제공하는 EditorGUILayout을 이용하여 interval, orientation, direction의 값을 설정할 수 있는 에디터용 UI를 만들었고, 일괄 배치할 오브젝트를 선택한 후에 'Reposition' 버튼을 누르면 일괄 재배치가 되도록 구현하였습니다.
+3. 반복작업 자동화  
+게임 특성상 UI 오브젝트의 위치를 일정한 간격으로 배치할 일이 많이 있었습니다.  
+이를 자동화 하기 위해 유니티에서 제공하는 EditorGUILayout을 이용하여 interval, orientation, direction의 값을 설정할 수 있는 에디터용 UI를 만들었고, 일괄 배치할 오브젝트를 선택한 후에 'Reposition' 버튼을 누르면 일괄 재배치가 되도록 구현하였습니다.  
  규칙으로는 선택한 오브젝트 중 Hierarchy 상으로 가장 위에 있는 오브젝트 위치 기준으로 자동 배치 합니다.
 ([관련 소스코드](https://github.com/DecisionDisorder/TrainOperator/blob/master/Assets/Script/Tool/Reposition.cs))
