@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
 
 /// <summary>
 /// 테스트 관리 클래스
@@ -44,6 +45,10 @@ public class TestManager : MonoBehaviour {
     /// </summary>
     public GameObject testButton;
 
+    public string folderName = "ScreenShots";
+    public string fileName = "ScreenShot";
+    public string extName = "png";
+
     private void Start()
     {
         // 테스트 모드 여부에 따라 테스트 메뉴 진입 버튼 활성화
@@ -70,9 +75,46 @@ public class TestManager : MonoBehaviour {
             miniGameManager.peaceMiniGameManager.InitPeaceMiniGame();
         else if (Input.GetKey(KeyCode.F11))
             miniGameManager.peddlerMiniGameManager.InitPeddlerMiniGame();
-        else if(Input.GetKey(KeyCode.F12))
+        else if (Input.GetKey(KeyCode.F12))
             miniGameManager.tempMiniGameManager.InitTempControlGame();
+        if (Input.GetKey(KeyCode.F8))
+            Screenshot();
         StartCoroutine(TestInput());
+    }
+    private string RootPath
+    {
+        get
+        {
+            return Application.dataPath;
+        }
+    }
+    private string FolderPath => $"{RootPath}/{folderName}";
+    private string TotalPath => $"{FolderPath}/{fileName}_{DateTime.Now.ToString("MMdd_HHmmss")}.{extName}";
+
+
+    private void Screenshot()
+    {
+        string totalPath = TotalPath;
+        Texture2D screenTex = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+        Rect area = new Rect(0f, 0f, Screen.width, Screen.height);
+        screenTex.ReadPixels(area, 0, 0);
+        try
+        {
+            if (Directory.Exists(FolderPath) == false)
+            {
+                Directory.CreateDirectory(FolderPath);
+            }
+
+            File.WriteAllBytes(totalPath, screenTex.EncodeToPNG());
+            Debug.Log($"Screen Shot Saved : {totalPath}");
+        }
+        catch(Exception ex)
+        {
+            Debug.LogWarning($"Screen Shot Save Failed : {totalPath}");
+            Debug.LogWarning(ex);
+        }
+        
+
     }
 
     /// <summary>
