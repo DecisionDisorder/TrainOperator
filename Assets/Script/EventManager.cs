@@ -3,32 +3,65 @@ using System.Collections;
 using UnityEngine.UI;
 using System;
 
+/// <summary>
+/// 이벤트 시스템 관리 클래스
+/// </summary>
 public class EventManager : MonoBehaviour {
 
+    /// <summary>
+    /// 이벤트 메뉴 오브젝트
+    /// </summary>
 	public GameObject Event_Menu;
+
     public MessageManager messageManager;
-    //public OpeningCardPack openingCardPack;
     public ItemManager itemManager;
     public TutorialManager tutorialManager;
 
+    /// <summary>
+    /// 오류제보/건의사항 진입 확인 메뉴 오브젝트
+    /// </summary>
     public GameObject reportMenu;
 
+    /// <summary>
+    /// 이벤트 데이터 오브젝트
+    /// </summary>
     public EventData eventData;
 
+    /// <summary>
+    /// 페이스북 이벤트 참여 및 보상 수령 여부
+    /// </summary>
     private bool IsRecommended { get { return eventData.isRecommended; } set { eventData.isRecommended = value; } } // int to bool
+    /// <summary>
+    /// 1차 설문조사 참여 및 보상 수령 여부
+    /// </summary>
     private bool IsSurveyed { get { return eventData.isSurveyed; } set { eventData.isSurveyed = value; } }
+    /// <summary>
+    /// 업데이트 후기 설문조사 참여 및 보상 수령 여부
+    /// </summary>
     private bool IsUpdateSurveyed { get { return eventData.isUpdateSurveyed; } set { eventData.isUpdateSurveyed = value; } }
+    /// <summary>
+    /// 상시 설문조사 참여 및 보상 수령 여부
+    /// </summary>
     private bool DidNormalSurvey { get { return eventData.didNormalSurvey; } set { eventData.didNormalSurvey = value; } }
 
+    /// <summary>
+    /// 설문조사 URL
+    /// </summary>
     public string surveyURL = "https://forms.gle/RRYyvUKMVDqDTNb46";
 
     void Start () {
+        // 기존에 게임을 플레이 했던 유저 중에
+        // 설문조사에 참여하지 않은 유저를 대상으로 게임 시작 후 30초 후에 설문조사 메뉴 활성화
         if(!DidNormalSurvey && LineManager.instance.lineCollections[0].lineData.numOfTrain > 0)
         {
             StartCoroutine(WaitOpenEventMenu(30f));
         }
 	}
 
+    /// <summary>
+    /// 업데이터 설문조사 활성화 대기 코루틴
+    /// </summary>
+    /// <param name="delay">메뉴 활성화 대기 시간</param>
     IEnumerator WaitOpenEventMenu(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -40,6 +73,9 @@ public class EventManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// 이벤트 메뉴 버튼 리스너
+    /// </summary>
 	public void PressKey(int nKey)
 	{
         switch (nKey)
@@ -78,6 +114,9 @@ public class EventManager : MonoBehaviour {
         }
 	}
 
+    /// <summary>
+    /// 오류제보 메뉴 관련 버튼 클릭 리스너
+    /// </summary>
     public void SetReportMenu(int code)
     {
         switch(code)
@@ -95,20 +134,4 @@ public class EventManager : MonoBehaviour {
 
         }
     }
-    /*
-	public static void SaveEvent()
-	{
-		PlayerPrefs.SetInt ("isRecommended",isrecommended);
-        EncryptedPlayerPrefs.SetString("isSurveyed", isSurveyed.ToString());
-	}
-	public static void LoadEvent ()
-	{
-		isrecommended = PlayerPrefs.GetInt ("isRecommended");
-        isSurveyed = bool.Parse(EncryptedPlayerPrefs.GetString("isSurveyed", "false"));
-    }
-	public static void ResetEvent()
-	{
-		isrecommended = 0;
-        isSurveyed = false;
-	}*/
 }

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 밸런스 조정에 따른 데이터 보정 클래스
+/// </summary>
 public class BalanceReviser : MonoBehaviour
 {
     /// <summary>
@@ -13,7 +16,13 @@ public class BalanceReviser : MonoBehaviour
         0.425092482362337f, 0.516356504874206f, 0.502356739761694f, 0.449114487110048f, 0.391787874668177f, 0.30419273362301f, 0.140802789419222f, 0.0472239595989978f, 
         0.0247064219227298f, 0.0166791836993827f, 0.0138492544537495f, 0.0147889995378792f };
 
+    /// <summary>
+    /// 1차 조정 여부
+    /// </summary>
     public bool IsRevised { get { return PlayManager.instance.playData.isRevised; } set { PlayManager.instance.playData.isRevised = value; } }
+    /// <summary>
+    /// 3.1.4 조정 여부
+    /// </summary>
     public bool IsRevised_3_1_4 { get { return PlayManager.instance.playData.isRevised_3_1_4; } set { PlayManager.instance.playData.isRevised_3_1_4 = value; } }
 
     public LineManager lineManager;
@@ -23,14 +32,31 @@ public class BalanceReviser : MonoBehaviour
     public BankSpecialManager bankSpecialManager;
     public CompanyReputationManager companyReputationManager;
     public LightRailControlManager lightRailControlManager;
+
+    /// <summary>
+    /// 3.1.4 밸런스 조정 안내문 오브젝트
+    /// </summary>
     public GameObject reviseMessage;
 
+    /// <summary>
+    /// 1차 밸런스 조정 안내문 오브젝트
+    /// </summary>
     public GameObject RevisedMenu;
+    /// <summary>
+    /// 밸런스 조정 로그 텍스트
+    /// </summary>
     public Text revisedLogText;
+    /// <summary>
+    /// 밸런스 조정 내역 로그
+    /// </summary>
     private string log = "";
 
+    /// <summary>
+    /// 밸런스 패치에 따른 데이터 1차 조정
+    /// </summary>
     public void Revise()
     {
+        // 데이터가 수정되지 않았고, 기존 플레이 데이터가 있다면 진행
         if (!IsRevised && lineManager.lineCollections[0].lineData.numOfTrain > 0)
         {
             DepositAll();
@@ -49,22 +75,14 @@ public class BalanceReviser : MonoBehaviour
             Debug.Log("Balance Related Data Revised");
 #endif
         }
+        // 해당사항 없으면 이미 조정한 것으로 처리
         else if (lineManager.lineCollections[0].lineData.numOfTrain.Equals(0))
-            IsRevised = true;
-
-        /*if (lineManager.lineCollections[(int)Line.SuinBundang].lineData.connected.Length > 1)
         {
-            bool subdConnected = lineManager.lineCollections[(int)Line.SuinBundang].lineData.connected[0];
-            lineManager.lineCollections[(int)Line.SuinBundang].lineData.connected = new bool[1];
-            lineManager.lineCollections[(int)Line.SuinBundang].lineData.connected[0] = subdConnected;
+            IsRevised = true;
+            DataManager.instance.SaveAll();
         }
 
-        if (lineManager.lineCollections[(int)Line.SuinBundang].lineData.sectionExpanded.Length > 1)
-        {
-            bool subdExpanded = lineManager.lineCollections[(int)Line.SuinBundang].lineData.sectionExpanded[0];
-            lineManager.lineCollections[(int)Line.SuinBundang].lineData.sectionExpanded = new bool[1];
-            lineManager.lineCollections[(int)Line.SuinBundang].lineData.sectionExpanded[0] = subdExpanded;
-        }*/
+        // 3.1.4 데이터 조정이 되지 않았고 기존 플레이 데이터가 있다면 진행
         if(!IsRevised_3_1_4 && lineManager.lineCollections[0].lineData.numOfTrain > 0)
         {
             ReviseAfter3_1_4();
@@ -75,6 +93,7 @@ public class BalanceReviser : MonoBehaviour
             Debug.Log("3.1.4 Data Revised");
 #endif
         }
+        // 해당사항 없으면 이미 조정한 것으로 처리
         else if(lineManager.lineCollections[0].lineData.numOfTrain == 0)
         {
             IsRevised_3_1_4 = true;
@@ -82,11 +101,17 @@ public class BalanceReviser : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 데이터 조정 메뉴 종료
+    /// </summary>
     public void CloseRevisedMenu()
     {
         RevisedMenu.SetActive(false);
     }
 
+    /// <summary>
+    /// 모든 은행 상품 예치금 출금 처리
+    /// </summary>
     private void DepositAll()
     {
         ulong lowWithdraw = 0, highWithdraw = 0;
@@ -105,7 +130,9 @@ public class BalanceReviser : MonoBehaviour
         PlayManager.ArrangeUnit(lowWithdraw, highWithdraw, ref unitLow, ref unitHigh, true);
         log += "출금된 금액: <color=lime>" + unitHigh + unitLow + "$</color>\n";
     }
-
+    /// <summary>
+    /// 자산가치 변동에 따른 자산 조정
+    /// </summary>
     private void ReviseMoney()
     {
         int recentLine = (int)lineManager.GetRecentlyOpenedLine();
@@ -120,6 +147,9 @@ public class BalanceReviser : MonoBehaviour
         log += "<color=grey>(은행에서 출금된 돈이 함께 처리되었습니다.)</color>\n";
     }
 
+    /// <summary>
+    /// 승객 수 조정
+    /// </summary>
     private void RevisePassenger()
     {
         ulong priorLow = MyAsset.instance.PassengersLow, priorHigh = MyAsset.instance.PassengersHigh;
@@ -166,6 +196,9 @@ public class BalanceReviser : MonoBehaviour
         return amount * (2 * initialTerm + (amount - 1) * commonDifference) / 2;
     }
 
+    /// <summary>
+    /// 승객 수 제한량 조정
+    /// </summary>
     private void RevisePassengerLimit()
     {
         ulong priorLimitLow = MyAsset.instance.PassengersLimitLow, priorLimitHigh = MyAsset.instance.PassengersLimitHigh;
@@ -187,7 +220,9 @@ public class BalanceReviser : MonoBehaviour
         PlayManager.ArrangeUnit(MyAsset.instance.PassengersLimitLow, MyAsset.instance.PassengersLimitHigh, ref changedLowUnit, ref changedHighUnit, true);
         log += string.Format("승객 수 제한: {0}{1}명 → <color=lime>{2}{3}명</color>\n", priorHighUnit, priorLowUnit, changedHighUnit, changedLowUnit);
     }
-
+    /// <summary>
+    /// 시간형 수익 조정
+    /// </summary>
     private void ReviseTimeMoney()
     {
         MyAsset.instance.TimePerEarningLow = 0;
@@ -197,6 +232,9 @@ public class BalanceReviser : MonoBehaviour
         log += "시간형 수익(초당 수익) 및 시설 임대 관련 데이터가 초기화 되었습니다.\n";
     }
 
+    /// <summary>
+    /// 노선연결 보상 전환 (터치형 -> 시간형)
+    /// </summary>
     private void ReviseLineConnectReward()
     {
         ulong increasedTMLow = 0, increasedTMHigh = 0;
@@ -224,6 +262,9 @@ public class BalanceReviser : MonoBehaviour
         PlayManager.ArrangeUnit(increasedTMLow, increasedTMHigh, ref lowUnit, ref highUnit);
         log += "노선 연결의 보상이 승객 수 → 시간형 수익으로 전환된 금액: <color=lime>" + highUnit + lowUnit + "$</color>\n";
     }
+    /// <summary>
+    /// 회사의 고객만족도 점수 조정
+    /// </summary>
     private void ReviseCompanyReputation()
     {
         companyReputationManager.ReputationValue = 0;
@@ -238,43 +279,51 @@ public class BalanceReviser : MonoBehaviour
         log += string.Format("고객 만족도: {0:#,##0}, 수익 변화율: {1}%\n", companyReputationManager.ReputationValue, "0");
 
     }
-
+    /// <summary>
+    /// 일반 노선 데이터를 경전철 데이터에 맞게 조정
+    /// </summary>
     private void ConvertNormal2LightRailData()
     {
         int[] targetIndex = { 14, 15, 19, 25 };
         for(int i = 0; i < targetIndex.Length; i++)
         {
             int ti = targetIndex[i];
-            if (lineManager.lineCollections[ti].lineData.numOfTrain > 100)
-                lineManager.lineCollections[ti].lineData.numOfTrain = 25;
-            else
-                lineManager.lineCollections[ti].lineData.numOfTrain = lineManager.lineCollections[ti].lineData.numOfTrain / 4;
-
-            if (lineManager.lineCollections[ti].lineData.numOfBase > 1)
-                lineManager.lineCollections[ti].lineData.numOfBase = 1;
-
-            if (lineManager.lineCollections[ti].lineData.numOfBaseEx > 3 || lineManager.lineCollections[ti].lineData.numOfBase > 2)
-                lineManager.lineCollections[ti].lineData.numOfBaseEx = 3;
-
-            lineManager.lineCollections[ti].lineData.limitTrain = lineManager.lineCollections[ti].lineData.numOfBase * 10 + lineManager.lineCollections[ti].lineData.numOfBaseEx * 5;
-
-            int expandAmount = lineManager.lineCollections[ti].lineData.trainExpandStatus[1] + lineManager.lineCollections[ti].lineData.trainExpandStatus[2] * 2 + lineManager.lineCollections[ti].lineData.trainExpandStatus[3] * 3;
-            expandAmount /= 12;
-            lineManager.lineCollections[ti].lineData.lineControlLevels = new int[5];
-            while (expandAmount > 0)
+            if (lineManager.lineCollections[ti].lineData.trainExpandStatus.Length > 0)
             {
-                for (int k = 0; k < lineManager.lineCollections[ti].lineData.lineControlLevels.Length; k++)
+                if (lineManager.lineCollections[ti].lineData.numOfTrain > 100)
+                    lineManager.lineCollections[ti].lineData.numOfTrain = 25;
+                else
+                    lineManager.lineCollections[ti].lineData.numOfTrain = lineManager.lineCollections[ti].lineData.numOfTrain / 4;
+
+                if (lineManager.lineCollections[ti].lineData.numOfBase > 1)
+                    lineManager.lineCollections[ti].lineData.numOfBase = 1;
+
+                if (lineManager.lineCollections[ti].lineData.numOfBaseEx > 3 || lineManager.lineCollections[ti].lineData.numOfBase > 2)
+                    lineManager.lineCollections[ti].lineData.numOfBaseEx = 3;
+
+                lineManager.lineCollections[ti].lineData.limitTrain = lineManager.lineCollections[ti].lineData.numOfBase * 10 + lineManager.lineCollections[ti].lineData.numOfBaseEx * 5;
+
+                int expandAmount = lineManager.lineCollections[ti].lineData.trainExpandStatus[1] + lineManager.lineCollections[ti].lineData.trainExpandStatus[2] * 2 + lineManager.lineCollections[ti].lineData.trainExpandStatus[3] * 3;
+                expandAmount /= 12;
+                lineManager.lineCollections[ti].lineData.lineControlLevels = new int[5];
+                while (expandAmount > 0)
                 {
-                    lineManager.lineCollections[ti].lineData.lineControlLevels[k]++;
-                    expandAmount--;
-                    if (expandAmount <= 0)
-                        break;
+                    for (int k = 0; k < lineManager.lineCollections[ti].lineData.lineControlLevels.Length; k++)
+                    {
+                        lineManager.lineCollections[ti].lineData.lineControlLevels[k]++;
+                        expandAmount--;
+                        if (expandAmount <= 0)
+                            break;
+                    }
                 }
+                lineManager.lineCollections[ti].lineData.trainExpandStatus = new int[0];
             }
-            lineManager.lineCollections[ti].lineData.trainExpandStatus = new int[0];
         }    
     }
 
+    /// <summary>
+    /// 기존 경전철 노선의 데이터 일부를 노선 업그레이드로 적용
+    /// </summary>
     private void ApplyLineUpgrade()
     {
         int[] targetIndex = { 14, 15, 19, 25 };
@@ -292,11 +341,17 @@ public class BalanceReviser : MonoBehaviour
         companyReputationManager.RenewPassengerBase();
     }
 
+    /// <summary>
+    /// 임대 시설 데이터 초기화
+    /// </summary>
     private void ResetRent()
     {
         MyAsset.instance.TimePerEarning = LargeVariable.zero;
         for(int i = 0; i < rentManager.NumOfFacilities.Length; i++)
         {
+            if (rentManager.NumOfFacilities[i] > rentManager.maxFacilityAmount[i])
+                rentManager.NumOfFacilities[i] = rentManager.maxFacilityAmount[i];
+
             rentManager.CumulatedFacilityTimeMoney[i] = 0;
             for (int j = 0; j < rentManager.NumOfFacilities[i]; j++)
             {
@@ -307,6 +362,9 @@ public class BalanceReviser : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 3.1.4 버전 업데이트에 따른 데이터 조정
+    /// </summary>
     private void ReviseAfter3_1_4()
     {
         ConvertNormal2LightRailData();
@@ -319,6 +377,9 @@ public class BalanceReviser : MonoBehaviour
         reviseMessage.SetActive(true);
     }
 
+    /// <summary>
+    /// 데이터 조정 메시지 종료
+    /// </summary>
     public void CloseReviseMessage()
     {
         reviseMessage.SetActive(false);

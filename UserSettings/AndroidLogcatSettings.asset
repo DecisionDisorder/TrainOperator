@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "R5CT21A8KEZ",
         "name": "com.saejong25.TrainOperator",
-        "processId": 10101,
+        "processId": 9958,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -11,37 +11,43 @@
         {
             "deviceId": "R5CT21A8KEZ",
             "name": "com.saejong25.TrainOperator",
-            "processId": 24660,
+            "processId": 5134,
             "exited": true
         },
         {
             "deviceId": "R5CT21A8KEZ",
             "name": "com.saejong25.TrainOperator",
-            "processId": 31991,
+            "processId": 24507,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CT21A8KEZ",
+            "name": "com.saejong25.TrainOperator",
+            "processId": 25698,
             "exited": true
         },
         {
             "deviceId": "R5CT21A8KEZ",
             "name": "com.google.android.gms.ui",
-            "processId": 32528,
+            "processId": 15168,
             "exited": true
         },
         {
             "deviceId": "R5CT21A8KEZ",
             "name": "com.saejong25.TrainOperator",
-            "processId": 26274,
+            "processId": 17202,
             "exited": true
         },
         {
             "deviceId": "R5CT21A8KEZ",
             "name": "com.saejong25.TrainOperator",
-            "processId": 9911,
-            "exited": true
+            "processId": 26337,
+            "exited": false
         },
         {
             "deviceId": "R5CT21A8KEZ",
             "name": "com.saejong25.TrainOperator",
-            "processId": 10101,
+            "processId": 9958,
             "exited": false
         },
         {

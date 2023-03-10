@@ -1,9 +1,22 @@
+/// <summary>
+/// 화폐 단위 계산/변환기
+/// </summary>
 public class MoneyUnitTranslator
 {
+    /// <summary>
+    /// 한번에 처리 가능한 최대값 (1000경)
+    /// </summary>
     private static readonly ulong max = 10000000000000000000;
+    /// <summary>
+    /// 화폐 단위 변환 기준 (1경)
+    /// </summary>
     private static readonly ulong criteria = 10000000000000000;
 
-
+    /// <summary>
+    /// 단위 정리 (경 단위 넘어가는 수치 정리)
+    /// </summary>
+    /// <param name="lowUnit">1경 미만 단위</param>
+    /// <param name="highUnit">1경 이상 단위</param>
     public static void Arrange(ref ulong lowUnit, ref ulong highUnit)
     {
         if(lowUnit >= criteria)
@@ -14,14 +27,25 @@ public class MoneyUnitTranslator
         }
     }
 
+    /// <summary>
+    /// 덧셈 연산
+    /// </summary>
+    /// <param name="lowAdd">1경 미만의 더할 값</param>
+    /// <param name="highAdd">1경 이상의 더할 값</param>
+    /// <param name="lowUnit">1경 미만의 계산 대상 값</param>
+    /// <param name="highUnit">1경 이상의 계산 대상 값</param>
+    /// <returns></returns>
     public static bool Add(ulong lowAdd, ulong highAdd, ref ulong lowUnit, ref ulong highUnit)
     {
+        // 더할 값이 처리 가능한 값인지 확인
         if (lowAdd < max)
         {
+            // 기존 값에 더했을 때 처리 가능한 값인지 확인
             if (lowAdd + lowUnit < max)
             {
                 lowUnit += lowAdd;
                 highUnit += highAdd;
+                // 더한 결과가 경 단위를 넘었을 때
                 if (lowUnit >= criteria)
                 {
                     ulong tmp = lowUnit / criteria;
@@ -43,13 +67,23 @@ public class MoneyUnitTranslator
         return false; // Unable to process
     }
 
+    /// <summary>
+    /// 뺄셈 연산
+    /// </summary>
+    /// <param name="lowSubt">1경 미만의 뺄 값</param>
+    /// <param name="highSubt">1경 이상의 뺼 값</param>
+    /// <param name="lowUnit">1경 미만의 계산 대상 값</param>
+    /// <param name="highUnit">1경 이상의 계산 대상 값</param>
+    /// <returns></returns>
     public static bool Subtract(ulong lowSubt, ulong highSubt, ref ulong lowUnit, ref ulong highUnit)
     {
         ulong tmpLowUnit = lowUnit;
         ulong tmpHighUnit = highUnit;
 
+        // 뺐을 때 음수가 되지 않는지 확인
         if (highUnit >= highSubt)
         {
+            // 큰 단위 뺼셈 진행 후 낮은 단위 뺄셈 진행
             tmpHighUnit -= highSubt;
             ulong tmp;
             if (lowSubt % criteria > tmpLowUnit)
@@ -63,7 +97,8 @@ public class MoneyUnitTranslator
                 tmpLowUnit += tmp * criteria;
                 tmpLowUnit -= lowSubt;
 
-                lowUnit = tmpLowUnit; // commit
+                // 값 적용 (Commit)
+                lowUnit = tmpLowUnit; 
                 highUnit = tmpHighUnit;
                 return true;
             }
@@ -77,13 +112,13 @@ public class MoneyUnitTranslator
     }
 
     /// <summary>
-    /// 왼쪽이 크면 1, 오른쪽이 크면 -1, 같으면 0
+    /// 두가지 대형 값의 비교
     /// </summary>
-    /// <param name="lowUnit"></param>
-    /// <param name="highUnit"></param>
-    /// <param name="lowCompare"></param>
-    /// <param name="highCompare"></param>
-    /// <returns></returns>
+    /// <param name="lowUnit">1경 미만의 기준 값</param>
+    /// <param name="highUnit">1경 이상의 기준 값</param>
+    /// <param name="lowCompare">1경 미만의 비교 값</param>
+    /// <param name="highCompare">1경 이상의 비교 값</param>
+    /// <returns>왼쪽이 크면 1, 오른쪽이 크면 -1, 같으면 0</returns>
     public static int Compare(ulong lowUnit, ulong highUnit, ulong lowCompare, ulong highCompare)
     {
         if (lowCompare >= criteria)
@@ -117,6 +152,12 @@ public class MoneyUnitTranslator
         }
     }
 
+    /// <summary>
+    /// 곱셈 연산
+    /// </summary>
+    /// <param name="lowUnit">1경 미만의 계산 대상 값</param>
+    /// <param name="highUnit">1경 이상의 계산 대상 값</param>
+    /// <param name="multiple">곱할 값</param>
     public static void Multiply(ref ulong lowUnit, ref ulong highUnit, ulong multiple)
     {
         decimal dMultiple = multiple;
@@ -129,20 +170,12 @@ public class MoneyUnitTranslator
         lowUnit = (ulong)(totalUnit * criteria);
     }
 
-    private static ulong Power10(int n)
-    {
-        ulong res = 1;
-        for (int i = 0; i < n; i++)
-            res *= 10;
-        return res;
-    }
-
     /// <summary>
     /// 두 수의 곱이 1000경을 넘는지 확인해주는 함수
     /// </summary>
     /// <param name="multiple1">곱1</param>
     /// <param name="multiple2">곱2</param>
-    /// <returns></returns>
+    /// <returns>계산 가능 여부</returns>
     public static bool CheckComputable(ulong multiple1, ulong multiple2)
     {
         int digit1 = 0, digit2 = 0;
@@ -163,49 +196,23 @@ public class MoneyUnitTranslator
     /// <summary>
     /// 퍼센트 계산
     /// </summary>
-    /// <param name="lowUnit">낮은 단위</param>
-    /// <param name="highUnit">높은 단위</param>
+    /// <param name="lowUnit">1경 미만의 계산 대상 값</param>
+    /// <param name="highUnit">1경 이상의 계산 대상 값</param>
     /// <param name="percentage">정수% (100%) 나타내는 퍼센티지</param>
     /// <returns></returns>
     public static void CalculatePercent(ref ulong lowUnit, ref ulong highUnit, ulong percentage)
     {
-        /*ulong tmp = highUnit % 100;
-        highUnit -= highUnit % 100;
-        if (highUnit >= 100)
-        {
-            tmp += 100;
-            highUnit -= 100;
-        }
-        lowUnit += tmp * criteria;
-
-        
-        highUnit = (ulong)(highUnit * (percentage / 100f));
-        lowUnit = (ulong)(lowUnit * (percentage / 100f));
-
-        Arrange(ref lowUnit, ref highUnit);*/
         Multiply(ref lowUnit, ref highUnit, percentage / 100f);
     }
 
     /// <summary>
     /// (소수 둘째짜리 까지 지원) 퍼센트 계산
     /// </summary>
-    /// <param name="lowUnit">낮은 단위</param>
-    /// <param name="highUnit">높은 단위</param>
+    /// <param name="lowUnit">1경 미만의 계산 대상 값</param>
+    /// <param name="highUnit">1경 이상의 계산 대상 값</param>
     /// <param name="percentage">소수% (100%) 나타내는 퍼센티지</param>
     public static void Multiply(ref ulong lowUnit, ref ulong highUnit, float multiple)
     {
-        /*ulong div = 1000;
-        decimal p = (decimal)percentage;
-        ulong multiple = (ulong)(p * div);
-        ulong a = multiple / div, b = multiple % div;
-
-        lowUnit = lowUnit * a + lowUnit * b / div;
-        ulong tmp = (highUnit * b) % div;
-        highUnit = highUnit * a + highUnit * b / div;
-        lowUnit += tmp * criteria / div;
-
-        Arrange(ref lowUnit, ref highUnit);*/
-
         decimal dMultiple = (decimal)multiple;
         decimal totalUnit = highUnit + lowUnit / (decimal)criteria;
 
@@ -228,13 +235,28 @@ public class MoneyUnitTranslator
     }
 }
 
+/// <summary>
+/// 16바이트 연산과 유사하게 작동할 수 있는 변수형 구조체
+/// </summary>
 [System.Serializable]
 public struct LargeVariable
 {
+    /// <summary>
+    /// 0 값
+    /// </summary>
     public static LargeVariable zero { get { return new LargeVariable(0, 0); } }
 
+    /// <summary>
+    /// 1경 미만의 낮은 단위 값
+    /// </summary>
     public ulong lowUnit;
+    /// <summary>
+    /// 1경 이상의 높은 단위 값
+    /// </summary>
     public ulong highUnit;
+    /// <summary>
+    /// ToString할 때 자세히 표시할 것인지에 대한 여부
+    /// </summary>
     public bool detailed;
 
 

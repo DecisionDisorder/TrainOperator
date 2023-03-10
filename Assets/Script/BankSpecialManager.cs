@@ -1,78 +1,197 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+/// <summary>
+/// 은행 시스템(특별 상품) 관리 클래스
+/// </summary>
 public class BankSpecialManager : MonoBehaviour
 {
+    /// <summary>
+    /// 은행 메뉴 오브젝트
+    /// </summary>
     public GameObject Bank_Menu;
+    /// <summary>
+    /// 예금 메뉴 오브젝트
+    /// </summary>
     public GameObject Deposit_Menu;
+    /// <summary>
+    /// 출금 메뉴 오브젝트
+    /// </summary>
     public GameObject Withdraw_Menu;
+    /// <summary>
+    /// 가입 메뉴 오브젝트
+    /// </summary>
     public GameObject register_Menu;
+    /// <summary>
+    /// 가입 확인 메뉴 오브젝트
+    /// </summary>
     public GameObject registerCheck_Menu;
 
+    /// <summary>
+    /// 계좌 내역 메뉴 오브젝트
+    /// </summary>
     public GameObject[] CheckAccount_Menu = new GameObject[3];
 
+    /// <summary>
+    /// 보유 가능 최대 금액 (1800경)
+    /// </summary>
     public static ulong MaxMoney = 18000000000000000000;
 
+    /// <summary>
+    /// 스페셜 A 상품의 총 입금액, 이자, 만기 시간정보 텍스트
+    /// </summary>
     public Text[] SA_text = new Text[3];
+    /// <summary>
+    /// 스페셜 S 상품의 총 입금액, 이자, 만기 시간정보 텍스트
+    /// </summary>
     public Text[] SS_text = new Text[3];
+    /// <summary>
+    /// 스페셜 S Plus 상품의 총 입금액, 이자, 만기 시간정보 텍스트
+    /// </summary>
     public Text[] SSP_text = new Text[3];
 
+    /// <summary>
+    /// 예금할 금액 텍스트
+    /// </summary>
     public Text depositing_text;
+    /// <summary>
+    /// 입금 상품 이름 텍스트
+    /// </summary>
     public Text merchandise_text;
+    /// <summary>
+    /// 출금할 금액 텍스트
+    /// </summary>
     public Text withdraw_text;
+    /// <summary>
+    /// 출금할 상품 이름 텍스트
+    /// </summary>
     public Text merchandiseWD_text;
+    /// <summary>
+    /// 결과 텍스트
+    /// </summary>
     public Text result_text;
 
+    /// <summary>
+    /// 가입할 상품 정보 텍스트
+    /// </summary>
     public Text register_merchandise_text;
+    /// <summary>
+    /// 계약 시간 정보 텍스트
+    /// </summary>
     public Text contractTime_text;
+    /// <summary>
+    /// 이자 텍스트
+    /// </summary>
     public Text benefit_text;
 
+    /// <summary>
+    /// 작업 대상 계좌 타입
+    /// </summary>
     private AccountType? targetAccount;
+    /// <summary>
+    /// 입금액 입력 필드
+    /// </summary>
     public InputField deposit_inputField;
 
+    /// <summary>
+    /// 가입되지 않음에 대한 알림 오브젝트
+    /// </summary>
     public GameObject notRegisteredBlockImg;
 
     public MessageManager messageManager;
     public BankManager bankManager;
 
+    /// <summary>
+    /// 이자 입금 대기 시간 알림 텍스트
+    /// </summary>
     public Text timeleft_text;
 
+    /// <summary>
+    /// 예금할 금액
+    /// </summary>
     public static ulong depositMoney;
 
+    /// <summary>
+    /// 출금할 금액 (Low Unit - 1경 미만)
+    /// </summary>
     private ulong withdrawMoneyLow;
+    /// <summary>
+    /// 출금할 금액 (High Unit - 1경 이상)
+    /// </summary>
     private ulong withdrawMoneyHigh;
 
+    /// <summary>
+    /// 상품 가입 여부 데이터
+    /// </summary>
     public bool[] IsRegistered { get { return bankManager.bankData.isRegisteredSpecial; } set { bankManager.bankData.isRegisteredSpecial = value; } }
 
+    /// <summary>
+    /// 이자 금액 데이터 (Low Unit - 1경 미만)
+    /// </summary>
     public ulong[] AddedMoneyLow { get { return bankManager.bankData.addedMoneySpecialLow; } set { bankManager.bankData.addedMoneySpecialLow = value; } }
+    /// <summary>
+    /// 이자 금액 데이터 (High Unit - 1경 이상)
+    /// </summary>
     public ulong[] AddedMoneyHigh { get { return bankManager.bankData.addedMoneySpecialHigh; } set { bankManager.bankData.addedMoneySpecialHigh = value; } }
+    /// <summary>
+    /// 예치금 데이터 (High Unit - 1경 이상)
+    /// </summary>
     public ulong[] SavedMoneyHigh { get { return bankManager.bankData.savedMoneySpecial; } set { bankManager.bankData.savedMoneySpecial = value; } }
+    /// <summary>
+    /// 남은 계약 시간 데이터
+    /// </summary>
     public int[] ContractTime { get { return bankManager.bankData.contractTimesSpecial; } set { bankManager.bankData.contractTimesSpecial = value; } }
+    /// <summary>
+    /// 상품별 이율
+    /// </summary>
     public float[] rate;
+    /// <summary>
+    /// 입금 제한 금액
+    /// </summary>
     public ulong[] limitDeposit = new ulong[3] { 100 , 10000 , 1000000};
+    /// <summary>
+    /// 상품별 기준 계약 시간
+    /// </summary>
     public int[] standardContractTimes;
+    /// <summary>
+    /// 각 상품의 이름
+    /// </summary>
     private string[] productNames = { "스페셜A", "스페셜S", "스페셜S+" };
+    /// <summary>
+    /// 만기 알림 전송 여부
+    /// </summary>
     private bool[] isAlarmed = new bool[3];
 
-
-    public static ulong totalSavedMoney;
-    public static ulong totalMoney;
-    public static ulong totalAddedMoney;
-
+    /// <summary>
+    /// 스페셜 상품 이자 지급 대기 시간
+    /// </summary>
     public int Timer { get { return bankManager.bankData.timer; } set { bankManager.bankData.timer = value; } }
 
-    string money1;
-    string money2;
+    /// <summary>
+    /// 문자열로 정리된 Low Unit (1경 미만)
+    /// </summary>
+    private string money1;
+    /// <summary>
+    /// 문자열로 정리된 High (1경 이상)
+    /// </summary>
+    private string money2;
 
-    private ulong first_unit;
-    private ulong first_up;
+    /// <summary>
+    /// 단위 계산 임시 변수 (low unit)
+    /// </summary>
+    private ulong tempLowUnit;
+    /// <summary>
+    /// 단위 계산 임시 변수 (high unit으로 합산 대기)
+    /// </summary>
+    private ulong tempLow2High;
+    /// <summary>
+    /// 단위 계산 임시 변수 (high unit)
+    /// </summary>
+    private ulong tempHighUnit;
 
-    public static bool cal_success;
-
-    public static ulong second_unit;
-    public static ulong second_down;
-
+    /// <summary>
+    /// 단위 변환 기준 수치 (1경)
+    /// </summary>
     public static ulong standard_maximum = 10000000000000000;
 
     public AchievementManager achievementManager;
@@ -80,21 +199,26 @@ public class BankSpecialManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(CalTimer());
-        //LoadBank();
     }
+
+    /// <summary>
+    /// 이자 계산 대기 타이머 코루틴
+    /// </summary>
     IEnumerator CalTimer()
     {
         yield return new WaitForSeconds(1f);
 
+        // 대기 시간 1초 삭감
         Timer--;
 
+        // 대기 시간이 0이 되면 이자 지급 후 대기 시간 초기화
         if (Timer <= 0)
         {
             CalculateMoney();
             Timer = 60;
         }
 
-
+        // 각 상품 별 남은 계약 기간 삭감
         for (int i = 0; i < ContractTime.Length; ++i)
         {
             if (ContractTime[i] > 0)
@@ -103,6 +227,7 @@ public class BankSpecialManager : MonoBehaviour
             }
             else
             {
+                // 계약 기간이 만료 되면 팝업 메시지 출력
                 if (!isAlarmed[i] && IsRegistered[i])
                 {
                     isAlarmed[i] = true;
@@ -110,12 +235,15 @@ public class BankSpecialManager : MonoBehaviour
                 }
             }
         }
-        Texts();
+        UpdateStateTexts();
 
         timeleft_text.text = "남은 이자 입금 시간: " + Timer + "초";
 
         StartCoroutine(CalTimer());
     }
+    /// <summary>
+    /// 스페셜 상품 관련 버튼 클릭 이벤트 리스너
+    /// </summary>
     public void PressKey(int nKey)
     {
         switch (nKey)
@@ -146,6 +274,9 @@ public class BankSpecialManager : MonoBehaviour
                 break;
         }
     }
+    /// <summary>
+    /// 스페셜 상품 가입 관련 버튼 이벤트 리스너
+    /// </summary>
     public void PressKey_Register(int nKey)
     {
         switch (nKey)
@@ -192,7 +323,7 @@ public class BankSpecialManager : MonoBehaviour
                     AlreadyRegistered();
                 }
                 break;
-            case 4://Accept
+            case 4: // 스페셜 A 가입 확인
                 if (targetAccount.Equals(AccountType.SpecialA))
                 {
                     if (MyAsset.instance.MoneyHigh >= 1)
@@ -210,6 +341,7 @@ public class BankSpecialManager : MonoBehaviour
                     }
 
                 }
+                // 스페셜 S 가입 확인
                 else if (targetAccount.Equals(AccountType.SpecialS))
                 {
                     if (MyAsset.instance.MoneyHigh >= 100)
@@ -227,6 +359,7 @@ public class BankSpecialManager : MonoBehaviour
                     }
 
                 }
+                // 스페셜 S+ 가입 확인
                 else if (targetAccount.Equals(AccountType.SpecialSPlus))
                 {
                     if (MyAsset.instance.MoneyHigh >= 10000)
@@ -256,6 +389,9 @@ public class BankSpecialManager : MonoBehaviour
 
         }
     }
+    /// <summary>
+    /// 각 상품별 상태 조회 버튼 리스너
+    /// </summary>
     public void PressKey_checkAccount(int nKey)
     {
         switch (nKey)
@@ -473,6 +609,9 @@ public class BankSpecialManager : MonoBehaviour
                 break;
         }
     }
+    /// <summary>
+    /// 입금 기능 버튼 리스너
+    /// </summary>
     public void PressKey_Addmoney(int nKey)
     {
         switch (nKey)
@@ -516,6 +655,9 @@ public class BankSpecialManager : MonoBehaviour
                 break;
         }
     }
+    /// <summary>
+    /// 예금 입력 처리
+    /// </summary>
     public void DepositMoneyInput()
     {
         depositMoney = ulong.Parse(deposit_inputField.text);
@@ -554,7 +696,13 @@ public class BankSpecialManager : MonoBehaviour
         depositing_text.text = "입금할 금액: " + ud + "$";
     }
 
-    public ulong QuickWithdraw(int i, ref ulong lowReturn, ref ulong highReturn)
+    /// <summary>
+    /// 빠른 출금
+    /// </summary>
+    /// <param name="i">상품 인덱스</param>
+    /// <param name="lowReturn">출금할 low unit</param>
+    /// <param name="highReturn">출금할 high unit</param>
+    public void QuickWithdraw(int i, ref ulong lowReturn, ref ulong highReturn)
     {
         if (IsRegistered[i])
         {
@@ -569,12 +717,12 @@ public class BankSpecialManager : MonoBehaviour
             AddedMoneyLow[i] = 0;
             ContractTime[i] = 0;
             IsRegistered[i] = false;
-            return withdrawMoneyLow;
         }
-        else
-            return 0;
     }
 
+    /// <summary>
+    /// 출금 확인 버튼 리스너
+    /// </summary>
     public void PressKey_withdraw(int nKey)
     {
         switch (nKey)
@@ -591,18 +739,27 @@ public class BankSpecialManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 출금 메시지 출력
+    /// </summary>
     private void PrintWithdrawMessage()
     {
         string money1 = "", money2 = "";
         PlayManager.ArrangeUnit(withdrawMoneyLow, withdrawMoneyHigh, ref money1, ref money2, true);
         messageManager.ShowMessage("<color=green>" + money2 + money1 + "$</color>가 정상적으로 출금 되었습니다." , 3f);
     }
+    /// <summary>
+    /// 입금 메시지출력
+    /// </summary>
     private void PrintDepositMessage()
     {
         string money1 = "", money2 = "";
         PlayManager.ArrangeUnit(0, depositMoney, ref money1, ref money2, true);
         messageManager.ShowMessage("<color=blue>" + money2 + "$</color>가 정상적으로 입금 되었습니다.", 3f);
     }
+    /// <summary>
+    /// 각 상품별 입금 처리
+    /// </summary>
     void Cal_Merchandise()
     {
         if (targetAccount.Equals(AccountType.SpecialA))
@@ -618,6 +775,10 @@ public class BankSpecialManager : MonoBehaviour
             Cal_deposit(2);
         }
     }
+    /// <summary>
+    /// 특정 상품의 입금 처리
+    /// </summary>
+    /// <param name="i">상품 인덱스</param>
     void Cal_deposit(int i)
     {
         if (AssetMoneyCalculator.instance.ArithmeticOperation(0, depositMoney, false))
@@ -630,6 +791,9 @@ public class BankSpecialManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 특정 상품 출금 처리
+    /// </summary>
     void Cal_Merchandise_withdraw()
     {
         LargeVariable interest = LargeVariable.zero;
@@ -665,6 +829,9 @@ public class BankSpecialManager : MonoBehaviour
         }
         achievementManager.CumulativeInterest += interest * 1.1f;
     }
+    /// <summary>
+    /// 예치금 이자 지급
+    /// </summary>
     private void CalculateMoney()
     {
         for (int i = 0; i < SavedMoneyHigh.Length; ++i)
@@ -672,11 +839,11 @@ public class BankSpecialManager : MonoBehaviour
             if(ContractTime[i] > 0)
             {
                 Percent_Cal_Money(rate[i], 0, SavedMoneyHigh[i]);
-                AddedMoneyLow[i] += first_unit;
-                AddedMoneyHigh[i] += second_unit;
+                AddedMoneyLow[i] += tempLowUnit;
+                AddedMoneyHigh[i] += tempHighUnit;
                 Synchronization_Money(AddedMoneyLow[i], AddedMoneyHigh[i]);
-                AddedMoneyLow[i] = first_unit;
-                AddedMoneyHigh[i] = second_unit;
+                AddedMoneyLow[i] = tempLowUnit;
+                AddedMoneyHigh[i] = tempHighUnit;
             }
             if (AddedMoneyHigh[i] > MaxMoney)
             {
@@ -685,7 +852,10 @@ public class BankSpecialManager : MonoBehaviour
         }
     }
 
-    void Texts()
+    /// <summary>
+    /// 각 상품 별 텍스트 정보 업데이트
+    /// </summary>
+    private void UpdateStateTexts()
     {
         if (SavedMoneyHigh[0] + AddedMoneyLow[0] + AddedMoneyHigh[0] == 0)
         {
@@ -770,81 +940,39 @@ public class BankSpecialManager : MonoBehaviour
         SS_text[2].text = (int)(ContractTime[1] / 60) + "분" + ContractTime[1] % 60 + "초";
         SSP_text[2].text = (int)(ContractTime[2] / 60) + "분" + ContractTime[2] % 60 + "초";
     }
+    /// <summary>
+    /// 이미 가입된 상품에 대한 알림 메시지
+    /// </summary>
     void AlreadyRegistered()
     {
         messageManager.ShowMessage("이미 가입된 상품입니다.", 1.0f);
     }
+    /// <summary>
+    /// 가입 완료 알림 메시지
+    /// </summary>
     void Alarm_registered()
     {
         messageManager.ShowMessage("가입이 완료 되었습니다.", 1.0f);
     }
+    /// <summary>
+    /// 가입 요구 안내 메시지 출력
+    /// </summary>
     void RegisterFirst()
     {
         messageManager.ShowMessage("해당 상품 가입을 먼저 해주세요.", 1.0f);
     }
+    /// <summary>
+    /// 입금 최대 금액 메시지 출력
+    /// </summary>
     void FullMoney()
     {
         messageManager.ShowMessage("입금 가능한 최대 금액입니다.", 1.0f);
     }
-    /*
-    public static void SaveBank()
-    {
-        string[] SM = new string[3];
-        string[] AM = new string[3];
-        string[] AM2 = new string[3];
-        for (int i = 0; i < SavedMoney_2.Length; ++i)
-        {
-            SM[i] = "" + SavedMoney_2[i];
-            AM[i] = "" + AddedMoney_1[i];
-            AM2[i] = "" + AddedMoney_2[i];
-
-            PlayerPrefs.SetString("S_SavedMoney[" + i + "]", SM[i]);
-            PlayerPrefs.SetString("S_AddedMoney[" + i + "]", AM[i]);
-            PlayerPrefs.SetString("S_AddedMoney2["+i+"]",AM2[i]);
-
-            PlayerPrefs.SetInt("S_contract_time[" + i + "]", contract_time[i]);
-            PlayerPrefs.SetInt("S_registered[" + i + "]", isRegistered[i]);
-
-            PlayerPrefs.SetInt("S_Timeleft",i_nextTime);
-        }
-    }
-    public static void LoadBank()
-    {
-        string[] SM = new string[3];
-        string[] AM = new string[3];
-        string[] AM2 = new string[3];
-        for (int i = 0; i < SavedMoney_2.Length; ++i)
-        {
-            SM[i] = PlayerPrefs.GetString("S_SavedMoney[" + i + "]");
-            AM[i] = PlayerPrefs.GetString("S_AddedMoney[" + i + "]");
-            AM2[i] = PlayerPrefs.GetString("S_AddedMoney2["+i+"]");
-
-            if (SM[i] != "")
-            {
-                SavedMoney_2[i] = ulong.Parse(SM[i]);
-                AddedMoney_1[i] = ulong.Parse(AM[i]);
-                AddedMoney_2[i] = ulong.Parse(AM2[i]);
-            }
-            contract_time[i] = PlayerPrefs.GetInt("S_contract_time[" + i + "]");
-            isRegistered[i] = PlayerPrefs.GetInt("S_registered[" + i + "]");
-
-            i_nextTime = PlayerPrefs.GetInt("S_Timeleft");
-        }
-    }
-    public static void ResetBank()
-    {
-        for (int i = 0; i < SavedMoney_2.Length; ++i)
-        {
-            SavedMoney_2[i] = 0;
-            AddedMoney_1[i] = 0;
-            AddedMoney_2[i] = 0;
-
-            contract_time[i] = 0;
-            isRegistered[i] = 0;
-
-            i_nextTime = 60;
-        }
-    }*/
+    /// <summary>
+    /// 큰 숫자를 '만/억/조/경' 등의 단위의 문자열로 정리
+    /// </summary>
+    /// <param name="insertvar">low unit (1경 미만)</param>
+    /// <param name="insertvar2">high unit (1경 이상)</param>
     void ArrangeUnit(ulong insertvar, ulong insertvar2)
     {
         if (insertvar == 0)
@@ -875,21 +1003,32 @@ public class BankSpecialManager : MonoBehaviour
         }
 
     }
+    /// <summary>
+    /// 이자 지급을 위한 퍼센트 계산
+    /// </summary>
+    /// <param name="percentage">백분율</param>
+    /// <param name="fu">low unit(1경 미만)</param>
+    /// <param name="su">high unit(1경 이상)</param>
     private void Percent_Cal_Money(float percentage , ulong fu , ulong su)
     {
         MoneyUnitTranslator.Multiply(ref fu, ref su, percentage / 100f);
-        first_unit = fu;
-        second_unit = su;
+        tempLowUnit = fu;
+        tempHighUnit = su;
     }
+    /// <summary>
+    /// 1경 미만/이상 수치의 단위 정리
+    /// </summary>
+    /// <param name="fu">low unit(1경 미만)</param>
+    /// <param name="su">high unit(1경 이상)</param>
     private void Synchronization_Money(ulong fu, ulong su)
     {
-        first_unit = fu;
-        second_unit = su;
-        if (first_unit >= standard_maximum)
+        tempLowUnit = fu;
+        tempHighUnit = su;
+        if (tempLowUnit >= standard_maximum)
         {
-            first_up = (ulong)(first_unit / standard_maximum);
-            first_unit -= first_up * standard_maximum;
-            second_unit += first_up;
+            tempLow2High = (ulong)(tempLowUnit / standard_maximum);
+            tempLowUnit -= tempLow2High * standard_maximum;
+            tempHighUnit += tempLow2High;
         }
     }
 }

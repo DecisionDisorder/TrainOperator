@@ -3,27 +3,55 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Advertisements;
 
-public class UnityAdsHelper : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener
+/// <summary>
+/// 유니티Ads 시스템 관리 클래스
+/// </summary>
+public class UnityAdsHelper : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener, IUnityAdsInitializationListener
 {
     public MessageManager messageManager;
-    //public OpeningCardPack openingCardPack;
     public ItemManager itemManager;
     public RentManager rent;
+    /// <summary>
+    /// 게임 광고 ID
+    /// </summary>
     string gameID = "1039615";
+    /// <summary>
+    /// Placement ID
+    /// </summary>
     string myPlacementId = "rewardedVideo";
+    /// <summary>
+    /// 테스트모드 여부
+    /// </summary>
     bool testMode = false;
 
+    /// <summary>
+    /// 광고 재생 쿨타임 텍스트 배열
+    /// </summary>
     public Text[] coolTimeTexts;
+    /// <summary>
+    /// 광고 재생 버튼 배열
+    /// </summary>
     public Button[] adButtons;
+    /// <summary>
+    /// 쿨타임 표시 관련 오브젝트 배열
+    /// </summary>
     public GameObject[] coolTimeObjs;
+    /// <summary>
+    /// 유니티 Ads 광고 재생 쿨타임
+    /// </summary>
     public int coolTime;
 
     private void Start()
     {
-		Advertisement.Initialize(gameID, testMode);
+        // 광고 초기화 및 불러오기 시작
+		Advertisement.Initialize(gameID, testMode, this);
         LoadAd();
     }
 
+    /// <summary>
+    /// 해당 광고 인덱스에 대해 쿨타임 적용
+    /// </summary>
+    /// <param name="index">광고 종류 인덱스</param>
     public void StartCoolTime(int index)
     {
         coolTimeObjs[index].SetActive(true);
@@ -32,12 +60,21 @@ public class UnityAdsHelper : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSho
         StartCoroutine(CoolTimer(coolTime, index));
     }
 
+    /// <summary>
+    /// 쿨타임 진행중인 광고에 대해 쿨타임 종료 적용
+    /// </summary>
+    /// <param name="index">광고 종류 인덱스</param>
     public void FinishCoolTime(int index)
     {
         adButtons[index].enabled = true;
         coolTimeObjs[index].SetActive(false);
     }
 
+    /// <summary>
+    /// 쿨타임 타이머 코루틴
+    /// </summary>
+    /// <param name="remainTime">남은 시간</param>
+    /// <param name="index">광고 종류 인덱스</param>
     IEnumerator CoolTimer(int remainTime, int index)
     {
         yield return new WaitForSeconds(1);
@@ -53,9 +90,11 @@ public class UnityAdsHelper : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSho
         }
     }
 
+    /// <summary>
+    /// 광고 시청 보상 지급
+    /// </summary>
     public void Reward()
     {
-        //openingCardPack.SilverCardAmount++;
         rent.rentData.numOfADWatch++;
         int add = 100;
         if(rent.rentData.numOfADWatch % 5 == 0)
@@ -65,6 +104,9 @@ public class UnityAdsHelper : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSho
         DataManager.instance.SaveAll();
     }
 
+    /// <summary>
+    /// 광고 불러오기
+    /// </summary>
     public void LoadAd()
     {
         Advertisement.Load(myPlacementId, this);
@@ -82,7 +124,9 @@ public class UnityAdsHelper : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSho
     #endregion
 
     #region UnityAdsShowListener interfaces
-    // Implement a method to execute when the user clicks the button.
+    /// <summary>
+    /// Unity Ads 보상형 동영상 광고 재생
+    /// </summary>
     public void ShowAd()
     {
         // Then show the ad:
@@ -104,15 +148,17 @@ public class UnityAdsHelper : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSho
     {
         //Debug.LogFormat("OnUnityAdsShowClick: {0}", placementId);
     }
-
+    /// <summary>
+    /// Unity Ads 보상형 광고 시청 완료 콜백
+    /// </summary>
+    /// <param name="placementId">광고 ID</param>
+    /// <param name="showCompletionState">재생 결과</param>
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
         Debug.LogFormat("OnUnityAdsShowComplete: {0}, {1}", placementId, showCompletionState.ToString());
 
         if (myPlacementId.Equals(placementId) && showCompletionState.Equals(UnityAdsShowCompletionState.COMPLETED))
         {
-            //Debug.Log("Unity Ads Rewarded Ad Completed");
-            // Grant a reward.
             //Debug.Log("보상을 받았습니다.");
             Reward();
 
@@ -121,4 +167,17 @@ public class UnityAdsHelper : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSho
         }
     }
     #endregion
+
+    #region IUnityAdsInitializationListener
+    void IUnityAdsInitializationListener.OnInitializationComplete()
+    {
+
+    }
+
+    void IUnityAdsInitializationListener.OnInitializationFailed(UnityAdsInitializationError error, string message)
+    {
+
+    }
+    #endregion
+
 }

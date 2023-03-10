@@ -2,25 +2,66 @@
 using System.Collections;
 using UnityEngine.UI;
 
+/// <summary>
+/// 자산 정보 업데이트 관리 클래스
+/// </summary>
 public class AssetInfoUpdater : MonoBehaviour {
 
+    /// <summary>
+    /// 자산 정보 업데이터의 싱글톤 인스턴스
+    /// </summary>
     public static AssetInfoUpdater instance;
 
+    /// <summary>
+    /// 현재 보유중인 돈 텍스트
+    /// </summary>
 	public Text moneyText;
+    /// <summary>
+    /// 터치형 수익 정보 텍스트
+    /// </summary>
 	public Text touchMoneyText;
+    /// <summary>
+    /// 시간형 수익 정보 텍스트
+    /// </summary>
 	public Text showTimePerMoneyText;
+    /// <summary>
+    /// 승객 수 정보 텍스트
+    /// </summary>
 	public Text passengerText;
 
     public TimeMoneyManager timeMoneyManager;
-    //-----------------------------------------------------------------------------
-
+    
+    /// <summary>
+    /// (수익률 조회 메뉴)터치형 수익 증가율 텍스트
+    /// </summary>
     public Text touchRevenueText;
+    /// <summary>
+    /// (수익률 조회 메뉴)터치형 수익 증가량 텍스트
+    /// </summary>
     public Text touchRevenueAmountText;
+    /// <summary>
+    /// (수익률 조회 메뉴)시간형 수익 증가율 텍스트
+    /// </summary>
     public Text timeRevenueText;
+    /// <summary>
+    /// (수익률 조회 메뉴)시간형 수익 증가량 텍스트
+    /// </summary>
     public Text timeRevenueAmountText;
+    /// <summary>
+    /// (수익률 조회 메뉴)고객만족도 텍스트
+    /// </summary>
     public Text reputationText;
+    /// <summary>
+    /// (수익률 조회 메뉴)전체 수익 증가율 텍스트
+    /// </summary>
     public Text reputationRevenueText;
+    /// <summary>
+    /// (수익률 조회 메뉴)사용자 레벨 텍스트
+    /// </summary>
     public Text levelText;
+    /// <summary>
+    /// (수익률 조회 메뉴)레벨로 인한 시간형 수익 증가율 텍스트
+    /// </summary>
     public Text levelRevenueText;
 
     public CompanyReputationManager companyReputationManager;
@@ -37,6 +78,9 @@ public class AssetInfoUpdater : MonoBehaviour {
         UpdateTimeMoneyText();
     }
 
+    /// <summary>
+    /// 현재 보유 중인 돈에 대한 자산 정보 업데이트
+    /// </summary>
     public void UpdateMoneyText()
     {
         string lowUnit = "";
@@ -67,6 +111,9 @@ public class AssetInfoUpdater : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// 승객 수 정보 업데이트
+    /// </summary>
     public void UpdatePassengerText()
     {
         passengerText.text = "승객 수: ";
@@ -88,6 +135,9 @@ public class AssetInfoUpdater : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// 터치형 수익 정보 업데이트
+    /// </summary>
     public void UpdateTouchMoneyText()
     {
         string money2 = "", money1 = "";
@@ -102,6 +152,9 @@ public class AssetInfoUpdater : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// 시간형 수익 정보 업데이트
+    /// </summary>
     public void UpdateTimeMoneyText()
     {
         if (timeMoneyManager.finalTimeMoney.lowUnit == 0 && timeMoneyManager.finalTimeMoney.highUnit == 0)
@@ -116,6 +169,9 @@ public class AssetInfoUpdater : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// 수익률 조회 메뉴 정보 업데이트
+    /// </summary>
     public void UpdateText()
     {
         companyReputationManager.CalculateReputation();
@@ -127,15 +183,15 @@ public class AssetInfoUpdater : MonoBehaviour {
         PlayManager.ArrangeUnit(additionalPassengerLow, additionalPassengerHigh, ref passengerLow, ref passengerHigh, true);
         PlayManager.ArrangeUnit(additionalTimeMoneyLow, additionalTimeMoneyHigh, ref timeMoneyLow, ref timeMoneyHigh, true);
 
-        touchRevenueText.text = "터치형 수익 <color=red>" + companyReputationManager.revenueMagnification + "%</color> (" + string.Format("{0:0.###}", companyReputationManager.revenueMagnification / 100f) + "배)";
+        touchRevenueText.text = "터치형 수익 <color=red>" + companyReputationManager.RevenueMagnification + "%</color> (" + string.Format("{0:0.###}", companyReputationManager.RevenueMagnification / 100f) + "배)";
         touchRevenueAmountText.text = "+" + passengerHigh + passengerLow + "$";
 
-        timeRevenueText.text = "시간형 수익 <color=red>" + (companyReputationManager.revenueMagnification / 100f * levelManager.RevenueMagnification * 100) + "%</color> (" + string.Format("{0:0.###}", companyReputationManager.revenueMagnification / 100f * levelManager.RevenueMagnification) + "배)";
+        timeRevenueText.text = "시간형 수익 <color=red>" + (companyReputationManager.RevenueMagnification / 100f * levelManager.RevenueMagnification * 100) + "%</color> (" + string.Format("{0:0.###}", companyReputationManager.RevenueMagnification / 100f * levelManager.RevenueMagnification) + "배)";
         timeRevenueAmountText.text = "+" + timeMoneyHigh + timeMoneyLow + "$";
 
         string rT = string.Format("{0:#,##0}", companyReputationManager.ReputationValue);
         reputationText.text = "고객 만족도: " + rT + "P";
-        reputationRevenueText.text = "전체 수익 변화율: " + companyReputationManager.revenueMagnification+ "%";
+        reputationRevenueText.text = "전체 수익 변화율: " + companyReputationManager.RevenueMagnification+ "%";
 
         levelText.text = "레벨: " + levelManager.Level;
         levelRevenueText.text = "시간형 수익 변화율: " + string.Format("{0:0.###}", levelManager.RevenueMagnification * 100) + "%";

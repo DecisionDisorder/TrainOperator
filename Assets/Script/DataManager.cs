@@ -2,13 +2,18 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
+/// <summary>
+/// 데이터 저장 및 불러오기 시스템 관리 클래스
+/// </summary>
 public class DataManager : MonoBehaviour{
 
+	/// <summary>
+	/// 데이터 관리 클래스의 싱글톤 인스턴스
+	/// </summary>
 	public static DataManager instance;
 
 	public MyAsset myAsset;
 	public CompanyReputationManager company_Reputation_Controller;
-	//public button_Rent rent;
 	public RentManager rent;
 	public ItemManager itemManager;
 	public PlayManager playManager;
@@ -22,6 +27,10 @@ public class DataManager : MonoBehaviour{
 	public LotteryTicketManager lotteryTicketManager;
 	public AchievementManager achievementManager;
 
+	/// <summary>
+	/// 여러 오브젝트에 퍼져있는 노선 외 데이터를 하나의 데이터 클래스로 모은다.
+	/// </summary>
+	/// <returns>하나로 모아진 노선 외 데이터 오브젝트</returns>
 	public GeneralData AssembleGeneralData()
     {
 		return new GeneralData(myAsset.myAssetData, company_Reputation_Controller.companyData, rent.rentData, itemManager.itemData, playManager.playData, event_Manager.eventData,
@@ -29,6 +38,10 @@ public class DataManager : MonoBehaviour{
 			achievementManager.achievementData);
 	}
 
+	/// <summary>
+	/// 불러온 노선 외 데이터를 각 오브젝트에 적용한다.
+	/// </summary>
+	/// <param name="generalData">불러온 노선 외 데이터</param>
 	public void SetGeneralData(GeneralData generalData)
     {
 		myAsset.myAssetData = generalData.myAssetData;
@@ -56,34 +69,48 @@ public class DataManager : MonoBehaviour{
 			levelManager.levelData = new LevelData();
 	}
 
+	/// <summary>
+	/// 데이터 저장 함수
+	/// </summary>
 	public void SaveData()
 	{
+		// 최근 접속 시간을 기기의 현재 시간으로 설정 후 데이터 합치기
 		playManager.playData.recentConnectedTime = System.DateTime.Now;
 		GeneralData generalData = AssembleGeneralData();
 
+		// 직려로하하여 파일에 저장
 		BinaryFormatter formatter = new BinaryFormatter();
 		FileStream file = File.Create(Application.persistentDataPath + "/generalData.dat");
 		formatter.Serialize(file, generalData);
 		file.Close();
 	}
 
+	/// <summary>
+	/// 노선 및 노선 외 전체 데이터 저장
+	/// </summary>
 	public void SaveAll()
     {
 		SaveData();
 		lineDataManager.SaveData();
     }
 
+	/// <summary>
+	/// 노선 및 노선 외 전체 데이터 불러오기
+	/// </summary>
 	public void LoadAll()
     {
 		LoadData();
 		lineDataManager.LoadData();
     }
 	
-
+	/// <summary>
+	/// 파일로부터 노선 외 데이터 불러오기
+	/// </summary>
 	public void LoadData()
 	{
 		instance = this;
 
+		// 직렬화된 파일 데이터 불러오기
 		BinaryFormatter formatter = new BinaryFormatter();
 		FileStream file = null;
 		GeneralData generalData = null;
@@ -92,23 +119,27 @@ public class DataManager : MonoBehaviour{
 			file = File.Open(Application.persistentDataPath + "/generalData.dat", FileMode.Open);
 			if (file != null && file.Length > 0)
 			{
+				// 불러와진 데이터가 있으면 역직렬화 후 파일 닫기
 				generalData = (GeneralData)formatter.Deserialize(file);
 
 				file.Close();
 			}
 			else
 			{
+				// 불러올 데이터가 없으면 초기화 작업
 				Debug.Log("Cannot load data file.");
 				generalData = new GeneralData();
 			}
 
 		}
 		catch
-		{
-			Debug.Log("Data file does not exist.");
+        {
+            // 불러올 데이터가 없으면 초기화 작업
+            Debug.Log("Data file does not exist.");
 			generalData = new GeneralData();
 		}
 
+		// 불러오거나 초기화된 데이터 적용하기
 		if (generalData != null)
 		{
 			SetGeneralData(generalData);
@@ -116,6 +147,9 @@ public class DataManager : MonoBehaviour{
 	}
 }
 
+/// <summary>
+/// 노선 외 데이터 모음 데이터 클래스
+/// </summary>
 [System.Serializable]
 public class GeneralData
 {

@@ -2,6 +2,9 @@
 using System.Collections;
 using UnityEngine.UI;
 
+/// <summary>
+/// (Deprecated) 업데이트로 인한 데이터 초기화 확인 클래스
+/// </summary>
 public class Update_Reset : MonoBehaviour {
 
 	public GameObject Update_Reset_Menu;

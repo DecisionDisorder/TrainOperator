@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 데이터 변환에 따른 케이스별 테스트 코드
+/// </summary>
 public class ValidTester: MonoBehaviour
 {
     public MyAsset myAsset;
@@ -12,8 +15,13 @@ public class ValidTester: MonoBehaviour
     public BankSpecialManager bankSpecialManager;
     public CompanyReputationManager companyReputationManager;
 
+    /// <summary>
+    /// 밸런스 데이터 보정 관리 클래스
+    /// </summary>
     public BalanceReviser balanceReviser;
-
+    /// <summary>
+    /// 변환 유효성 확인 대상 데이터 모음 오브젝트
+    /// </summary>
     private BalanceValidData data;
 
     private void Start()
@@ -21,6 +29,9 @@ public class ValidTester: MonoBehaviour
         ExecuteTest();
     }
 
+    /// <summary>
+    /// 테스트 실행
+    /// </summary>
     public void ExecuteTest()
     {
         LoadJsonFile("reviseData");
@@ -30,6 +41,10 @@ public class ValidTester: MonoBehaviour
         CheckValidity();
     }
 
+    /// <summary>
+    /// 테스트 대상 밸런스 데이터 불러오기
+    /// </summary>
+    /// <param name="fileName">대상 데이터 파일 이름</param>
     private void LoadJsonFile(string fileName)
     {
         TextAsset mytxtData = Resources.Load<TextAsset>("Json/ReviseTest/" + fileName);
@@ -41,6 +56,9 @@ public class ValidTester: MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 불러온 데이터를 인게임에 적용
+    /// </summary>
     private void ApplyData()
     {
         for (int i = 0; i < 3; i++)
@@ -74,6 +92,9 @@ public class ValidTester: MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 변환된 데이터에서 손실이 없는지 확인하여 로그 문자열에 기록 후 로깅
+    /// </summary>
     private void CheckValidity()
     {
         string log = "";
@@ -129,6 +150,9 @@ public class ValidTester: MonoBehaviour
     }
 }
 
+/// <summary>
+/// Json으로 불러올 밸런스 데이터 형식의 클래스
+/// </summary>
 [System.Serializable]
 public class BalanceValidData
 {
@@ -139,6 +163,9 @@ public class BalanceValidData
     public LineSectionRevise[] lineSectionRevise;
 }
 
+/// <summary>
+/// Json으로 불러올 은행 데이터 형식의 클래스
+/// </summary>
 [System.Serializable]
 public class BankRevise
 {
@@ -147,6 +174,9 @@ public class BankRevise
     public bool isRegistered;
 }
 
+/// <summary>
+/// Json으로 불러올 일반 데이터 형식의 클래스
+/// </summary>
 [System.Serializable]
 public class NormalRevise
 {
@@ -163,12 +193,18 @@ public class NormalRevise
     public int reputationResult;
 }
 
+/// <summary>
+/// Json으로 불러올 기관사 데이터 형식의 클래스
+/// </summary>
 [System.Serializable]
 public class DriverRevise
 {
     public int numOfDrivers;
 }
 
+/// <summary>
+/// Json으로 불러올 노선 데이터 형식의 클래스
+/// </summary>
 [System.Serializable]
 public class LineSectionRevise
 {
