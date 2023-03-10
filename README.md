@@ -82,8 +82,7 @@
 
 ### 개발 이슈
 1. '경' 이상 단위의 변수 체계의 필요성  
-[관련 이야기 보기](https://velog.io/@dedi/%EB%8D%94-%ED%81%B0-%EC%88%AB%EC%9E%90%EB%A5%BC-%EB%8B%B4%EC%95%84%EB%82%B4%EB%B3%B4%EC%9E%90)  
-([관련 소스코드: LargeVariable](https://github.com/DecisionDisorder/TrainOperator/blob/master/Assets/Script/MoneyUnitTranslator.cs))
+[관련 이야기 보기](https://velog.io/@dedi/%EB%8D%94-%ED%81%B0-%EC%88%AB%EC%9E%90%EB%A5%BC-%EB%8B%B4%EC%95%84%EB%82%B4%EB%B3%B4%EC%9E%90) ([관련 소스코드: LargeVariable](https://github.com/DecisionDisorder/TrainOperator/blob/master/Assets/Script/MoneyUnitTranslator.cs))
 3. 일부 코드 리팩토링  
 [관련 이야기 보기](https://velog.io/@dedi/%EA%B3%BC%EA%B1%B0%EC%9D%98-%EB%82%98%EB%A5%BC-%EB%B0%98%EC%84%B1%ED%95%98%EA%B2%8C-%ED%95%98%EB%8A%94-%EC%BD%94%EB%93%9C%EB%93%A4)
 
