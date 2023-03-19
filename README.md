@@ -7,7 +7,7 @@
 - 김현종 (guswhd990507@naver.com)
 
 ## 프로젝트 소개
-### 게임 설명
+### [게임 설명]
 한국의 지하철 노선들을 구매하고 확장하며 수익을 거두면서 지하철 운영 회사를 키워나가는 게임입니다.  
 터치형 수익을 향상시켜 화면의 일정 영역을 반복적으로 터치하며 수익을 거둘수도 있고, 시간형 수익을 향상시켜 가만히 기다려서 수익을 거둘수도 있습니다.  
 노선과 관련하여 구매, 확장을 통해 성장할 수 있는 콘텐츠는 다음과 같습니다.
@@ -52,14 +52,14 @@
 - 광주 1호선
 - 대전 1호선
 
-### 게임 플레이 시작
+### [게임 플레이 시작]
 본 게임은 안드로이드 배포를 기준으로 개발되어 iOS 빌드에 대한 테스트는 진행되지 않았습니다.
 
 게임의 최신 정식 버전은 [구글 플레이 스토어](https://play.google.com/store/apps/details?id=com.saejong25.TrainOperator)에서 다운로드 받을 수 있습니다.
 
 또는, Unity 엔진의 버전을 2020.3.34f1에 맞추고 Build에서 Android 플랫폼으로 Switch하면 직접 디버깅용 APK 빌드가 가능합니다.
 
-### 스크린샷
+### [스크린샷]
 <img src="/Screenshots/ScreenShot1.png" width=50% height=50%/>
 <img src="/Screenshots/ScreenShot2.png" width=50% height=50%/>
 <img src="/Screenshots/ScreenShot3.png" width=50% height=50%/>
@@ -72,7 +72,7 @@
 
 ## 기술 관련 소개
 
-### 개발 환경 및 기술 스택
+### [개발 환경 및 기술 스택]
 - Unity 2020.3.31f1 + C#
 - VisualStudio 2019
 - Google Play Game Service SDK 0.10.14
@@ -81,7 +81,7 @@
 - VCS: Unity Collaborate → GitHub
 
 
-### 개발 이슈
+### [개발 이슈]
 1. '경' 이상 단위의 변수 체계의 필요성  
 [관련 이야기 보기](https://velog.io/@dedi/%EB%8D%94-%ED%81%B0-%EC%88%AB%EC%9E%90%EB%A5%BC-%EB%8B%B4%EC%95%84%EB%82%B4%EB%B3%B4%EC%9E%90) ([관련 소스코드: LargeVariable](https://github.com/DecisionDisorder/TrainOperator/blob/master/Assets/Script/MoneyUnitTranslator.cs))
 3. 일부 코드 리팩토링  
