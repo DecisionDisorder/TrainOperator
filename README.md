@@ -74,7 +74,7 @@
 
 ### [개발 환경 및 기술 스택]
 - Unity 2020.3.31f1 + C#
-- VisualStudio 2019
+- Visual Studio 2019
 - Google Play Game Service SDK 0.10.14
 - Google Mobile Ads SDK 7.0.2
 - Meta(Facebook) Audience SDK 6.4.0
