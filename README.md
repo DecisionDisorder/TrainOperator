@@ -60,14 +60,22 @@
 또는, Unity 엔진의 버전을 2020.3.34f1에 맞추고 Build에서 Android 플랫폼으로 Switch하면 직접 디버깅용 APK 빌드가 가능합니다.
 
 ### [스크린샷]
-<img src="/Screenshots/ScreenShot1.png" width=50% height=50%/>
-<img src="/Screenshots/ScreenShot2.png" width=50% height=50%/>
-<img src="/Screenshots/ScreenShot3.png" width=50% height=50%/>
-<img src="/Screenshots/ScreenShot4.png" width=50% height=50%/>
-<img src="/Screenshots/ScreenShot5.png" width=50% height=50%/>
-<img src="/Screenshots/ScreenShot6.png" width=50% height=50%/>
-<img src="/Screenshots/ScreenShot7.png" width=50% height=50%/>
-<img src="/Screenshots/ScreenShot8.png" width=50% height=50%/>
+<메뉴 활성화한 메인 화면>  
+<img src="/Screenshots/ScreenShot1.png" width=50% height=50%/>  
+<클리어한 메인 화면>  
+<img src="/Screenshots/ScreenShot2.png" width=50% height=50%/>  
+<역 구매 화면>  
+<img src="/Screenshots/ScreenShot3.png" width=50% height=50%/>  
+<노선 연결 화면>  
+<img src="/Screenshots/ScreenShot4.png" width=50% height=50%/>  
+<열차 확장 화면>  
+<img src="/Screenshots/ScreenShot5.png" width=50% height=50%/>  
+<치안 관리 화면>  
+<img src="/Screenshots/ScreenShot6.png" width=50% height=50%/>  
+<시설 임대 화면>  
+<img src="/Screenshots/ScreenShot7.png" width=50% height=50%/>  
+<복권 시스템 화면>  
+<img src="/Screenshots/ScreenShot8.png" width=50% height=50%/>  
 
 
 ## 기술 관련 소개
