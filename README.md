@@ -91,9 +91,12 @@
 
 ### [개발 이슈]
 **'경' 이상 단위의 변수 체계의 필요성**  
-[관련 이야기 보기](https://velog.io/@dedi/%EB%8D%94-%ED%81%B0-%EC%88%AB%EC%9E%90%EB%A5%BC-%EB%8B%B4%EC%95%84%EB%82%B4%EB%B3%B4%EC%9E%90) ([관련 소스코드: LargeVariable](https://github.com/DecisionDisorder/TrainOperator/blob/master/Assets/Script/MoneyUnitTranslator.cs))  
+- 게임의 화폐 단위가 억, 조, 경을 넘어 해까지 도달하게 되며 기존의 8byte의 변수 체계를 넘어, 더 큰 숫자를 담아내기 위해 고민했던 사례입니다.
+[관련 이야기 보기](https://velog.io/@dedi/%EB%8D%94-%ED%81%B0-%EC%88%AB%EC%9E%90%EB%A5%BC-%EB%8B%B4%EC%95%84%EB%82%B4%EB%B3%B4%EC%9E%90)  
+([관련 소스코드: LargeVariable](https://github.com/DecisionDisorder/TrainOperator/blob/master/Assets/Script/MoneyUnitTranslator.cs))  
 
 **일부 코드 리팩토링**  
+- 유지보수를 어럽게 하는 일부 코드들에 대해 Reusability와 확장성 등을 고려하며 다시 설계하여 게임에 적용한 사례입니다.  
 [관련 이야기 보기](https://velog.io/@dedi/%EA%B3%BC%EA%B1%B0%EC%9D%98-%EB%82%98%EB%A5%BC-%EB%B0%98%EC%84%B1%ED%95%98%EA%B2%8C-%ED%95%98%EB%8A%94-%EC%BD%94%EB%93%9C%EB%93%A4)  
 
 **반복작업 자동화**
